@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Logo from '../assets/ZLogo.png';
+import Logo from '../../assets/ZLogo.png';
 import { Container, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ function MainNavbar({}: Props) {
 				</Navbar.Brand>
 				<Navbar.Toggle
 					aria-controls="responsive-navbar-nav"
-					style={{ border: '1px solid #edf2f4', color: '#edf2f4' }}
+					style={{ border: 'none', color: '#edf2f4' }}
 				/>
 			</Container>
 			<Navbar.Collapse id="responsive-navbar-nav">

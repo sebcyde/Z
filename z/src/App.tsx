@@ -7,7 +7,7 @@ import LoadingScreen from './Pages/LoadingScreen';
 import Manga from './Pages/Manga';
 import MyLists from './Pages/MyLists';
 import Settings from './Pages/Settings';
-import MainNavbar from './Components/MainNavbar';
+import MainNavbar from './Components/Navbar/MainNavbar';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -15,7 +15,7 @@ function App() {
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false);
-		}, 1000);
+		}, 100);
 	}, []);
 
 	return (
