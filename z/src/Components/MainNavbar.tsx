@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Logo from '../assets/ZLogo.png';
-import { Container, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar, NavItem } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 type Props = {};
 
@@ -23,10 +24,28 @@ function MainNavbar({}: Props) {
 					style={{ border: '1px solid #edf2f4', color: '#edf2f4' }}
 				/>
 			</Container>
-			<Navbar.Collapse className="justify-content-end">
-				<Navbar.Text>
-					Signed in as: <a href="#login">{User}</a>
-				</Navbar.Text>
+			<Navbar.Collapse id="responsive-navbar-nav">
+				<Nav className="me-auto">
+					<Nav.Link eventKey="1" as={Link} to="/">
+						Homepage
+					</Nav.Link>
+
+					<Nav.Link eventKey="2" as={Link} to="anime">
+						Anime
+					</Nav.Link>
+					<Nav.Link eventKey="3" as={Link} to="manga">
+						Manga
+					</Nav.Link>
+					<Nav.Link eventKey="4" as={Link} to="mylists">
+						MyLists
+					</Nav.Link>
+					<Nav.Link eventKey="5" as={Link} to="settings">
+						Settings
+					</Nav.Link>
+					<Navbar.Text>
+						Signed in as: <a href="#login">{User}</a>
+					</Navbar.Text>
+				</Nav>
 			</Navbar.Collapse>
 		</Navbar>
 	);
