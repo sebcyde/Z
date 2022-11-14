@@ -1,0 +1,12 @@
+.flex {
+	display: flex;
+	&.justcenter {
+		justify-content: center;
+	}
+	&.justapart {
+		justify-content: space-between;
+	}
+	&.aligncenter {
+		align-items: center;
+	}
+}
