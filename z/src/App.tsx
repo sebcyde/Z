@@ -29,9 +29,8 @@ function App() {
 					<MainNavbar />
 					<Routes>
 						<Route path="/" element={<Homepage />} />
-						<Route path="anime" element={<Anime />}>
-							<Route path="animedetails" element={<AnimeDetails />} />
-						</Route>
+						<Route path="anime" element={<Anime />} />
+						<Route path="animedetails" element={<AnimeDetails />} />
 						<Route path="manga" element={<Manga />} />
 						<Route path="mylists" element={<MyLists />} />
 						<Route path="settings" element={<Settings />} />
