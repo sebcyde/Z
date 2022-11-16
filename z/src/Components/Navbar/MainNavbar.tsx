@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Logo from '../../assets/ZLogo.png';
-import { Container, Nav, Navbar, NavItem } from 'react-bootstrap';
+import { Button, Container, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 type Props = {};
 
@@ -10,7 +11,13 @@ const NavLinkStyle = {
 };
 
 function MainNavbar({}: Props) {
+	const StoreID = useSelector((state: any) => state.IDState);
 	const [User, setUser] = useState<string>('Sebastian');
+
+	const PullID = () => {
+		console.log(StoreID);
+	};
+
 	return (
 		<Navbar sticky="top" collapseOnSelect expand="lg" bg="dark" variant="dark">
 			<Container>
@@ -50,6 +57,7 @@ function MainNavbar({}: Props) {
 						Signed in as: <a href="#login">{User}</a>
 					</Navbar.Text>
 				</Nav>
+				<Button onClick={PullID}>Pull Store ID</Button>
 			</Navbar.Collapse>
 		</Navbar>
 	);

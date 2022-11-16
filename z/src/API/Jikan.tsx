@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Update } from '../Store/Slices/AnimeSlice';
 import Pagination from 'react-bootstrap/Pagination';
 import { Button } from 'react-bootstrap';
+import LoadingScreen from '../Pages/LoadingScreen';
 
 function Jikan() {
 	const [AnimeMap, setAnimeMap] = useState<any[]>([]);
 	const [PageNumber, setPageNumber] = useState<number>(1);
 	const [Loading, setLoading] = useState<boolean>(true);
-	const StoreID = useSelector((state: any) => state.Update);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const Endpoint =
@@ -56,22 +56,17 @@ function Jikan() {
 
 	const NavigateAnimePage = async (ID: number) => {
 		dispatch(Update(ID));
-
-		navigate(`animedetails`);
 	};
 
 	useEffect(() => {
 		Pull(Endpoint);
 	}, []);
 
-	const PullID = () => {
-		console.log(StoreID);
-	};
-
 	return (
 		<>
-			<Button onClick={PullID}>Pull Store ID</Button>
-			{Loading ? null : (
+			{Loading ? (
+				<LoadingScreen />
+			) : (
 				<div>
 					{AnimeMap}
 					<div
