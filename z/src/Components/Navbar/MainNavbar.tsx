@@ -41,7 +41,7 @@ function MainNavbar({}: Props) {
 						Manga
 					</Nav.Link>
 					<Nav.Link eventKey="4" as={Link} to="mylists" style={NavLinkStyle}>
-						MyLists
+						My Lists
 					</Nav.Link>
 					<Nav.Link eventKey="5" as={Link} to="settings" style={NavLinkStyle}>
 						Settings
