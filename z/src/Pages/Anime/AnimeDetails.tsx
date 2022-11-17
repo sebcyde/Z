@@ -51,7 +51,6 @@ function AnimeDetails({}: Props) {
 			.then((Data) => {
 				console.log(Data);
 				setAnimeData(Data);
-				console.log(AnimeData);
 				setLoading(false);
 			})
 			.catch((err) => {
@@ -97,13 +96,14 @@ function AnimeDetails({}: Props) {
 						</span>
 						<span className="AnimeGenreContainer">
 							{AnimeData.genres.forEach((element: any) => {
-								return <Badge className="AnimeGenreTag">{element.name}</Badge>;
+								return <div className="AnimeGenreTag">{element.name}</div>;
 							})}
 						</span>
+						<h3 className="AnimeSynopsisTitle">Synopsis:</h3>
 						<p className="AnimeSynopsis">{AnimeData.synopsis}</p>
 					</div>
 
-					<SimilarBanner />
+					<SimilarBanner Genres={AnimeData.genres} Title={AnimeData.title} />
 				</>
 			)}
 
