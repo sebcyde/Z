@@ -4,44 +4,23 @@ import Carousel from 'react-bootstrap/Carousel';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Anime from '../../Pages/Anime/Anime';
+import { Update } from '../../Store/Slices/AnimeSlice';
+import { Container } from 'react-bootstrap/lib/Tab';
 type Props = { Genres: any[]; Title: string };
 
 function SimilarBanner({ Genres, Title }: Props) {
 	const StoreID = useSelector((state: any) => state.IDState);
 	const [SimilarAnime, setSimilarAnime] = useState<JSX.Element[]>();
 	const [Loading, setLoading] = useState<boolean>(true);
+	const Con = document.querySelector('.AnimeDetailsContainer');
+	const dispatch = useDispatch();
 	const Animes: any[] = [];
 
-	const PopulateDetails = async () => {
-		// Response gets specific animes genres
-		const Response = await axios.get(
-			`https://api.jikan.moe/v4/anime/${StoreID.id}/full`
-		);
-		const Genres = Response.data.data.genres;
-		console.log('Genres', Genres);
-
-		// Response 2 just gets all anime and compares genres
-		const Response2 = await axios.get(`https://api.jikan.moe/v4/anime`);
-		console.log('Genre Response2:', Response2);
-		Response2.data.data.forEach((Anime: any) => {
-			Genres.forEach((G: any) => {
-				Anime.genres.forEach((Genre: any) => {
-					if (G.name.toLowerCase() === Genre.name.toLowerCase()) {
-						console.log('Matched Genre:', Genre.name);
-						Animes.push(Anime);
-					}
-				});
-			});
-		});
-		console.log('Animes:', Animes);
-		console.log('SimilarAnime:', SimilarAnime);
-		setSimilarAnime(Animes);
-		setLoading(false);
+	const NavigateAnimePage = async (ID: number) => {
+		dispatch(Update(ID));
 	};
 
 	useEffect(() => {
-		// PopulateDetails();
-
 		setTimeout(() => {
 			axios
 				.get(`https://api.jikan.moe/v4/anime`)
@@ -61,7 +40,12 @@ function SimilarBanner({ Genres, Title }: Props) {
 				.then(() => {
 					const NewAnime = Animes.map((SimAn) => {
 						return (
-							<div className="SimilarAnimeContainer">
+							<div
+								className="SimilarAnimeContainer"
+								onClick={() => {
+									NavigateAnimePage(SimAn.mal_id);
+								}}
+							>
 								<img src={SimAn.images.jpg.image_url} />
 								<div className="SimilarAnimeDetailsContainer">
 									<h3 className="SimilarAnimeTitle">{SimAn.title}</h3>

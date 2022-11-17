@@ -29,19 +29,15 @@ function AnimeDetails({}: Props) {
 		console.log(AnimeData);
 	};
 
-	const PopulateDetails = async () => {
-		const Response = await axios
-			.get(`https://api.jikan.moe/v4/anime/${StoreID.id}/full`)
-			.then((Response) => {
-				const Data = Response.data.data;
-				console.log(Data);
-				setAnimeData(Data);
-			});
+	const AddToList = () => {
+		console.log('Added to List');
+	};
+
+	const AddToFavourites = () => {
+		console.log('Added to Favourites');
 	};
 
 	useEffect(() => {
-		// PopulateDetails();
-
 		axios
 			.get(`https://api.jikan.moe/v4/anime/${StoreID.id}/full`)
 			.then((Response) => {
@@ -56,7 +52,7 @@ function AnimeDetails({}: Props) {
 			.catch((err) => {
 				console.log(err);
 			});
-	}, []);
+	}, [StoreID]);
 
 	return (
 		<div className="page" style={{ overflowY: 'scroll' }}>
@@ -72,7 +68,7 @@ function AnimeDetails({}: Props) {
 							<p>Score: {AnimeData.score}</p>
 						</span>
 						<span className="ButtonContainer">
-							<button className="AddButton">
+							<button className="AddButton" onClick={AddToList}>
 								Add To MyList
 								{InMyList ? (
 									<span className="material-symbols-outlined">
@@ -85,7 +81,7 @@ function AnimeDetails({}: Props) {
 								)}
 							</button>
 
-							<button className="AddButton">
+							<button className="AddButton" onClick={AddToFavourites}>
 								Add To Favourites
 								{InFavourites ? (
 									<span className="material-symbols-outlined">star</span>
