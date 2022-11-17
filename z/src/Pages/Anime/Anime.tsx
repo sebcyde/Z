@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import Jikan from '../../Components/Jikan';
+import Jikan from '../../Components/Anime/Jikan';
 import AnimeDetails from './AnimeDetails';
 import LoadingScreen from '../LoadingScreen';
 import { useNavigate } from 'react-router-dom';

@@ -88,3 +88,51 @@
 		}
 	}
 }
+
+.AnimeDetailsContainer {
+	display: flex;
+	flex-direction: column;
+
+	img {
+	}
+
+	.AnimeTitle {
+		text-align: center;
+		margin-top: 10px;
+	}
+
+	.AnimeScoreContainer {
+		display: flex;
+		width: 90%;
+		margin: 0 auto;
+		justify-content: space-evenly;
+	}
+
+	.ButtonContainer {
+		display: flex;
+		width: 90%;
+		margin: 0 auto;
+		justify-content: space-evenly;
+
+		button {
+			background-color: transparent;
+			color: white;
+			border-radius: 15px;
+			padding: 5px 10px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
+
+	.AnimeGenreContainer {
+		.AnimeGenreTag {
+		}
+	}
+
+	.AnimeSynopsis {
+		margin: 20px auto 20px auto;
+		width: 90%;
+		text-align: center;
+	}
+}
