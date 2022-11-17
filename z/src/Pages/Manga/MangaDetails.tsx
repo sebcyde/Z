@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import SimilarBanner from '../../Components/Manga/SimilarBanner';
 import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
 import { UpdateMangaID } from '../../Store/Slices/MangaSlice';
 import LoadingScreen from '../LoadingScreen';
@@ -96,8 +97,8 @@ function MangaDetails({}: Props) {
 						<h3 className="MangaSynopsisTitle">Synopsis:</h3>
 						<p className="MangaSynopsis">{MangaData.synopsis}</p>
 					</div>
-					{/* <YouTubeEmbed ID={MangaData.trailer.youtube_id} />
-					<SimilarBanner Genres={MangaData.genres} Title={MangaData.title} /> */}
+					{/* <YouTubeEmbed ID={MangaData.trailer.youtube_id} /> */}
+					<SimilarBanner Genres={MangaData.genres} Title={MangaData.title} />
 				</>
 			)}
 

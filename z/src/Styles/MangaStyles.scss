@@ -123,3 +123,68 @@
 		text-align: center;
 	}
 }
+
+.SimilarBanner {
+	width: 100%;
+	height: fit-content;
+	background-color: transparent;
+	border-top: 1px solid #8d99ae;
+	border-bottom: 1px solid #8d99ae;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.BannerSimilar {
+		position: relative;
+		top: 0px;
+		left: 0px;
+		margin: 20px;
+		font-size: 30px;
+	}
+
+	.SimilarContainer {
+		width: 100%;
+		display: flex;
+		overflow-x: scroll;
+		padding: 0 10px 10px 10px;
+		.SimilarMangaContainer {
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+			height: fit-content;
+			width: fit-content;
+
+			margin: 10px;
+			margin-top: 0px;
+			background-color: transparent;
+			img {
+				height: 220px;
+				width: auto;
+			}
+
+			.SimilarMangaDetailsContainer {
+				display: flex;
+				flex-direction: column;
+				.SimilarMangaTitle {
+					padding: 20px;
+					padding-bottom: 0px;
+					margin-bottom: 10px;
+					width: 100%;
+					text-align: center;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+				}
+				.SimilarMangaEpisodes {
+					font-size: 18px;
+				}
+			}
+			.SimilarMangaGenres {
+				display: flex;
+				width: 100%;
+				justify-content: space-evenly;
+			}
+		}
+	}
+}
