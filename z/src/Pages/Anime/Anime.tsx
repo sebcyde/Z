@@ -8,6 +8,7 @@ import { Update } from '../../Store/Slices/AnimeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import axios from 'axios';
+import '../../Styles/AnimeStyles.scss';
 
 type Props = {};
 
@@ -49,9 +50,13 @@ function Anime({}: Props) {
 
 	return (
 		<div className="page" style={{ overflowY: 'scroll' }}>
-			<Breadcrumb>
-				<Breadcrumb.Item href="#">Anime</Breadcrumb.Item>
+			<Breadcrumb className="BC">
+				<Breadcrumb.Item as={'li'} className="BreadCrumbItemsStyle">
+					Anime
+				</Breadcrumb.Item>
 				<Breadcrumb.Item
+					as={'li'}
+					className="BreadCrumbItemsStyle"
 					onClick={() => {
 						Reset();
 					}}
@@ -59,7 +64,11 @@ function Anime({}: Props) {
 					Top Anime
 				</Breadcrumb.Item>
 				{StoreID.id != 0 ? (
-					<Breadcrumb.Item active as={'p'} style={AnimeNameStyle}>
+					<Breadcrumb.Item
+						active
+						as={'p'}
+						className="BreadCrumbItemsStyle Active"
+					>
 						{AnimeName}
 					</Breadcrumb.Item>
 				) : (
