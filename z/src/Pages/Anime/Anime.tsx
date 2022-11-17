@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import Jikan from '../../API/Jikan';
+import Jikan from '../../Components/Jikan';
 import AnimeDetails from './AnimeDetails';
 import LoadingScreen from '../LoadingScreen';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import axios from 'axios';
 import '../../Styles/AnimeStyles.scss';
+import Container from 'react-bootstrap/Container';
 
 type Props = {};
 
@@ -33,7 +34,11 @@ function Anime({}: Props) {
 
 	useEffect(() => {
 		if (StoreID.id === 0) {
-			setPage(<Jikan />);
+			setPage(
+				<Container>
+					<Jikan />
+				</Container>
+			);
 		} else {
 			UpdateNames();
 		}

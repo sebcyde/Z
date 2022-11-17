@@ -31,3 +31,60 @@
 		}
 	}
 }
+
+.AnimeCard {
+	padding-bottom: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 320px !important;
+	overflow: hidden;
+
+	flex: 1 0 0%;
+	width: 45%;
+	height: fit-content;
+	border: 1px solid #8d99ae;
+	float: left;
+	margin: 2.5%;
+	margin-top: 10px;
+
+	img {
+		height: 200px;
+		width: 100%;
+	}
+	div {
+		width: 95%;
+		h2 {
+			text-align: center;
+			margin: 7px auto 6px auto;
+			font-size: 17px;
+			max-width: 145px;
+			box-sizing: border-box;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			word-wrap: normal;
+		}
+		span {
+			width: 100%;
+			display: flex;
+			justify-content: space-evenly;
+			margin-bottom: 6px;
+			p {
+				font-size: 11px;
+				margin: 0px;
+				width: fit-content;
+			}
+		}
+		.Animesynopsis {
+			font-size: 11px;
+			padding: 0px 2px;
+			text-align: center;
+
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+	}
+}

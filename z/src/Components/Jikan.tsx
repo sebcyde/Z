@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Update } from '../Store/Slices/AnimeSlice';
 import Pagination from 'react-bootstrap/Pagination';
 import LoadingScreen from '../Pages/LoadingScreen';
+import { Container } from 'react-bootstrap/lib/Tab';
+import { Col } from 'react-bootstrap';
 
 function Jikan() {
 	const [AnimeMap, setAnimeMap] = useState<any[]>([]);
@@ -24,13 +26,14 @@ function Jikan() {
 		const BaseAnime = await Promise.all(
 			Data[0].map((Anime: any, index: number) => {
 				return (
-					<AnimeBaseContainer
+					<Col
+						className="AnimeCard"
 						key={index}
-						className=""
 						onClick={() => {
 							NavigateAnimePage(Anime.mal_id);
 						}}
 					>
+						<img src={Anime.images.jpg.image_url} />
 						<div>
 							<h2>
 								{Anime.title} - {Anime.year}
@@ -40,10 +43,9 @@ function Jikan() {
 								<p>Rank: {Anime.rank}</p>
 								<p>Score: {Anime.score} / 10</p>
 							</span>
+							<p className="Animesynopsis">{Anime.synopsis}</p>
 						</div>
-
-						<img src={Anime.images.jpg.image_url} />
-					</AnimeBaseContainer>
+					</Col>
 				);
 			})
 		);
