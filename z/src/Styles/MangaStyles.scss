@@ -54,3 +54,72 @@
 		}
 	}
 }
+
+.MangaDetailsContainer {
+	display: flex;
+	flex-direction: column;
+
+	img {
+	}
+
+	.MangaTitle {
+		text-align: center;
+		margin-top: 10px;
+		margin-bottom: 0;
+	}
+
+	.MangaScoreContainer {
+		display: flex;
+		width: 90%;
+		margin: 10px auto 10px auto;
+		justify-content: space-evenly;
+		p {
+			margin: 0;
+		}
+	}
+
+	.ButtonContainer {
+		display: flex;
+		width: 90%;
+		margin: 0 auto 10px auto;
+		justify-content: space-evenly;
+
+		button {
+			background-color: transparent;
+			color: white;
+			border: none;
+
+			display: flex;
+			align-items: center;
+			align-content: center;
+			justify-content: space-between;
+
+			&:nth-of-type(1) {
+				width: 130px;
+			}
+			&:nth-of-type(2) {
+				width: 147px;
+				span {
+					position: relative;
+					bottom: 1px;
+				}
+			}
+		}
+	}
+
+	.MangaGenreContainer {
+		.MangaGenreTag {
+		}
+	}
+
+	.MangaSynopsisTitle {
+		margin-top: 5px;
+		margin-left: 30px;
+	}
+
+	.MangaSynopsis {
+		margin: 10px auto 20px auto;
+		width: 90%;
+		text-align: center;
+	}
+}

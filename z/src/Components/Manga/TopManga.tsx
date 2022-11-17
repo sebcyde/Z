@@ -12,7 +12,7 @@ function TopManga({}: Props) {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const dispatch = useDispatch();
 
-	const NavigateMangaPage = async (ID: number) => {
+	const NavigateMangaPage = (ID: number) => {
 		dispatch(UpdateMangaID(ID));
 	};
 

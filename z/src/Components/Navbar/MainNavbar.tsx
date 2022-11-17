@@ -12,10 +12,12 @@ const NavLinkStyle = {
 
 function MainNavbar({}: Props) {
 	const StoreID = useSelector((state: any) => state.IDState);
+	const StoreMangaID = useSelector((state: any) => state.MangaIDState);
 	const [User, setUser] = useState<string>('Sebastian');
 
 	const PullID = () => {
-		console.log(StoreID);
+		console.log('Anime StoreID:', StoreID);
+		console.log('Manga StoreMangaID:', StoreMangaID);
 	};
 
 	return (
