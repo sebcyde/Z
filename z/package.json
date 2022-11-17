@@ -16,11 +16,13 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
+    "react-lite-youtube-embed": "^2.3.52",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "react-spinners": "^0.13.6",
     "sass": "^1.56.1",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "youtube-embed": "^1.0.0"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.6",

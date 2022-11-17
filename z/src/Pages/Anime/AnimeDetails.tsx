@@ -6,6 +6,8 @@ import axios from 'axios';
 import SimilarBanner from '../../Components/Anime/SimilarBanner';
 import Anime from './Anime';
 import LoadingScreen from '../LoadingScreen';
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
 
 type Props = {};
 
@@ -98,7 +100,7 @@ function AnimeDetails({}: Props) {
 						<h3 className="AnimeSynopsisTitle">Synopsis:</h3>
 						<p className="AnimeSynopsis">{AnimeData.synopsis}</p>
 					</div>
-
+					<YouTubeEmbed ID={AnimeData.trailer.youtube_id} />
 					<SimilarBanner Genres={AnimeData.genres} Title={AnimeData.title} />
 				</>
 			)}

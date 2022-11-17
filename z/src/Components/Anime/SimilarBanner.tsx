@@ -25,12 +25,10 @@ function SimilarBanner({ Genres, Title }: Props) {
 			axios
 				.get(`https://api.jikan.moe/v4/anime`)
 				.then((response) => {
-					console.log('Genre response:', response);
 					response.data.data.forEach((Anime: any) => {
 						Genres.forEach((G: any) => {
 							Anime.genres.forEach((Genre: any) => {
 								if (G.name.toLowerCase() === Genre.name.toLowerCase()) {
-									console.log('Matched Genre:', Genre.name);
 									Animes.push(Anime);
 								}
 							});
@@ -66,8 +64,6 @@ function SimilarBanner({ Genres, Title }: Props) {
 				.then((NewAnime) => setSimilarAnime(NewAnime))
 				.then(() => {
 					setLoading(false);
-					console.log('Animes:', Animes);
-					console.log('SimilarAnime:', SimilarAnime);
 				})
 				.catch((err) => console.log(err));
 		}, 1000);
