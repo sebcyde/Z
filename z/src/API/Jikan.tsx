@@ -5,7 +5,6 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Update } from '../Store/Slices/AnimeSlice';
 import Pagination from 'react-bootstrap/Pagination';
-import { Button } from 'react-bootstrap';
 import LoadingScreen from '../Pages/LoadingScreen';
 
 function Jikan() {
@@ -13,7 +12,6 @@ function Jikan() {
 	const [PageNumber, setPageNumber] = useState<number>(1);
 	const [Loading, setLoading] = useState<boolean>(true);
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
 	const Endpoint =
 		PageNumber === 1
 			? 'https://api.jikan.moe/v4/top/anime'
@@ -22,7 +20,7 @@ function Jikan() {
 	const Pull = async (Endpoint: string) => {
 		const Response = await axios.get(Endpoint);
 		const Data = await [Response.data.data, Response.data.pagination];
-
+		console.log(Data);
 		const BaseAnime = await Promise.all(
 			Data[0].map((Anime: any, index: number) => {
 				return (

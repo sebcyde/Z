@@ -12,15 +12,6 @@ import '../../Styles/AnimeStyles.scss';
 
 type Props = {};
 
-const AnimeNameStyle = {
-	maxWidth: '150px',
-	boxSizing: 'border-box',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-	overflow: 'hidden',
-	wordWrap: 'normal',
-};
-
 function Anime({}: Props) {
 	const StoreID = useSelector((state: any) => state.IDState);
 	const [AnimeName, setAnimeName] = useState<string>('');

@@ -12,6 +12,12 @@
 
 		&.Active {
 			color: #8d99ae;
+			max-width: 150px;
+			box-sizing: border-box;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			word-wrap: normal;
 		}
 
 		p {
