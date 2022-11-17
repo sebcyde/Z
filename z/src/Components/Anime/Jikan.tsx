@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { AnimeBaseContainer } from '../../Styles/AnimeStyles';
-import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Update } from '../../Store/Slices/AnimeSlice';
 import Pagination from 'react-bootstrap/Pagination';
 import LoadingScreen from '../../Pages/LoadingScreen';
-import { Container } from 'react-bootstrap/lib/Tab';
 import { Col } from 'react-bootstrap';
 
 function Jikan() {

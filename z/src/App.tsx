@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Anime from './Pages/Anime/Anime';
 import Homepage from './Pages/Homepage';
 import LoadingScreen from './Pages/LoadingScreen';
-import Manga from './Pages/Manga';
+import Manga from './Pages/Manga/Manga';
 import MyLists from './Pages/MyLists';
 import Settings from './Pages/Settings';
 import MainNavbar from './Components/Navbar/MainNavbar';
