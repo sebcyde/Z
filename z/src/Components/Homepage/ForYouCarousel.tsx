@@ -19,7 +19,7 @@ function ForYouCarousel({}: Props) {
 						<Carousel.Item interval={3000}>
 							<img
 								className="d-block w-100"
-								src={Data[0].images.webp.image_url}
+								src={Data[0].entry[0].images.jpg.image_url}
 								alt="First slide"
 							/>
 							<Carousel.Caption>
@@ -30,7 +30,7 @@ function ForYouCarousel({}: Props) {
 						<Carousel.Item interval={3000}>
 							<img
 								className="d-block w-100"
-								src={Data[1].images.jpg.image_url}
+								src={Data[1].entry[0].images.jpg.image_url}
 								alt="Second slide"
 							/>
 							<Carousel.Caption>
@@ -41,7 +41,7 @@ function ForYouCarousel({}: Props) {
 						<Carousel.Item interval={3000}>
 							<img
 								className="d-block w-100"
-								src={Data[2].images.jpg.image_url}
+								src={Data[2].entry[0].images.jpg.image_url}
 								alt="Third slide"
 							/>
 							<Carousel.Caption>
