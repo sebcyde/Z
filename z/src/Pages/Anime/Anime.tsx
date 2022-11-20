@@ -19,31 +19,6 @@ function Anime({}: Props) {
 	const [Page, setPage] = useState(<Jikan />);
 	const dispatch = useDispatch();
 
-	// const UpdateNames = async () => {
-	// 	const GetName = await axios.get(
-	// 		`https://api.jikan.moe/v4/anime/${StoreID.id}/full`
-	// 	);
-	// 	setAnimeName(GetName.data.data.title);
-	// 	setPage(<AnimeDetails />);
-	// };
-
-	// const Reset = async () => {
-	// 	dispatch(Update(0));
-	// 	setPage(<Jikan />);
-	// };
-
-	// useEffect(() => {
-	// 	if (StoreID.id === 0) {
-	// 		setPage(
-	// 			<Container>
-	// 				<Jikan />
-	// 			</Container>
-	// 		);
-	// 	} else {
-	// 		UpdateNames();
-	// 	}
-	// }, [StoreID]);
-
 	return (
 		<div className="page" style={{ overflowY: 'scroll' }}>
 			<Breadcrumb className="BC">
