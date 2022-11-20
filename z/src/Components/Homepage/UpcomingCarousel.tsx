@@ -2,9 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import LoadingScreen from '../../Pages/LoadingScreen';
-import Banner1 from '../../assets/Banners/banner1.webp';
-import Banner2 from '../../assets/Banners/banner2.webp';
-import Banner3 from '../../assets/Banners/banner3.webp';
+import Banner1 from '../../assets/ads/Pespi1.webp';
+import Banner2 from '../../assets/ads/JumpFest.webp';
+import Banner3 from '../../assets/ads/Pocari.jpg';
 
 type Props = {};
 
@@ -66,24 +66,27 @@ function UpcomingCarousel({}: Props) {
 				</>
 			)} */}
 
-			<Carousel>
+			<Carousel indicators={false}>
 				<Carousel.Item interval={3000}>
-					<img className="d-block w-100" src={Banner1} alt="First slide" />
-					<Carousel.Caption>
-						<h3>Banner 1</h3>
-					</Carousel.Caption>
+					<img
+						className="d-block w-100 adcarouselimage"
+						src={Banner1}
+						alt="First slide"
+					/>
 				</Carousel.Item>
 				<Carousel.Item interval={3000}>
-					<img className="d-block w-100" src={Banner2} alt="Second slide" />
-					<Carousel.Caption>
-						<h3>Banner 2</h3>
-					</Carousel.Caption>
+					<img
+						className="d-block w-100 adcarouselimage"
+						src={Banner2}
+						alt="Second slide"
+					/>
 				</Carousel.Item>
 				<Carousel.Item interval={3000}>
-					<img className="d-block w-100" src={Banner3} alt="Third slide" />
-					<Carousel.Caption>
-						<h3>Banner 3</h3>
-					</Carousel.Caption>
+					<img
+						className="d-block w-100 adcarouselimage"
+						src={Banner3}
+						alt="Third slide"
+					/>
 				</Carousel.Item>
 			</Carousel>
 		</div>

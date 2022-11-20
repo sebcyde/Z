@@ -158,7 +158,8 @@
 	}
 }
 
-.SimilarBanner {
+.SimilarBanner,
+.AnimeListBanner {
 	width: 100%;
 	height: fit-content;
 	background-color: transparent;
@@ -168,6 +169,10 @@
 	flex-direction: column;
 	align-items: center;
 
+	.page {
+		min-height: 233px;
+	}
+
 	.BannerSimilar {
 		position: relative;
 		top: 0px;
@@ -176,11 +181,50 @@
 		font-size: 30px;
 	}
 
-	.SimilarContainer {
+	.Banner {
+		width: 100%;
+		margin: 10px 0px 10px 20px;
+		font-size: 18px;
+	}
+
+	.SimilarContainer,
+	.BannerContainer {
 		width: 100%;
 		display: flex;
 		overflow-x: scroll;
-		padding: 0 10px 10px 10px;
+
+		.AnimeContainer {
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+			height: fit-content;
+			width: fit-content;
+			margin: 0px 5px;
+			img {
+				height: 120px;
+				width: auto;
+				border-radius: 12px;
+			}
+
+			.AnimeDetailsContainer {
+				display: flex;
+				flex-direction: column;
+				.AnimeTitle {
+					font-size: 12px;
+					padding: 2px;
+					padding-bottom: 0px;
+					margin-bottom: 10px;
+					text-align: center;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+				}
+				.AnimeEpisodes {
+					font-size: 11px;
+				}
+			}
+		}
 		.SimilarAnimeContainer {
 			display: flex;
 			flex-direction: column;
@@ -221,4 +265,14 @@
 			}
 		}
 	}
+}
+
+.carouselimage {
+	height: 300px;
+	width: 100%;
+}
+
+.adcarouselimage {
+	height: 230px;
+	width: 100%;
 }

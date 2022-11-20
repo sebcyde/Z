@@ -9,10 +9,8 @@ import { Container } from 'react-bootstrap/lib/Tab';
 type Props = { Genres: any[]; Title: string };
 
 function SimilarBanner({ Genres, Title }: Props) {
-	const StoreID = useSelector((state: any) => state.IDState);
 	const [SimilarAnime, setSimilarAnime] = useState<JSX.Element[]>();
 	const [Loading, setLoading] = useState<boolean>(true);
-	const Con = document.querySelector('.AnimeDetailsContainer');
 	const dispatch = useDispatch();
 	const Animes: any[] = [];
 
