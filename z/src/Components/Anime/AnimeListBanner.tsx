@@ -7,10 +7,9 @@ import { Update } from '../../Store/Slices/AnimeSlice';
 type Props = {
 	URL: string;
 	Title: string;
-	Time: string;
 };
 
-function AnimeListBanner({ URL, Title, Time }: Props) {
+function AnimeListBanner({ URL, Title }: Props) {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [AnimeList, setAnimeList] = useState<JSX.Element[][]>();
 	const dispatch = useDispatch();
@@ -20,37 +19,37 @@ function AnimeListBanner({ URL, Title, Time }: Props) {
 	};
 
 	useEffect(() => {
-		setTimeout(() => {
-			axios
-				.get(URL)
-				.then((response) => {
-					console.log('Title:', Title);
-					console.log('Response:', response);
-					const NewAnime = response.data.data.map((Ani: any) => {
-						return (
-							<div
-								className="AnimeContainer"
-								onClick={() => {
-									NavigateAnimePage(Ani.mal_id);
-								}}
-							>
-								<img src={Ani.images.jpg.image_url} />
-								<div className="AnimeDetailsContainer">
-									<h3 className="AnimeTitle">{Ani.title}</h3>
-									<h3 className="AnimeEpisodes">Episodes: {Ani.episodes}</h3>
-								</div>
+		console.log('calling:', Title);
+		axios
+			.get(URL)
+			.then((response) => {
+				console.log('Title:', Title);
+				console.log('Response:', response);
+				const NewAnime = response.data.data.map((Ani: any, index: number) => {
+					return (
+						<div
+							key={index}
+							className="AnimeContainer"
+							onClick={() => {
+								NavigateAnimePage(Ani.mal_id);
+							}}
+						>
+							<img src={Ani.images.jpg.image_url} />
+							<div className="AnimeDetailsContainer">
+								<h3 className="AnimeTitle">{Ani.title}</h3>
+								<h3 className="AnimeEpisodes">Episodes: {Ani.episodes}</h3>
 							</div>
-						);
-					});
+						</div>
+					);
+				});
 
-					return NewAnime;
-				})
-				.then((NewAnime) => setAnimeList(NewAnime))
-				.then(() => {
-					setLoading(false);
-				})
-				.catch((err) => console.log(err));
-		}, Time);
+				return NewAnime;
+			})
+			.then((NewAnime) => setAnimeList(NewAnime))
+			.then(() => {
+				setLoading(false);
+			})
+			.catch((err) => console.log(err));
 	}, []);
 
 	return (

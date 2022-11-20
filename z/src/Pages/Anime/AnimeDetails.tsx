@@ -97,6 +97,14 @@ function AnimeDetails({}: Props) {
 								return <div className="AnimeGenreTag">{element.name}</div>;
 							})}
 						</span>
+
+						{AnimeData.airing == false &&
+						AnimeData.status === 'Not yet aired' ? (
+							<p className="AnimeSynopsis">{AnimeData.status}</p>
+						) : (
+							''
+						)}
+
 						<h3 className="AnimeSynopsisTitle">Synopsis:</h3>
 						<p className="AnimeSynopsis">{AnimeData.synopsis}</p>
 					</div>
