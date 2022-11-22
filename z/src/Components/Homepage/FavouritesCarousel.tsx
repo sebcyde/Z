@@ -37,14 +37,17 @@ function FavouritesCarousel({}: Props) {
 							<div className="FavouritesDetails">
 								<h2 className="FavouritesTitle">{Anime.title}</h2>
 							</div>
-							<Button
-								className="PosterButton"
-								onClick={() => {
-									NavigateAnimePage(Anime.mal_id);
-								}}
-							>
-								Read More
-							</Button>
+							<span>
+								<Button
+									className="FavouritesButton"
+									onClick={() => {
+										NavigateAnimePage(Anime.mal_id);
+									}}
+								>
+									Read More
+								</Button>
+								<p className="FavouritesType">{Anime.type}</p>
+							</span>
 						</Carousel.Item>
 					);
 				})}

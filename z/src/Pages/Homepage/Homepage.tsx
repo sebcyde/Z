@@ -11,10 +11,11 @@ function Homepage({}: Props) {
 	const [BannerTwo, setBannerTwo] = useState<string>('');
 
 	useEffect(() => {
+		// setTimeout(() => {
+		// 	setBannerOne('https://api.jikan.moe/v4/top/manga');
+		// }, 1000);
 		setTimeout(() => {
 			setBannerOne('https://api.jikan.moe/v4/top/manga');
-		}, 1000);
-		setTimeout(() => {
 			setBannerTwo('https://api.jikan.moe/v4/seasons/upcoming');
 		}, 2000);
 	}, []);
