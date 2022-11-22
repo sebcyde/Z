@@ -19,7 +19,6 @@ function AnimeListBanner({ URL, Title }: Props) {
 	};
 
 	useEffect(() => {
-		console.log('calling:', Title);
 		axios
 			.get(URL)
 			.then((response) => {

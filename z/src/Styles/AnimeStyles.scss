@@ -276,3 +276,30 @@
 	height: 230px;
 	width: 100%;
 }
+
+.PosterContainer {
+	position: relative;
+	.PosterImage {
+		position: absolute;
+		z-index: 1;
+		height: auto;
+		width: 100%;
+	}
+
+	.PosterDetails {
+		position: relative;
+		z-index: 2;
+		.PosterTitle {
+		}
+
+		.PosterSynopsis {
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.PosterButton {
+		}
+	}
+}
