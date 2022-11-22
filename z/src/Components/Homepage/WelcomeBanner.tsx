@@ -6,7 +6,7 @@ function WelcomeBanner({}: Props) {
 	return (
 		<div
 			style={{
-				backgroundColor: 'tomato',
+				backgroundColor: 'rgb(194, 87, 0)',
 				width: '100%',
 				textAlign: 'center',
 				display: 'flex',

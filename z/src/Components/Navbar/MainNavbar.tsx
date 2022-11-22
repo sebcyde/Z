@@ -15,12 +15,16 @@ const NavLinkStyle = {
 function MainNavbar({}: Props) {
 	const StoreID = useSelector((state: any) => state.IDState);
 	const StoreMangaID = useSelector((state: any) => state.MangaIDState);
+	const FaveList = useSelector(
+		(state: any) => state.FavouritesListState.Favourites
+	);
 	const [User, setUser] = useState<string>('Sebastian');
 	const dispatch = useDispatch();
 
 	const PullID = () => {
 		console.log('Anime StoreID:', StoreID);
 		console.log('Manga StoreMangaID:', StoreMangaID);
+		console.log('Favourites List:', FaveList);
 	};
 
 	const ResetAll = () => {

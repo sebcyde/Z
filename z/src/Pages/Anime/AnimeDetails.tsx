@@ -9,6 +9,7 @@ import LoadingScreen from '../LoadingScreen';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { AddToFavourites } from '../../Store/Slices/FavouritesListSlice';
 
 type Props = {};
 
@@ -38,8 +39,9 @@ function AnimeDetails({}: Props) {
 		console.log('Added to List');
 	};
 
-	const AddToFavourites = () => {
+	const AddFavourite = (Item: object) => {
 		console.log('Added to Favourites');
+		dispatch(AddToFavourites(Item));
 	};
 
 	useEffect(() => {
@@ -86,7 +88,10 @@ function AnimeDetails({}: Props) {
 								)}
 							</button>
 
-							<button className="AddButton" onClick={AddToFavourites}>
+							<button
+								className="AddButton"
+								onClick={() => AddFavourite(AnimeData)}
+							>
 								Add To Favourites
 								{InFavourites ? (
 									<span className="material-symbols-outlined">star</span>
