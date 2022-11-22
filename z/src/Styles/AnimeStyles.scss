@@ -320,3 +320,43 @@
 	background-color: transparent !important;
 	border: 1px solid orange !important;
 }
+
+.Banner {
+	width: 100%;
+	margin: 10px 0px 10px 20px;
+	font-size: 18px;
+}
+
+.FavouritesContainer {
+	border: 1px solid white;
+	margin: 10px;
+	position: relative;
+	padding: 10px;
+	.carousel-inner {
+		overflow-x: hidden;
+		height: 500px;
+	}
+	.FavouritesImage {
+		height: 400px;
+		width: auto;
+	}
+
+	.FavouritesDetails {
+		text-align: center;
+		padding: 10px;
+		.FavouritesTitle {
+		}
+
+		.FavouritesSynopsis {
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.FavouritesButton {
+			background-color: transparent;
+			border: 1px solid orange;
+		}
+	}
+}

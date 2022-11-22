@@ -64,7 +64,7 @@ function TopPoster({ URL }: Props) {
 				setLoading(false);
 			})
 			.catch((err) => console.log(err));
-	}, []);
+	}, [URL]);
 	return <>{Loading ? '' : AnimePoster}</>;
 }
 

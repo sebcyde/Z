@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
 import LoadingScreen from '../../Pages/LoadingScreen';
 import { Update } from '../../Store/Slices/AnimeSlice';
 
@@ -13,9 +14,11 @@ function AnimeListBanner({ URL, Title }: Props) {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [AnimeList, setAnimeList] = useState<JSX.Element[][]>();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const NavigateAnimePage = async (ID: number) => {
 		dispatch(Update(ID));
+		navigate('/animedetails');
 	};
 
 	useEffect(() => {
@@ -49,7 +52,7 @@ function AnimeListBanner({ URL, Title }: Props) {
 				setLoading(false);
 			})
 			.catch((err) => console.log(err));
-	}, []);
+	}, [URL]);
 
 	return (
 		<div className="AnimeListBanner">
