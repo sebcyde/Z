@@ -6,16 +6,16 @@ function WelcomeBanner({}: Props) {
 	return (
 		<div
 			style={{
-				backgroundColor: 'crimson',
+				backgroundColor: 'tomato',
 				width: '100%',
 				textAlign: 'center',
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-				height: '50px',
+				height: '40px',
 			}}
 		>
-			<h3>Welcome to Version 1 of Z!</h3>
+			<h4 style={{ margin: '0px' }}>Welcome to Version 1 of Z!</h4>
 		</div>
 	);
 }

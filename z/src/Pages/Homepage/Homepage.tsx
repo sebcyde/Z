@@ -16,6 +16,14 @@ function Homepage({}: Props) {
 				URL="https://api.jikan.moe/v4/seasons/upcoming"
 				Title="Upcoming Anime"
 			/>
+			<AnimeListBanner
+				URL="https://api.jikan.moe/v4/top/anime"
+				Title="Top Anime"
+			/>
+			<AnimeListBanner
+				URL="https://api.jikan.moe/v4/top/manga"
+				Title="Top Manga"
+			/>
 			<TopPoster URL="https://api.jikan.moe/v4/seasons/upcoming" />
 			{/* <ForYou /> */}
 		</div>

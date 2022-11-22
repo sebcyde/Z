@@ -1,20 +1,27 @@
 .SearchbarContainer {
-	background-image: url('../assets//Banners/orangegradient.jpg');
-	height: 200px;
+	// background-image: url('../assets//Banners/orangegradient.jpg');
+	background-color: rgb(194, 87, 0);
+	height: 150px;
 	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
 	.SearchbarHeader {
-		padding: 20px;
 		margin: 0px;
 	}
 	.SearchbarInput {
 		border: 1px solid orange;
-		background-color: transparent;
+		background-color: black;
 		border-radius: 5px;
 		width: 80%;
 		padding: 5px 10px;
 		color: white;
 		font-size: 18px;
 		text-align: center;
+		&::placeholder {
+			color: white;
+		}
 		&:focus-visible {
 			border: 1px solid orange;
 			outline-color: orange;
