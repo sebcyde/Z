@@ -163,8 +163,7 @@
 	width: 100%;
 	height: fit-content;
 	background-color: transparent;
-	border-top: 1px solid #8d99ae;
-	border-bottom: 1px solid #8d99ae;
+
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -178,7 +177,7 @@
 		top: 0px;
 		left: 0px;
 		margin: 20px;
-		font-size: 30px;
+		font-size: 10px;
 	}
 
 	.Banner {
@@ -200,15 +199,22 @@
 			height: fit-content;
 			width: fit-content;
 			margin: 0px 5px;
+			border: 1px solid white;
+			min-height: 195px;
+
+			margin-bottom: 10px;
 			img {
 				height: 120px;
 				width: auto;
-				border-radius: 12px;
+				// border-radius: 12px;
 			}
 
 			.AnimeDetailsContainer {
 				display: flex;
 				flex-direction: column;
+				height: 72px;
+				background-color: rgb(43, 43, 43);
+
 				.AnimeTitle {
 					font-size: 12px;
 					padding: 2px;
@@ -231,37 +237,41 @@
 			text-align: center;
 			height: fit-content;
 			width: fit-content;
+			margin: 0px 5px;
+			border: 1px solid white;
+			min-height: 195px;
 
-			margin: 10px;
-			margin-top: 0px;
-			background-color: transparent;
 			img {
-				height: 220px;
+				height: 120px;
 				width: auto;
 			}
-
 			.SimilarAnimeDetailsContainer {
 				display: flex;
 				flex-direction: column;
+				justify-content: space-evenly;
+				height: 72px;
+				background-color: rgb(43, 43, 43);
 				.SimilarAnimeTitle {
-					padding: 20px;
+					margin: 0;
+					font-size: 12px;
+					padding: 2px;
 					padding-bottom: 0px;
-					margin-bottom: 10px;
-					width: 100%;
 					text-align: center;
 					display: -webkit-box;
 					-webkit-line-clamp: 2;
 					-webkit-box-orient: vertical;
 					overflow: hidden;
 				}
-				.SimilarAnimeEpisodes {
-					font-size: 18px;
-				}
 			}
 			.SimilarAnimeGenres {
 				display: flex;
+				align-items: flex-end;
 				width: 100%;
 				justify-content: space-evenly;
+				font-size: 11px;
+				p {
+					margin: 0px;
+				}
 			}
 		}
 	}
@@ -300,6 +310,13 @@
 		}
 
 		.PosterButton {
+			background-color: transparent;
+			border: 1px solid orange;
 		}
 	}
+}
+
+.Button {
+	background-color: transparent !important;
+	border: 1px solid orange !important;
 }

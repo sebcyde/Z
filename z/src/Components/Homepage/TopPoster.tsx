@@ -17,6 +17,7 @@ function TopPoster({ URL }: Props) {
 
 	const NavigateAnimePage = async (ID: number) => {
 		dispatch(Update(ID));
+		navigate('animedetails');
 	};
 
 	useEffect(() => {

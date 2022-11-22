@@ -15,11 +15,6 @@ function ForYouCarousel({}: Props) {
 			setNewCarousel(
 				<Carousel>
 					<Carousel.Item interval={3000}>
-						{/* <img
-							className="d-block w-100 carouselimage"
-							src={Data[0].images.jpg.image_url}
-							alt="First slide"
-						/> */}
 						<h4 style={{ textAlign: 'center' }}>lorem lorem lorem lorem</h4>
 						<Carousel.Caption>
 							<h3>{Data[0].title}</h3>

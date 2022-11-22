@@ -56,9 +56,17 @@ function MainNavbar({}: Props) {
 					>
 						Homepage
 					</Nav.Link>
-
 					<Nav.Link
 						eventKey="2"
+						as={Link}
+						to="search"
+						style={NavLinkStyle}
+						onClick={ResetAll}
+					>
+						Search
+					</Nav.Link>
+					<Nav.Link
+						eventKey="3"
 						as={Link}
 						to="anime"
 						style={NavLinkStyle}
@@ -67,7 +75,7 @@ function MainNavbar({}: Props) {
 						Anime
 					</Nav.Link>
 					<Nav.Link
-						eventKey="3"
+						eventKey="4"
 						as={Link}
 						to="manga"
 						style={NavLinkStyle}
@@ -76,7 +84,7 @@ function MainNavbar({}: Props) {
 						Manga
 					</Nav.Link>
 					<Nav.Link
-						eventKey="4"
+						eventKey="5"
 						as={Link}
 						to="mylists"
 						style={NavLinkStyle}
@@ -85,7 +93,7 @@ function MainNavbar({}: Props) {
 						My Lists
 					</Nav.Link>
 					<Nav.Link
-						eventKey="5"
+						eventKey="6"
 						as={Link}
 						to="settings"
 						style={NavLinkStyle}

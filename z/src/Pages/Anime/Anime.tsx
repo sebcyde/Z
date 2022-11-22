@@ -10,6 +10,8 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import axios from 'axios';
 import '../../Styles/AnimeStyles.scss';
 import Container from 'react-bootstrap/Container';
+import TopPoster from '../../Components/Homepage/TopPoster';
+import SearchNavComponent from '../../Components/Search/SearchNavComponent';
 
 type Props = {};
 
@@ -21,32 +23,9 @@ function Anime({}: Props) {
 
 	return (
 		<div className="page" style={{ overflowY: 'scroll' }}>
-			<Breadcrumb className="BC">
-				<Breadcrumb.Item as={'li'} className="BreadCrumbItemsStyle">
-					Anime
-				</Breadcrumb.Item>
-				<Breadcrumb.Item
-					as={'li'}
-					className="BreadCrumbItemsStyle"
-					onClick={() => {
-						Reset();
-					}}
-				>
-					Top Anime
-				</Breadcrumb.Item>
-				{StoreID.id != 0 ? (
-					<Breadcrumb.Item
-						active
-						as={'p'}
-						className="BreadCrumbItemsStyle Active"
-					>
-						{AnimeName}
-					</Breadcrumb.Item>
-				) : (
-					''
-				)}
-			</Breadcrumb>
+			{/* <TopPoster URL="https://api.jikan.moe/v4/seasons/now" /> */}
 			{Page}
+			<SearchNavComponent />
 		</div>
 	);
 }

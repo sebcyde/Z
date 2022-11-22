@@ -1,0 +1,23 @@
+.SearchbarContainer {
+	background-image: url('../assets//Banners/orangegradient.jpg');
+	height: 200px;
+	text-align: center;
+	.SearchbarHeader {
+		padding: 20px;
+		margin: 0px;
+	}
+	.SearchbarInput {
+		border: 1px solid orange;
+		background-color: transparent;
+		border-radius: 5px;
+		width: 80%;
+		padding: 5px 10px;
+		color: white;
+		font-size: 18px;
+		text-align: center;
+		&:focus-visible {
+			border: 1px solid orange;
+			outline-color: orange;
+		}
+	}
+}

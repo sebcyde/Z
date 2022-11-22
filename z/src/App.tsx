@@ -9,6 +9,7 @@ import MyLists from './Pages/MyLists';
 import Settings from './Pages/Settings';
 import MainNavbar from './Components/Navbar/MainNavbar';
 import AnimeDetails from './Pages/Anime/AnimeDetails';
+import Search from './Pages/Search/Search';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -29,10 +30,9 @@ function App() {
 					<MainNavbar />
 					<Routes>
 						<Route path="/" element={<Homepage />} />
-						<Route path="anime" element={<Anime />}>
-							<Route path="animedetails" element={<AnimeDetails />} />
-						</Route>
-						{/* <Route path="animedetails" element={<AnimeDetails />} /> */}
+						<Route path="anime" element={<Anime />} />
+						<Route path="animedetails" element={<AnimeDetails />} />
+						<Route path="search" element={<Search />} />
 						<Route path="manga" element={<Manga />} />
 						<Route path="mylists" element={<MyLists />} />
 						<Route path="settings" element={<Settings />} />

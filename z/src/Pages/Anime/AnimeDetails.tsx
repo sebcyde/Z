@@ -8,6 +8,7 @@ import Anime from './Anime';
 import LoadingScreen from '../LoadingScreen';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 type Props = {};
 
@@ -16,6 +17,7 @@ function AnimeDetails({}: Props) {
 	const [AnimeData, setAnimeData] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const InMyList: boolean = false;
 	const InFavourites: boolean = false;
 
@@ -25,6 +27,7 @@ function AnimeDetails({}: Props) {
 
 	const ResetID = () => {
 		dispatch(Update(0));
+		navigate('/');
 	};
 
 	const ShowDetails = () => {

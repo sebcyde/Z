@@ -34,9 +34,10 @@ function SimilarBanner({ Genres, Title }: Props) {
 					});
 				})
 				.then(() => {
-					const NewAnime = Animes.map((SimAn) => {
+					const NewAnime = Animes.map((SimAn, index: number) => {
 						return (
 							<div
+								key={index}
 								className="SimilarAnimeContainer"
 								onClick={() => {
 									NavigateAnimePage(SimAn.mal_id);
@@ -45,14 +46,11 @@ function SimilarBanner({ Genres, Title }: Props) {
 								<img src={SimAn.images.jpg.image_url} />
 								<div className="SimilarAnimeDetailsContainer">
 									<h3 className="SimilarAnimeTitle">{SimAn.title}</h3>
-									<h3 className="SimilarAnimeEpisodes">
-										Episodes: {SimAn.episodes}
-									</h3>
+									<span className="SimilarAnimeGenres">
+										<p>{SimAn.genres[0].name}</p>
+										<p>{SimAn.genres[1].name}</p>
+									</span>
 								</div>
-								<span className="SimilarAnimeGenres">
-									<p>{SimAn.genres[0].name}</p>
-									<p>{SimAn.genres[1].name}</p>
-								</span>
 							</div>
 						);
 					});
