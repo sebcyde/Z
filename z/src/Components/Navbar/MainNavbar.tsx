@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdateMangaID } from '../../Store/Slices/MangaSlice';
 import { Update } from '../../Store/Slices/AnimeSlice';
-
+import { getAuth } from 'firebase/auth';
 type Props = {};
 
 const NavLinkStyle = {
@@ -18,13 +18,22 @@ function MainNavbar({}: Props) {
 	const FaveList = useSelector(
 		(state: any) => state.FavouritesListState.Favourites
 	);
-	const [User, setUser] = useState<string>('Sebastian');
 	const dispatch = useDispatch();
+	const auth = getAuth();
+	const user = auth.currentUser;
 
 	const PullID = () => {
 		console.log('Anime StoreID:', StoreID);
 		console.log('Manga StoreMangaID:', StoreMangaID);
 		console.log('Favourites List:', FaveList);
+	};
+
+	const PullUser = () => {
+		if (user) {
+			console.log('Current User:', user);
+		} else {
+			console.log('No User');
+		}
 	};
 
 	const ResetAll = () => {
@@ -110,6 +119,7 @@ function MainNavbar({}: Props) {
 					</Navbar.Text> */}
 				</Nav>
 				<Button onClick={PullID}>Pull Store ID</Button>
+				<Button onClick={PullUser}>Pull User Info</Button>
 			</Navbar.Collapse>
 		</Navbar>
 	);
