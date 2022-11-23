@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../Styles/AuthPages.scss';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
@@ -12,33 +13,33 @@ function SignInComponent() {
 
 	const SetSignIn = (e) => {
 		e.preventDefault();
-		SignIn(auth, UserEmail, UserPassword).then(() => {
-			navigate('/');
-		});
+		SignIn(auth, UserEmail, UserPassword);
 	};
 
 	return (
 		<div className="SignInContainer">
-			<h2>Sign In</h2>
-			<form
-				onSubmit={(e) => {
-					e.preventDefault();
-					SignIn(auth, UserEmail, UserPassword);
-				}}
-			>
-				<input
-					type="text"
-					placeholder="Email"
-					onChange={(e) => setUserEmail(e.target.value)}
-				/>
-				<input
-					type="text"
-					placeholder="Password"
-					onChange={(e) => setUserPassword(e.target.value)}
-				/>
-				<Button onClick={SetSignIn}>Sign In</Button>
-				<Link to="/signup">Create account</Link>
-			</form>
+			<div>
+				<h2>Sign In</h2>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						SignIn(auth, UserEmail, UserPassword);
+					}}
+				>
+					<input
+						type="text"
+						placeholder="Email"
+						onChange={(e) => setUserEmail(e.target.value)}
+					/>
+					<input
+						type="text"
+						placeholder="Password"
+						onChange={(e) => setUserPassword(e.target.value)}
+					/>
+					<Button onClick={SetSignIn}>Sign In</Button>
+					<Link to="/signup">Create account</Link>
+				</form>
+			</div>
 		</div>
 	);
 }

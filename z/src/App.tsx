@@ -33,6 +33,7 @@ function App() {
 				navigate('/signin');
 				setMainNav(undefined);
 			} else {
+				navigate('/');
 				setMainNav(<MainNavbar />);
 			}
 		});

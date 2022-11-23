@@ -48,5 +48,6 @@ export const SignIn = async (auth, email, password) => {
 			const errorCode = error.code;
 			const errorMessage = error.message;
 			console.log(`Error ${errorCode}:`, errorMessage);
+			alert('Invalid Credentials');
 		});
 };
