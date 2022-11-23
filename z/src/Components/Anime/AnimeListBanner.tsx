@@ -22,36 +22,38 @@ function AnimeListBanner({ URL, Title }: Props) {
 	};
 
 	useEffect(() => {
-		axios
-			.get(URL)
-			.then((response) => {
-				console.log('Title:', Title);
-				console.log('Response:', response);
-				const NewAnime = response.data.data.map((Ani: any, index: number) => {
-					return (
-						<div
-							key={index}
-							className="AnimeContainer"
-							onClick={() => {
-								NavigateAnimePage(Ani.mal_id);
-							}}
-						>
-							<img src={Ani.images.jpg.image_url} />
-							<div className="AnimeDetailsContainer">
-								<h3 className="AnimeTitle">{Ani.title}</h3>
-								<h3 className="AnimeEpisodes">Episodes: {Ani.episodes}</h3>
+		if (URL !== '') {
+			axios
+				.get(URL)
+				.then((response) => {
+					console.log('Title:', Title);
+					console.log('Response:', response);
+					const NewAnime = response.data.data.map((Ani: any, index: number) => {
+						return (
+							<div
+								key={index}
+								className="AnimeContainer"
+								onClick={() => {
+									NavigateAnimePage(Ani.mal_id);
+								}}
+							>
+								<img src={Ani.images.jpg.image_url} />
+								<div className="AnimeDetailsContainer">
+									<h3 className="AnimeTitle">{Ani.title}</h3>
+									<h3 className="AnimeEpisodes">Episodes: {Ani.episodes}</h3>
+								</div>
 							</div>
-						</div>
-					);
-				});
+						);
+					});
 
-				return NewAnime;
-			})
-			.then((NewAnime) => setAnimeList(NewAnime))
-			.then(() => {
-				setLoading(false);
-			})
-			.catch((err) => console.log(err));
+					return NewAnime;
+				})
+				.then((NewAnime) => setAnimeList(NewAnime))
+				.then(() => {
+					setLoading(false);
+				})
+				.catch((err) => console.log(err));
+		}
 	}, [URL]);
 
 	return (
