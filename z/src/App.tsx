@@ -7,7 +7,7 @@ import Homepage from './Pages/Homepage/Homepage';
 import LoadingScreen from './Pages/LoadingScreen';
 import Manga from './Pages/Manga/Manga';
 import MyLists from './Pages/Favourites';
-import Settings from './Pages/Settings';
+import Settings from './Pages/Settings/Settings';
 import MainNavbar from './Components/Navbar/MainNavbar';
 import AnimeDetails from './Pages/Anime/AnimeDetails';
 import Search from './Pages/Search/Search';
@@ -16,13 +16,14 @@ import SignUp from './Pages/SignUp/SignUpComponent';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
+	const [MainNav, setMainNav] = useState<Element | undefined>(undefined);
 	const navigate = useNavigate();
 	const auth = getAuth();
 
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false);
-		}, 100);
+		}, 1000);
 	}, []);
 
 	useEffect(() => {
@@ -30,6 +31,9 @@ function App() {
 			if (!user) {
 				console.log('From App. No User Present');
 				navigate('/signin');
+				setMainNav(undefined);
+			} else {
+				setMainNav(<MainNavbar />);
 			}
 		});
 	}, []);
@@ -40,7 +44,7 @@ function App() {
 				<LoadingScreen />
 			) : (
 				<>
-					<MainNavbar />
+					{MainNav}
 					<Routes>
 						<Route path="/" element={<Homepage />} />
 						<Route path="anime" element={<Anime />} />
