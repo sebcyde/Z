@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { doc, setDoc } from 'firebase/firestore';
-// import { getFirestore } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 
 import {
 	getAuth,
@@ -22,26 +22,34 @@ const config = {
 
 export const app = initializeApp(config.firebase);
 export const auth = getAuth(app);
-// const db = getFirestore(app);
+const db = getFirestore(app);
 
 // Sign Up New Users
 export const SignUp = async (auth, email, password) => {
-	createUserWithEmailAndPassword(auth, email, password)
-		.then((userCredential) => {
-			// Signed in
-			const user = userCredential.user;
-			console.log('Signed up as:', user);
-			return user;
-		})
-		.then((user) => {
-			// Set Doc HERE
-			setDoc(doc(db, 'Users', user.uid), data);
-		})
-		.catch((error) => {
-			const errorCode = error.code;
-			const errorMessage = error.message;
-			console.log(`Error ${errorCode}:`, errorMessage);
+	try {
+		const UserCred = await createUserWithEmailAndPassword(
+			auth,
+			email,
+			password
+		);
+		const user = UserCred.user;
+		console.log('Signed up as:', user);
+
+		await setDoc(doc(db, `Users/${user.uid}`), {
+			UserEmail: user.email,
+			Username: user.displayName,
+			DisplayPicture: user.photoURL,
+			CreationDate: user.reloadUserInfo.createdAt,
+			UserLists: { Favourites: [] },
+			UID: user.uid,
 		});
+
+		console.log('User Creation Successful:');
+	} catch (error) {
+		const errorCode = error.code;
+		const errorMessage = error.message;
+		console.log(`Error ${errorCode}:`, errorMessage);
+	}
 };
 
 // Sign In Existing Users
