@@ -1,0 +1,26 @@
+.modal-dialog {
+	display: flex;
+	height: fit-content;
+	color: white;
+	.modal-content {
+		border: 1px solid orange;
+		.modal-header {
+			background-color: black;
+			border-bottom: 1px solid orange;
+		}
+		.modal-body {
+			background-color: black;
+			max-height: 300px;
+			overflow-y: scroll;
+			button {
+				background-color: black;
+				border: 1px solid orange;
+				color: white;
+			}
+		}
+		.modal-footer {
+			background-color: black;
+			border-top: 1px solid orange;
+		}
+	}
+}

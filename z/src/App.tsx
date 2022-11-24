@@ -13,6 +13,7 @@ import AnimeDetails from './Pages/Anime/AnimeDetails';
 import Search from './Pages/Search/Search';
 import SignIn from './Pages/SignIn/SignInComponent';
 import SignUp from './Pages/SignUp/SignUpComponent';
+import './Styles/Modal.scss';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
