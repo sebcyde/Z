@@ -10,6 +10,9 @@ import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { AddToFavourites } from '../../Store/Slices/FavouritesListSlice';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { db } from '../../config/Firebase';
+import { getAuth } from 'firebase/auth';
 
 type Props = {};
 
@@ -39,9 +42,20 @@ function AnimeDetails({}: Props) {
 		console.log('Added to List');
 	};
 
-	const AddFavourite = (Item: object) => {
+	const AddFavourite = async (Item: object) => {
 		console.log('Added to Favourites');
 		dispatch(AddToFavourites(Item));
+
+		// Add To DB
+		const auth = getAuth();
+		const user = auth.currentUser;
+		if (user) {
+			const UserDB = doc(db, `Users/${user.uid}`);
+			await updateDoc(UserDB, {
+				'UserLists.Favourites': arrayUnion(Item),
+			});
+			console.log('Item Added To Favourites:', user);
+		}
 	};
 
 	useEffect(() => {

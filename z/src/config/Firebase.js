@@ -22,7 +22,7 @@ const config = {
 
 export const app = initializeApp(config.firebase);
 export const auth = getAuth(app);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 // Sign Up New Users
 export const SignUp = async (auth, email, password) => {
