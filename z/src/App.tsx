@@ -16,7 +16,7 @@ import SignUp from './Pages/SignUp/SignUpComponent';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
-	const [MainNav, setMainNav] = useState<Element | undefined>(undefined);
+	const [MainNav, setMainNav] = useState<any>(undefined);
 	const navigate = useNavigate();
 	const auth = getAuth();
 

@@ -1,4 +1,6 @@
 import { initializeApp } from 'firebase/app';
+import { doc, setDoc } from 'firebase/firestore';
+// import { getFirestore } from 'firebase/firestore';
 
 import {
 	getAuth,
@@ -20,6 +22,7 @@ const config = {
 
 export const app = initializeApp(config.firebase);
 export const auth = getAuth(app);
+// const db = getFirestore(app);
 
 // Sign Up New Users
 export const SignUp = async (auth, email, password) => {
@@ -28,6 +31,11 @@ export const SignUp = async (auth, email, password) => {
 			// Signed in
 			const user = userCredential.user;
 			console.log('Signed up as:', user);
+			return user;
+		})
+		.then((user) => {
+			// Set Doc HERE
+			setDoc(doc(db, 'Users', user.uid), data);
 		})
 		.catch((error) => {
 			const errorCode = error.code;
