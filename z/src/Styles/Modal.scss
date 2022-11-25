@@ -7,11 +7,14 @@
 		.modal-header {
 			background-color: black;
 			border-bottom: 1px solid orange;
+			display: flex;
+			justify-content: center;
 		}
 		.modal-body {
 			background-color: black;
 			max-height: 300px;
 			overflow-y: scroll;
+			text-align: center;
 			button {
 				background-color: black;
 				border: 1px solid orange;

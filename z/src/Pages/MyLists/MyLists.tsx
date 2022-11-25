@@ -120,10 +120,10 @@ function MyLists() {
 					console.log(SelectedList);
 				}}
 			>
-				<Modal.Header closeButton>
+				<Modal.Header>
 					<Modal.Title>{SelectedList}</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+				<Modal.Body>What should we do with this list?</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>
 						Cancel

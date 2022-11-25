@@ -31,8 +31,13 @@ function FavouritesCarousel({}: Props) {
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const data = docSnap.data();
-				const Favourites = data.Favourites;
-				console.log('Favourites:', Favourites);
+				console.log('Carousel Data:', data);
+				let Favourites;
+				data.Favourites.length === 0
+					? (Favourites = data[Object.keys(data)[1]])
+					: (Favourites = data.Favourites);
+
+				console.log('Carousel List:', Favourites);
 				return Favourites;
 			} else {
 				console.log('No such document!');
