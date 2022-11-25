@@ -14,6 +14,7 @@ import Search from './Pages/Search/Search';
 import SignIn from './Pages/SignIn/SignInComponent';
 import SignUp from './Pages/SignUp/SignUpComponent';
 import './Styles/Modal.scss';
+import Edit from './Pages/Settings/Edit';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -57,6 +58,7 @@ function App() {
 						<Route path="settings" element={<Settings />} />
 						<Route path="signin" element={<SignIn />} />
 						<Route path="signup" element={<SignUp />} />
+						<Route path="edit" element={<Edit />} />
 					</Routes>
 				</>
 			)}

@@ -86,7 +86,7 @@ function FavouritesCarousel({}: Props) {
 				<LoadingScreen />
 			) : (
 				<div className="FavouritesContainer">
-					<h2 className="Banner">For You</h2>
+					<h2 className="Banner">Your Favourites</h2>
 					{NewCarousel}
 				</div>
 			)}
