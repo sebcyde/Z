@@ -33,10 +33,10 @@ function AnimeDetails({}: Props) {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [ModalLoading, setModalLoading] = useState<boolean>(true);
 	const [UserLists, setUserLists] = useState<any[]>([]);
+	const [InFavourites, setInFavourites] = useState<boolean>(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const InMyList: boolean = false;
-	const InFavourites: boolean = false;
 	const [show, setShow] = useState(false);
 	const [Editing, setEditing] = useState<boolean>(false);
 	const NewListRef = useRef<HTMLInputElement>();
@@ -63,9 +63,17 @@ function AnimeDetails({}: Props) {
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const Lists = docSnap.data();
-				// const Lists = data.UserLists;
-				console.log('Lists:', Lists);
-				setUserLists(Object.keys(Lists));
+
+				const sorted = Object.keys(Lists!)
+					.sort()
+					.reduce((accumulator, key) => {
+						accumulator[key] = Lists![key];
+						return accumulator;
+					}, {});
+				console.log('Sorted:', sorted);
+
+				console.log('Lists:', sorted);
+				setUserLists(Object.keys(sorted));
 				setModalLoading(false);
 			} else {
 				console.log('No such document!');
@@ -112,14 +120,10 @@ function AnimeDetails({}: Props) {
 			await updateDoc(UserDB, {
 				[NewListName]: [],
 			});
-			// await updateDoc(UserDB, {
-			// 	NewListName: arrayUnion(Item),
-			// });
-			console.log('Item Added To New List');
-			PullLists();
 			setModalLoading(true);
+			console.log('Item Added To:', NewListName);
+			PullLists();
 			setModalLoading(false);
-			//handleClose();
 		}
 	};
 
@@ -146,7 +150,12 @@ function AnimeDetails({}: Props) {
 				<LoadingScreen />
 			) : (
 				<>
-					<Modal show={show} onHide={handleClose} onShow={PullLists}>
+					<Modal
+						show={show}
+						onHide={handleClose}
+						onShow={PullLists}
+						centered={true}
+					>
 						<Modal.Header>
 							<Modal.Title>
 								<span>

@@ -119,9 +119,12 @@ function MyLists() {
 				onShow={() => {
 					console.log(SelectedList);
 				}}
+				centered={true}
 			>
 				<Modal.Header>
-					<Modal.Title>{SelectedList}</Modal.Title>
+					<Modal.Title id="contained-modal-title-vcenter">
+						{SelectedList}
+					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>What should we do with this list?</Modal.Body>
 				<Modal.Footer>
