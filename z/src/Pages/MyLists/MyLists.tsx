@@ -6,12 +6,26 @@ import LoadingScreen from '../LoadingScreen';
 import { useDispatch } from 'react-redux';
 import { Update } from '../../Store/Slices/AnimeSlice.js';
 import { BsThreeDots } from 'react-icons/bs';
+import { Button, Modal } from 'react-bootstrap';
 
 function MyLists() {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [UserLists, setUserLists] = useState<any[]>([]);
 	const [Loading2, setLoading2] = useState<boolean>(true);
+	const [SelectedList, setSelectedList] = useState<string>('');
 	const dispatch = useDispatch();
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
+	const DeleteList = (ListName: string) => {
+		if (ListName == 'Favourites') {
+			// reset to empty but dont delete
+		} else {
+			// delete user made
+		}
+	};
 
 	const NavigateAnimePage = async (ID: number) => {
 		dispatch(Update(ID));
@@ -52,9 +66,15 @@ function MyLists() {
 						return (
 							<div className="ListContainer" key={index}>
 								<span className="TitleContainer">
-									<h2 className="ListTitle">{List}</h2> <BsThreeDots />
+									<h2 className="ListTitle">{List}</h2>{' '}
+									<BsThreeDots
+										onClick={() => {
+											setSelectedList(List);
+											handleShow();
+										}}
+									/>
 								</span>
-								{/* <h2 className="ListTitle">{List}</h2> */}
+
 								<div className="ListItemContainer">
 									{ListValues[index].map((ListValue: any, index2: number) => {
 										return (
@@ -93,6 +113,32 @@ function MyLists() {
 
 	return (
 		<div style={{ width: '100%', height: '100%' }}>
+			<Modal
+				show={show}
+				onHide={handleClose}
+				onShow={() => {
+					console.log(SelectedList);
+				}}
+			>
+				<Modal.Header closeButton>
+					<Modal.Title>{SelectedList}</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+				<Modal.Footer>
+					<Button variant="secondary" onClick={handleClose}>
+						Cancel
+					</Button>
+					<Button
+						variant="danger"
+						onClick={() => {
+							DeleteList(SelectedList);
+							handleClose();
+						}}
+					>
+						Delete List
+					</Button>
+				</Modal.Footer>
+			</Modal>
 			{Loading ? <LoadingScreen /> : <>{UserLists.map((List) => List)}</>}
 		</div>
 	);

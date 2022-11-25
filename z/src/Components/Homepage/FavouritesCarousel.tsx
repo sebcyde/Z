@@ -27,11 +27,11 @@ function FavouritesCarousel({}: Props) {
 		const auth = getAuth();
 		const user = auth.currentUser;
 		if (user) {
-			const docRef = doc(db, `Users/${user.uid}`);
+			const docRef = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const data = docSnap.data();
-				const Favourites = data.UserLists.Favourites;
+				const Favourites = data.Favourites;
 				console.log('Favourites:', Favourites);
 				return Favourites;
 			} else {
