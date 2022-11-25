@@ -55,8 +55,8 @@ function MyLists() {
 					ListNames.map((List: string, index: number) => {
 						return (
 							<div className="ListContainer" key={index}>
-								<h2>{List}</h2>
-								<div>
+								<h2 className="ListTitle">{List}</h2>
+								<div className="ListItemContainer">
 									{ListValues[index].map((ListValue: any, index2: number) => {
 										return (
 											<div
@@ -66,13 +66,17 @@ function MyLists() {
 													NavigateAnimePage(ListValue.mal_id);
 												}}
 											>
-												<img src={ListValue.images.jpg.image_url} />
-												<div className="AnimeListDetailsContainer">
-													<h3 className="AnimeListTitle">{ListValue.title}</h3>
-													<span className="AnimeListGenres">
-														<p>{ListValue.genres[0].name}</p>
-														<p>{ListValue.genres[1].name}</p>
-													</span>
+												<div>
+													<img src={ListValue.images.jpg.image_url} />
+													<div className="AnimeListDetailsContainer">
+														<h3 className="AnimeListTitle">
+															{ListValue.title}
+														</h3>
+														<span className="AnimeListGenres">
+															<p>{ListValue.genres[0].name}</p>
+															<p>{ListValue.genres[1].name}</p>
+														</span>
+													</div>
 												</div>
 											</div>
 										);
