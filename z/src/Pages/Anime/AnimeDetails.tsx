@@ -1,5 +1,5 @@
 import { Update } from '../../Store/Slices/AnimeSlice';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Badge, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -9,11 +9,21 @@ import LoadingScreen from '../LoadingScreen';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
+import {
+	doc,
+	updateDoc,
+	arrayUnion,
+	getDoc,
+	getDocs,
+	query,
+	collection,
+} from 'firebase/firestore';
 import { db } from '../../config/Firebase';
 import { getAuth } from 'firebase/auth';
 import Modal from 'react-bootstrap/Modal';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { BsPlusLg } from 'react-icons/bs';
+import '../../Styles/Modal.scss';
 
 type Props = {};
 
@@ -28,6 +38,10 @@ function AnimeDetails({}: Props) {
 	const InMyList: boolean = false;
 	const InFavourites: boolean = false;
 	const [show, setShow] = useState(false);
+	const [Editing, setEditing] = useState<boolean>(false);
+	const NewListRef = useRef<HTMLInputElement>();
+	const auth = getAuth();
+	const user = auth.currentUser;
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -41,10 +55,9 @@ function AnimeDetails({}: Props) {
 		console.log(AnimeData);
 	};
 
-	const PullFavourites = async () => {
+	const PullLists = async () => {
 		setModalLoading(true);
-		const auth = getAuth();
-		const user = auth.currentUser;
+
 		if (user) {
 			const docRef = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			const docSnap = await getDoc(docRef);
@@ -62,15 +75,14 @@ function AnimeDetails({}: Props) {
 
 	const AddFavourite = async (Item: object) => {
 		// Add To DB
-		const auth = getAuth();
-		const user = auth.currentUser;
+
 		if (user) {
 			const UserDB = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			await updateDoc(UserDB, {
 				Favourites: arrayUnion(Item),
 			});
 			console.log('Item Added To Favourites');
-			PullFavourites();
+			PullLists();
 			handleClose();
 		}
 	};
@@ -79,8 +91,6 @@ function AnimeDetails({}: Props) {
 		console.log('List to add to:', List);
 		console.log('Item to add:', Item);
 		// Add To DB
-		const auth = getAuth();
-		const user = auth.currentUser;
 
 		if (user) {
 			const UserDB = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
@@ -88,8 +98,28 @@ function AnimeDetails({}: Props) {
 				[List]: arrayUnion(Item),
 			});
 			console.log('Item Added To:', List);
-			PullFavourites();
+			PullLists();
 			handleClose();
+		}
+	};
+
+	const AddNewList = async () => {
+		console.log(NewListRef.current!.value);
+		const NewListName = NewListRef.current!.value;
+
+		if (user && NewListName.length > 0) {
+			const UserDB = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
+			await updateDoc(UserDB, {
+				[NewListName]: [],
+			});
+			// await updateDoc(UserDB, {
+			// 	NewListName: arrayUnion(Item),
+			// });
+			console.log('Item Added To New List');
+			PullLists();
+			setModalLoading(true);
+			setModalLoading(false);
+			//handleClose();
 		}
 	};
 
@@ -116,15 +146,35 @@ function AnimeDetails({}: Props) {
 				<LoadingScreen />
 			) : (
 				<>
-					<Modal show={show} onHide={handleClose} onShow={PullFavourites}>
-						<Modal.Header closeButton>
-							<Modal.Title>Add to list</Modal.Title>
+					<Modal show={show} onHide={handleClose} onShow={PullLists}>
+						<Modal.Header>
+							<Modal.Title>
+								<span>
+									<h2>Add to list</h2>
+									<BsPlusLg
+										onClick={() => {
+											setEditing(true);
+										}}
+									/>
+								</span>
+							</Modal.Title>
 						</Modal.Header>
 						<Modal.Body>
 							{ModalLoading ? (
 								<LoadingScreen />
 							) : (
 								<ListGroup defaultActiveKey="#link1">
+									{Editing ? (
+										<ListGroup.Item action>
+											<input
+												placeholder="New List Name"
+												ref={NewListRef}
+												className="NewListInput"
+											/>
+										</ListGroup.Item>
+									) : (
+										''
+									)}
 									{UserLists.map((list, index: number) => {
 										return (
 											<ListGroup.Item
@@ -142,9 +192,28 @@ function AnimeDetails({}: Props) {
 							)}
 						</Modal.Body>
 						<Modal.Footer>
-							<Button variant="secondary" onClick={handleClose}>
+							<Button
+								variant="secondary"
+								onClick={() => {
+									setEditing(false);
+									handleClose();
+								}}
+							>
 								Cancel
 							</Button>
+							{Editing ? (
+								<Button
+									variant="primary"
+									onClick={() => {
+										AddNewList();
+										setEditing(false);
+									}}
+								>
+									Save
+								</Button>
+							) : (
+								''
+							)}
 						</Modal.Footer>
 					</Modal>
 
