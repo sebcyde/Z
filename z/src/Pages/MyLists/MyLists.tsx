@@ -5,6 +5,7 @@ import { getAuth } from 'firebase/auth';
 import LoadingScreen from '../LoadingScreen';
 import { useDispatch } from 'react-redux';
 import { Update } from '../../Store/Slices/AnimeSlice.js';
+import { BsThreeDots } from 'react-icons/bs';
 
 function MyLists() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -24,7 +25,6 @@ function MyLists() {
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const data = docSnap.data();
-				console.log('data:', data);
 				return data;
 			} else {
 				console.log('No such document!');
@@ -45,17 +45,16 @@ function MyLists() {
 			})
 			.then((data) => {
 				setLoading2(false);
-				console.log('Raw data:', data);
 				const ListNames = Object.keys(data!);
 				const ListValues: any = Object.values(data!);
-				console.log('List Names:', ListNames);
-				console.log('List Values:', ListValues);
-
 				setUserLists(
 					ListNames.map((List: string, index: number) => {
 						return (
 							<div className="ListContainer" key={index}>
-								<h2 className="ListTitle">{List}</h2>
+								<span className="TitleContainer">
+									<h2 className="ListTitle">{List}</h2> <BsThreeDots />
+								</span>
+								{/* <h2 className="ListTitle">{List}</h2> */}
 								<div className="ListItemContainer">
 									{ListValues[index].map((ListValue: any, index2: number) => {
 										return (
