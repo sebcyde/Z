@@ -54,11 +54,14 @@
 	}
 }
 
-// .fade.modal.show {
-// 	display: flex !important;
-// 	justify-content: center;
-// 	align-items: center;
-// 	.modal-dialog {
-// 		width: 90%;
-// 	}
-// }
+.Button {
+	background-color: black;
+	border: 1px solid orange;
+	display: flex !important;
+	align-items: center;
+	justify-content: space-between;
+	svg {
+		margin-left: 5px;
+		font-size: 18px;
+	}
+}

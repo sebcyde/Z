@@ -27,10 +27,11 @@ function UserDetails({}: Props) {
 	};
 
 	useEffect(() => {
-		PullData();
-		setLoading(false);
-		console.log('User Details From Auth:', auth.currentUser);
-		console.log('User Details From DB:', UserDetails);
+		PullData().then(() => {
+			setLoading(false);
+			console.log('User Details From Auth:', auth.currentUser);
+			console.log('User Details From DB:', UserDetails);
+		});
 	}, []);
 
 	return (
