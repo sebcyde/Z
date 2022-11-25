@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Logo from '../../assets/ZLogo.png';
 import { Button, Container, Nav, Navbar, NavItem } from 'react-bootstrap';
+import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
+import { db } from '../../config/Firebase';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdateMangaID } from '../../Store/Slices/MangaSlice';
@@ -26,6 +28,21 @@ function MainNavbar({}: Props) {
 		console.log('Anime StoreID:', StoreID);
 		console.log('Manga StoreMangaID:', StoreMangaID);
 		console.log('Favourites List:', FaveList);
+	};
+
+	const PullLists = async () => {
+		const auth = getAuth();
+		const user = auth.currentUser;
+		if (user) {
+			const docRef = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				const Lists = docSnap.data();
+				console.log('Lists:', Lists);
+			} else {
+				console.log('No such document!');
+			}
+		}
 	};
 
 	const PullUser = () => {
@@ -120,6 +137,7 @@ function MainNavbar({}: Props) {
 				</Nav>
 				<Button onClick={PullID}>Pull Store ID</Button>
 				<Button onClick={PullUser}>Pull User Info</Button>
+				<Button onClick={PullLists}>Pull Lists</Button>
 			</Navbar.Collapse>
 		</Navbar>
 	);

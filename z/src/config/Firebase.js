@@ -39,9 +39,13 @@ export const SignUp = async (auth, email, password) => {
 			UserEmail: user.email,
 			Username: user.displayName,
 			DisplayPicture: user.photoURL,
-			CreationDate: user.reloadUserInfo.createdAt,
-			UserLists: { Favourites: [] },
+			CreationDate: user.metadata.creationTime,
+			// UserLists: { Favourites: [] },
 			UID: user.uid,
+		});
+
+		await setDoc(doc(db, `Users/${user.uid}/MoreInfo/Lists`), {
+			Favourites: [],
 		});
 
 		console.log('User Creation Successful:');

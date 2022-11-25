@@ -9,7 +9,6 @@ import LoadingScreen from '../LoadingScreen';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { AddToFavourites } from '../../Store/Slices/FavouritesListSlice';
 import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
 import { db } from '../../config/Firebase';
 import { getAuth } from 'firebase/auth';
@@ -42,20 +41,16 @@ function AnimeDetails({}: Props) {
 		console.log(AnimeData);
 	};
 
-	const alertClicked = () => {
-		alert('You clicked the third ListGroupItem');
-	};
-
 	const PullFavourites = async () => {
 		setModalLoading(true);
 		const auth = getAuth();
 		const user = auth.currentUser;
 		if (user) {
-			const docRef = doc(db, `Users/${user.uid}`);
+			const docRef = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				const data = docSnap.data();
-				const Lists = data.UserLists;
+				const Lists = docSnap.data();
+				// const Lists = data.UserLists;
 				console.log('Lists:', Lists);
 				setUserLists(Object.keys(Lists));
 				setModalLoading(false);
@@ -70,11 +65,13 @@ function AnimeDetails({}: Props) {
 		const auth = getAuth();
 		const user = auth.currentUser;
 		if (user) {
-			const UserDB = doc(db, `Users/${user.uid}`);
+			const UserDB = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			await updateDoc(UserDB, {
-				'UserLists.Favourites': arrayUnion(Item),
+				Favourites: arrayUnion(Item),
 			});
-			console.log('Item Added To Favourites:', user);
+			console.log('Item Added To Favourites');
+			PullFavourites();
+			handleClose();
 		}
 	};
 
@@ -84,12 +81,14 @@ function AnimeDetails({}: Props) {
 		// Add To DB
 		const auth = getAuth();
 		const user = auth.currentUser;
+
 		if (user) {
-			const UserDB = doc(db, `Users/${user.uid}`);
+			const UserDB = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			await updateDoc(UserDB, {
-				UserLists: arrayUnion(Item),
+				[List]: arrayUnion(Item),
 			});
-			console.log('Item Added To List');
+			console.log('Item Added To:', List);
+			PullFavourites();
 			handleClose();
 		}
 	};
