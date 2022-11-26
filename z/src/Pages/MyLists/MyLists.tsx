@@ -242,6 +242,7 @@ function MyLists() {
 						onClick={() => {
 							setEditing(false);
 							handleClose2();
+							Startup();
 						}}
 					>
 						Cancel
@@ -262,14 +263,7 @@ function MyLists() {
 				</Modal.Footer>
 			</Modal>
 
-			<Modal
-				show={show}
-				onHide={handleClose}
-				onShow={() => {
-					console.log(SelectedList);
-				}}
-				centered={true}
-			>
+			<Modal show={show} onHide={handleClose} centered={true}>
 				<Modal.Header>
 					<Modal.Title id="contained-modal-title-vcenter">
 						{SelectedList}
