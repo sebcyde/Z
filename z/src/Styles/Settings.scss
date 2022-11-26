@@ -23,14 +23,33 @@
 }
 
 .SettingsBottomSection {
-	padding: 30px;
+	// padding-bottom: 30px;
+	// padding-top: 0px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	text-align: center;
+	width: 100%;
+	.SettingsPageRow {
+		&:nth-child(2n) {
+			background-color: rgb(43, 43, 43);
+		}
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		padding: 8px 10px;
+		// border: 1px solid red;
+		p {
+			margin: 0;
+		}
+	}
 	button {
 		width: 30%;
-		margin: 0 auto;
+
+		position: fixed;
+		bottom: 3%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 		background-color: transparent;
 		border: 1px solid orange;
 	}
