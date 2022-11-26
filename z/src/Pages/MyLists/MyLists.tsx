@@ -14,6 +14,7 @@ import { Update } from '../../Store/Slices/AnimeSlice.js';
 import { BsPlusLg, BsThreeDots } from 'react-icons/bs';
 import { Button, ListGroup, Modal } from 'react-bootstrap';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { SassString } from 'sass';
 
 function MyLists() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -22,17 +23,21 @@ function MyLists() {
 	const [SelectedList, setSelectedList] = useState<string>('');
 	const [ModalLoading, setModalLoading] = useState<boolean>(true);
 	const [Editing, setEditing] = useState<boolean>(false);
+	const [NewListRef, setNewListRef] = useState<SassString>('');
 	const dispatch = useDispatch();
 	const [show, setShow] = useState(false);
 	const [show2, setShow2] = useState(false);
 	const auth = getAuth();
 	const user = auth.currentUser;
-	const DocRef = doc(db, `Users/${user!.uid}/MoreInfo`, 'Lists');
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const handleClose2 = () => setShow2(false);
 	const handleShow2 = () => setShow2(true);
+
+	const handleInputChange = (event: any) => {
+		setNewListRef(event?.target.value);
+	};
 
 	const DeleteList = async (ListName: string) => {
 		console.log('Deleting', ListName);
@@ -84,18 +89,20 @@ function MyLists() {
 	};
 
 	const AddNewList = async () => {
-		console.log(NewListRef.current!.value);
-		const NewListName = NewListRef.current!.value;
+		console.log(NewListRef);
+		const NewListName = NewListRef.toString();
 
 		if (user && NewListName.length > 0) {
 			const UserDB = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			await updateDoc(UserDB, {
-				[NewListName]: [],
+				[NewListName.toString()]: [],
 			});
-			setModalLoading(true);
+
+			setEditing(false);
+			setNewListRef('');
 			console.log('Item Added To:', NewListName);
-			PullLists();
-			setModalLoading(false);
+			handleClose2();
+			Startup();
 		}
 	};
 
@@ -211,8 +218,9 @@ function MyLists() {
 								<ListGroup.Item action>
 									<input
 										placeholder="New List Name"
-										ref={NewListRef}
 										className="NewListInput"
+										onChange={handleInputChange}
+										value={NewListRef}
 									/>
 								</ListGroup.Item>
 							) : (
