@@ -5,10 +5,19 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/Firebase.js';
 
 type Props = {};
+type UserDetails = {
+	firstName: string;
+	lastName: string;
+	displayName: string;
+	email: string;
+	phoneNumber: number;
+	photoURL: string;
+};
 
 function Edit({}: Props) {
 	const [UserDetails, setUserDetails] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
+	const [UserDeets, setUserDeets] = useState<UserDetails>();
 	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;

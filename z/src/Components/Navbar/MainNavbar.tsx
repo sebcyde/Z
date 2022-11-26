@@ -27,7 +27,6 @@ function MainNavbar({}: Props) {
 	const PullID = () => {
 		console.log('Anime StoreID:', StoreID);
 		console.log('Manga StoreMangaID:', StoreMangaID);
-		console.log('Favourites List:', FaveList);
 	};
 
 	const PullLists = async () => {
@@ -38,9 +37,9 @@ function MainNavbar({}: Props) {
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const Lists = docSnap.data();
-				console.log('Lists:', Lists);
+				console.log('DB Lists:', Lists);
 			} else {
-				console.log('No such document!');
+				console.log('No Lists Available!');
 			}
 		}
 	};
@@ -49,7 +48,7 @@ function MainNavbar({}: Props) {
 		if (user) {
 			console.log('Current User:', user);
 		} else {
-			console.log('No User');
+			console.log('No User Available!');
 		}
 	};
 

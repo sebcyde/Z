@@ -47,51 +47,49 @@ function FavouritesCarousel({}: Props) {
 
 	useEffect(() => {
 		PullFavourites().then((Favourites) => {
-			setNewCarousel(
-				<Carousel indicators={false}>
-					{Favourites.map((Anime: any, index: number) => {
-						return (
-							<Carousel.Item interval={3000} key={index}>
-								<img
-									className="d-block w-100 FavouritesImage"
-									src={Anime.images.jpg.image_url}
-									alt="Anime image"
-								/>
-								<div className="FavouritesDetails">
-									<h2 className="FavouritesTitle">{Anime.title}</h2>
-								</div>
-								<span>
-									<Button
-										className="FavouritesButton"
-										onClick={() => {
-											NavigateAnimePage(Anime.mal_id);
-										}}
-									>
-										Read More
-									</Button>
-									<p className="FavouritesType">{Anime.type}</p>
-								</span>
-							</Carousel.Item>
-						);
-					})}
-				</Carousel>
-			);
+			if (Favourites == undefined) {
+				setNewCarousel();
+			} else {
+				setNewCarousel(
+					<>
+						<div className="FavouritesContainer">
+							<h2 className="">From Your Lists</h2>
+							<Carousel indicators={false}>
+								{Favourites.map((Anime: any, index: number) => {
+									return (
+										<Carousel.Item interval={3000} key={index}>
+											<img
+												className="d-block w-100 FavouritesImage"
+												src={Anime.images.jpg.image_url}
+												alt="Anime image"
+											/>
+											<div className="FavouritesDetails">
+												<h2 className="FavouritesTitle">{Anime.title}</h2>
+											</div>
+											<span>
+												<Button
+													className="FavouritesButton"
+													onClick={() => {
+														NavigateAnimePage(Anime.mal_id);
+													}}
+												>
+													Read More
+												</Button>
+												<p className="FavouritesType">{Anime.type}</p>
+											</span>
+										</Carousel.Item>
+									);
+								})}
+							</Carousel>
+						</div>
+					</>
+				);
+			}
 			setLoading(false);
 		});
 	}, []);
 
-	return (
-		<>
-			{Loading ? (
-				<LoadingScreen />
-			) : (
-				<div className="FavouritesContainer">
-					<h2 className="Banner">Your Favourites</h2>
-					{NewCarousel}
-				</div>
-			)}
-		</>
-	);
+	return <>{Loading ? <LoadingScreen /> : <>{NewCarousel}</>}</>;
 }
 
 export default FavouritesCarousel;

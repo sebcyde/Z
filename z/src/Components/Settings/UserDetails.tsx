@@ -21,6 +21,7 @@ function UserDetails({}: Props) {
 		const docSnap = await getDoc(docRef);
 		if (docSnap.exists()) {
 			setUserDetails(docSnap.data());
+			console.log('User details set');
 		} else {
 			console.log('No such document!');
 		}
