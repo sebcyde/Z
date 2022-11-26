@@ -27,6 +27,7 @@ function MyLists() {
 	const [show2, setShow2] = useState(false);
 	const auth = getAuth();
 	const user = auth.currentUser;
+	const DocRef = doc(db, `Users/${user!.uid}/MoreInfo`, 'Lists');
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -34,16 +35,23 @@ function MyLists() {
 	const handleShow2 = () => setShow2(true);
 
 	const DeleteList = async (ListName: string) => {
+		console.log('Deleting', ListName);
+		setLoading(true);
 		const DocRef = doc(db, `Users/${user!.uid}/MoreInfo`, 'Lists');
 		if (ListName == 'Favourites') {
 			// reset to empty but dont delete
-			setDoc(DocRef, { Favourites: [] }, { merge: true });
+			await setDoc(DocRef, { Favourites: [] }, { merge: true });
+			Startup();
 		} else {
 			// delete user made
 			await updateDoc(DocRef, {
 				[ListName]: deleteField(),
 			});
+			Startup();
 		}
+		setTimeout(() => {
+			setLoading(false);
+		}, 1000);
 	};
 
 	const NavigateAnimePage = async (ID: number) => {
@@ -52,7 +60,6 @@ function MyLists() {
 
 	const PullLists = async () => {
 		setModalLoading(true);
-
 		if (user) {
 			const docRef = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			const docSnap = await getDoc(docRef);
@@ -104,7 +111,8 @@ function MyLists() {
 			}
 		}
 	};
-	useEffect(() => {
+
+	const Startup = () => {
 		PullFavourites()
 			.then((data) => {
 				const sorted = Object.keys(data!)
@@ -168,6 +176,10 @@ function MyLists() {
 			.then(() => {
 				setLoading(false);
 			});
+	};
+
+	useEffect(() => {
+		Startup();
 	}, []);
 
 	return (
