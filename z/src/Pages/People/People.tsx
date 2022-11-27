@@ -24,6 +24,14 @@ function People({}: Props) {
 				<LoadingScreen />
 			) : (
 				<>
+					<h2
+						style={{
+							margin: '5px',
+							marginLeft: '10px',
+						}}
+					>
+						Top People
+					</h2>
 					{TopPeople.map((Person: any, key: number) => {
 						return (
 							<div className="PersonContainer" key={key}>
