@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Tab, Tabs } from 'react-bootstrap';
+import React, { useEffect, useRef, useState } from 'react';
 
-type Props = { Query: string | undefined };
+type Props = { Query: string | undefined; SearchType: string };
 
-function SearchResults({ Query }: Props) {
-	const debounce = (fn: Function, ms = 1000) => {
-		let timeoutId: ReturnType<typeof setTimeout>;
-		return function (this: any, ...args: any[]) {
-			clearTimeout(timeoutId);
-			timeoutId = setTimeout(() => fn.apply(this, args), ms);
-		};
+function SearchResults({ Query, SearchType }: Props) {
+	const Search = async (SearchType: string) => {
+		`https://api.jikan.moe/v4/anime&q=${SearchType}`;
 	};
+
+	useEffect(() => {
+		console.log(SearchType);
+	}, [SearchType]);
 
 	useEffect(() => {
 		console.log(Query);
@@ -18,22 +17,8 @@ function SearchResults({ Query }: Props) {
 
 	return (
 		<div>
-			{Query}
-			<Tabs
-				defaultActiveKey="anime"
-				id="uncontrolled-tab-example"
-				className="mb-3"
-			>
-				<Tab eventKey="anime" title="Anime">
-					example anime
-				</Tab>
-				<Tab eventKey="manga" title="Manga">
-					example manga
-				</Tab>
-				<Tab eventKey="people" title="People">
-					example people
-				</Tab>
-			</Tabs>
+			<h2>{Query}</h2>
+			<h2>{SearchType}</h2>
 		</div>
 	);
 }

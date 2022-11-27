@@ -1,28 +1,42 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from 'react';
+import { debounce } from 'lodash';
+import React, {
+	ChangeEvent,
+	ChangeEventHandler,
+	useCallback,
+	useState,
+} from 'react';
+import { Tab, Tabs } from 'react-bootstrap';
 import SearchResults from '../../Components/Search/SearchResults';
 import '../../Styles/Search.scss';
 
-type Props = {};
+function Search() {
+	const [SearchTerm, setSearchTerm] = useState<string | undefined>();
+	const [SearchType, setSearchType] = useState<string>('anime');
 
-function Search({}: Props) {
-	const InputHandler = (e: React.FormEvent<HTMLInputElement>) => {
-		setSearchTerm(e.currentTarget.value);
+	const InputHandler = (event: any) => {
+		setSearchTerm(event.target.value);
 	};
 
-	const [SearchTerm, setSearchTerm] = useState<string | undefined>();
+	const debouncedHandler = useCallback(debounce(InputHandler, 1000), []);
+
 	return (
-		<div>
-			<div className="SearchbarContainer">
-				<h3 className="SearchbarHeader">Search hundreds of titles</h3>
-				<input
-					placeholder="Search"
-					className="SearchbarInput"
-					onChange={(e) => {
-						InputHandler(e);
-					}}
-				/>
-			</div>
-			<SearchResults Query={SearchTerm} />
+		<div className="SearchContainer">
+			<Tabs
+				defaultActiveKey="anime"
+				id="tabParent"
+				className="mb-3"
+				onSelect={(k) => setSearchType(k!)}
+			>
+				<Tab eventKey="anime" title="Anime" />
+				<Tab eventKey="manga" title="Manga" />
+				<Tab eventKey="people" title="People" />
+			</Tabs>
+			<input
+				placeholder="Search"
+				className="SearchbarInput"
+				onChange={debouncedHandler}
+			/>
+			<SearchResults Query={SearchTerm} SearchType={SearchType} />
 		</div>
 	);
 }
