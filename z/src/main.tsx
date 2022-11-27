@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<Provider store={store}>
-		<Router>
+		<Router basename="/">
 			<App />
 		</Router>
 	</Provider>
