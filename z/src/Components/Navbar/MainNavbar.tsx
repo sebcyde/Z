@@ -115,6 +115,25 @@ function MainNavbar({}: Props) {
 					<Nav.Link
 						eventKey="5"
 						as={Link}
+						to="people"
+						style={NavLinkStyle}
+						onClick={ResetAll}
+					>
+						People
+						<span
+							style={{
+								color: 'red',
+								margin: '0px',
+								width: 'fit-content',
+								marginLeft: '10px',
+							}}
+						>
+							NEW!
+						</span>
+					</Nav.Link>
+					<Nav.Link
+						eventKey="6"
+						as={Link}
 						to="mylists"
 						style={NavLinkStyle}
 						onClick={ResetAll}
@@ -122,7 +141,7 @@ function MainNavbar({}: Props) {
 						My Lists
 					</Nav.Link>
 					<Nav.Link
-						eventKey="6"
+						eventKey="7"
 						as={Link}
 						to="settings"
 						style={NavLinkStyle}

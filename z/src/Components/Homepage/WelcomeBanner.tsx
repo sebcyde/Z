@@ -1,8 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-type Props = {};
-
-function WelcomeBanner({}: Props) {
+function WelcomeBanner() {
 	return (
 		<div
 			style={{
@@ -15,7 +14,12 @@ function WelcomeBanner({}: Props) {
 				height: '40px',
 			}}
 		>
-			<h4 style={{ margin: '0px' }}>Welcome to Version 1 of Z!</h4>
+			<h4 style={{ margin: '0px', fontSize: '18px' }}>
+				You can now view people! Click{' '}
+				<Link to={'people'} style={{ color: 'white' }}>
+					here
+				</Link>
+			</h4>
 		</div>
 	);
 }

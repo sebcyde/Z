@@ -15,6 +15,7 @@ import SignIn from './Pages/SignIn/SignInComponent';
 import SignUp from './Pages/SignUp/SignUpComponent';
 import './Styles/Modal.scss';
 import Edit from './Pages/Settings/Edit';
+import People from './Pages/People/People';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -59,6 +60,7 @@ function App() {
 						<Route path="signin" element={<SignIn />} />
 						<Route path="signup" element={<SignUp />} />
 						<Route path="edit" element={<Edit />} />
+						<Route path="people" element={<People />} />
 					</Routes>
 				</>
 			)}
