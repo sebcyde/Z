@@ -27,9 +27,7 @@ function SearchResults({ Query, SearchType }: Props) {
 										/>
 										<div className="AnimeDetails">
 											<h2 className="AnimeTitle">{Anime.title}</h2>
-											{/* <h2 className="AnimeJPTitle">
-												JP Name: {Anime.given_name} {Anime.family_name}
-											</h2> */}
+
 											<span className="AnimeRanking">
 												<p>Rank: {Anime.rank}</p>
 												<p>Score: {Anime.score}</p>
@@ -69,9 +67,7 @@ function SearchResults({ Query, SearchType }: Props) {
 										/>
 										<div className="MangaDetails">
 											<h2 className="MangaTitle">{Manga.title}</h2>
-											{/* <h2 className="MangaJPTitle">
-												JP Name: {Manga.given_name} {Manga.family_name}
-											</h2> */}
+
 											<span className="MangaRanking">
 												<p>Rank: {Manga.rank}</p>
 												<p>Score: {Manga.score}</p>

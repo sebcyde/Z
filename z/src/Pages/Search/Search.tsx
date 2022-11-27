@@ -17,7 +17,7 @@ function Search() {
 		setSearchTerm(event.target.value);
 	};
 
-	const debouncedHandler = useCallback(debounce(InputHandler, 1500), []);
+	const debouncedHandler = useCallback(debounce(InputHandler, 1000), []);
 
 	return (
 		<div className="SearchContainer">
