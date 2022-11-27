@@ -39,7 +39,7 @@ function AnimeDetails({}: Props) {
 	const InMyList: boolean = false;
 	const [show, setShow] = useState(false);
 	const [Editing, setEditing] = useState<boolean>(false);
-	const NewListRef = useRef<HTMLInputElement>();
+	const NewListRef = useRef<HTMLInputElement>(null);
 	const auth = getAuth();
 	const user = auth.currentUser;
 
@@ -66,7 +66,7 @@ function AnimeDetails({}: Props) {
 
 				const sorted = Object.keys(Lists!)
 					.sort()
-					.reduce((accumulator, key) => {
+					.reduce((accumulator: any, key) => {
 						accumulator[key] = Lists![key];
 						return accumulator;
 					}, {});

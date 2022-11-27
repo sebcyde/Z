@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
 import '../../Styles/AuthPages.scss';
-import { SignUp, app } from '../../config/Firebase.js';
+import { Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
+import { SignIn, app } from '../../config/Firebase.js';
 
-function SignUpComponent() {
+function SignInComponent(): any {
 	const auth = getAuth(app);
 	const [UserEmail, setUserEmail] = useState('');
 	const [UserPassword, setUserPassword] = useState('');
+	const navigate = useNavigate();
 
-	const SetSignUp = (e) => {
+	const SetSignIn = (e: any) => {
 		e.preventDefault();
-		SignUp(auth, UserEmail, UserPassword);
+		SignIn(auth, UserEmail, UserPassword);
 	};
 
 	return (
 		<div className="SignInContainer">
 			<div>
-				<h2>Sign Up</h2>
-				<form>
+				<h2>Sign In</h2>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						SignIn(auth, UserEmail, UserPassword);
+					}}
+				>
 					<input
 						type="text"
 						placeholder="Email"
@@ -30,12 +36,12 @@ function SignUpComponent() {
 						placeholder="Password"
 						onChange={(e) => setUserPassword(e.target.value)}
 					/>
-					<Button onClick={SetSignUp}>Sign Up</Button>
-					<Link to="/signin">Already have an account?</Link>
+					<Button onClick={SetSignIn}>Sign In</Button>
+					<Link to="/signup">Create account</Link>
 				</form>
 			</div>
 		</div>
 	);
 }
 
-export default SignUpComponent;
+export default SignInComponent;

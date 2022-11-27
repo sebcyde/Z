@@ -82,7 +82,7 @@ function Edit({}: Props) {
 							<Form.Control
 								type="file"
 								onChange={(e) => {
-									setUserDeets();
+									setUserDeets(undefined);
 								}}
 							/>
 						</Form.Group>

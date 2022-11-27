@@ -23,7 +23,7 @@ function MyLists() {
 	const [SelectedList, setSelectedList] = useState<string>('');
 	const [ModalLoading, setModalLoading] = useState<boolean>(true);
 	const [Editing, setEditing] = useState<boolean>(false);
-	const [NewListRef, setNewListRef] = useState<SassString>('');
+	const [NewListRef, setNewListRef] = useState<string>('');
 	const dispatch = useDispatch();
 	const [show, setShow] = useState(false);
 	const [show2, setShow2] = useState(false);
@@ -73,7 +73,7 @@ function MyLists() {
 
 				const sorted = Object.keys(Lists!)
 					.sort()
-					.reduce((accumulator, key) => {
+					.reduce((accumulator: any, key) => {
 						accumulator[key] = Lists![key];
 						return accumulator;
 					}, {});
@@ -124,7 +124,7 @@ function MyLists() {
 			.then((data) => {
 				const sorted = Object.keys(data!)
 					.sort()
-					.reduce((accumulator, key) => {
+					.reduce((accumulator: any, key) => {
 						accumulator[key] = data![key];
 						return accumulator;
 					}, {});

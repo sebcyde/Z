@@ -48,7 +48,7 @@ function FavouritesCarousel({}: Props) {
 	useEffect(() => {
 		PullFavourites().then((Favourites) => {
 			if (Favourites == undefined) {
-				setNewCarousel();
+				setNewCarousel('');
 			} else {
 				setNewCarousel(
 					<>

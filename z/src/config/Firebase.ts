@@ -25,7 +25,7 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 // Sign Up New Users
-export const SignUp = async (auth, email, password) => {
+export const SignUp = async (auth: any, email: string, password: string) => {
 	try {
 		const UserCred = await createUserWithEmailAndPassword(
 			auth,
@@ -49,7 +49,7 @@ export const SignUp = async (auth, email, password) => {
 		});
 
 		console.log('User Creation Successful:');
-	} catch (error) {
+	} catch (error: any) {
 		const errorCode = error.code;
 		const errorMessage = error.message;
 		console.log(`Error ${errorCode}:`, errorMessage);
@@ -57,7 +57,7 @@ export const SignUp = async (auth, email, password) => {
 };
 
 // Sign In Existing Users
-export const SignIn = async (auth, email, password) => {
+export const SignIn = async (auth: any, email: string, password: string) => {
 	signInWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			// Signed in
