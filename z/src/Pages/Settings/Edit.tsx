@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../config/Firebase.js';
+import { db, storage } from '../../config/Firebase.js';
+import { ImageUpload, RetrieveImage } from '../../Functions/ImageControl.js';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import LoadingScreen from '../LoadingScreen.js';
@@ -23,24 +24,15 @@ function Edit({}: Props) {
 	const [UserDetails, setUserDetails] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [UserDeets, setUserDeets] = useState<NewUserDetailsType>();
-	//
-	// User Details State to be put into overall state and pushed to DB
-	const [UserImage, setUserImage] = useState<string>();
+
+	const [UserImage, setUserImage] = useState<File>();
 	const [UserDisplayName, setUserDisplayName] = useState<string>();
 	const [UserName, setUserName] = useState<string>();
 	const [UserEmail, setUserEmail] = useState<string>();
 	const [UserPassword, setUserPassword] = useState<string>();
-	//
 	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
-
-	const Startup = async () => {
-		await PullData();
-		setLoading(false);
-		console.log('User Details From Auth:', auth.currentUser);
-		console.log('User Details From DB:', UserDetails);
-	};
 
 	const PullData = async () => {
 		const docRef = doc(db, `Users/${user!.uid}`);
@@ -53,6 +45,13 @@ function Edit({}: Props) {
 		}
 	};
 
+	const Startup = async () => {
+		await PullData();
+		setLoading(false);
+		console.log('User Details From Auth:', auth.currentUser);
+		console.log('User Details From DB:', UserDetails);
+	};
+
 	useEffect(() => {
 		Startup();
 	}, []);
@@ -62,9 +61,19 @@ function Edit({}: Props) {
 		// setUserDeets({UserDeets})
 	};
 
-	const UpdateDetails = async () => {
+	const UpdateImage = (e: any) => {
+		ImageUpload(e.target.files[0]);
+		// setUserImage(e.target.files[0]);
+	};
+
+	const UpdateDetails = async (e: any) => {
+		e.preventDefault();
+
 		console.log(UserDeets);
 	};
+
+	// Image location
+	// gs://projectz-d8fdf.appspot.com/oiE27ZlECvbU5MhKPjVPRQpiMSp1
 
 	return (
 		<div>
@@ -79,12 +88,7 @@ function Edit({}: Props) {
 					<Form>
 						<Form.Group className="mb-3" controlId="DisplayPicture">
 							<Form.Label>Display Picture</Form.Label>
-							<Form.Control
-								type="file"
-								onChange={(e) => {
-									setUserDeets(undefined);
-								}}
-							/>
+							<Form.Control type="file" onChange={UpdateImage} />
 						</Form.Group>
 
 						<hr style={HRStyle} />
