@@ -14,12 +14,7 @@ function WelcomeBanner() {
 				height: '40px',
 			}}
 		>
-			<h4 style={{ margin: '0px', fontSize: '18px' }}>
-				You can now view people! Click{' '}
-				<Link to={'people'} style={{ color: 'white' }}>
-					here
-				</Link>
-			</h4>
+			<h4 style={{ margin: '0px', fontSize: '18px' }}>Current Version: V1.1</h4>
 		</div>
 	);
 }

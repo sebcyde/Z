@@ -24,13 +24,15 @@ function Homepage({}: Props) {
 			<AnimeListBanner
 				URL="https://api.jikan.moe/v4/seasons/upcoming"
 				Title="Upcoming Anime"
+				SlideDelay="0"
 			/>
 			<AnimeListBanner
 				URL="https://api.jikan.moe/v4/top/anime"
 				Title="Top Anime"
+				SlideDelay="100"
 			/>
 			<FavouritesCarousel />
-			<AnimeListBanner URL={BannerOne} Title="Top Manga" />
+			<AnimeListBanner URL={BannerOne} Title="Top Manga" SlideDelay="200" />
 			<TopPoster URL={BannerTwo} />
 		</div>
 	);

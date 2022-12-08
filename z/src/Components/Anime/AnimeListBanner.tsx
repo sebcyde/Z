@@ -10,9 +10,10 @@ import 'aos/dist/aos.css';
 type Props = {
 	URL: string;
 	Title: string;
+	SlideDelay: string;
 };
 
-function AnimeListBanner({ URL, Title }: Props) {
+function AnimeListBanner({ URL, Title, SlideDelay }: Props) {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [AnimeList, setAnimeList] = useState<JSX.Element[][]>();
 	const dispatch = useDispatch();
@@ -68,10 +69,18 @@ function AnimeListBanner({ URL, Title }: Props) {
 				<LoadingScreen />
 			) : (
 				<>
-					<h2 className="Banner" data-aos="fade-left">
+					<h2
+						className="Banner"
+						data-aos="fade-left"
+						data-aos-delay={SlideDelay}
+					>
 						{Title}
 					</h2>
-					<div className="BannerContainer" data-aos="fade-left">
+					<div
+						className="BannerContainer"
+						data-aos="fade-left"
+						data-aos-delay={SlideDelay}
+					>
 						{AnimeList}
 					</div>
 				</>

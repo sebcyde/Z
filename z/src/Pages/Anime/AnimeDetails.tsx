@@ -280,8 +280,14 @@ function AnimeDetails({}: Props) {
 				</>
 			)}
 
-			<Button onClick={ResetID}>Reset ID</Button>
-			<Button onClick={ShowDetails}>Show Details</Button>
+			{user && user.uid === 'oiE27ZlECvbU5MhKPjVPRQpiMSp1' ? (
+				<>
+					<Button onClick={ResetID}>Reset ID</Button>
+					<Button onClick={ShowDetails}>Show Details</Button>
+				</>
+			) : (
+				''
+			)}
 		</div>
 	);
 }

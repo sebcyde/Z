@@ -149,13 +149,16 @@ function MainNavbar({}: Props) {
 					>
 						Settings
 					</Nav.Link>
-					{/* <Navbar.Text style={NavLinkStyle}>
-						Signed in as: <a href="#login">{User}</a>
-					</Navbar.Text> */}
 				</Nav>
-				<Button onClick={PullID}>Pull Store ID</Button>
-				<Button onClick={PullUser}>Pull User Info</Button>
-				<Button onClick={PullLists}>Pull Lists</Button>
+				{user && user.uid === 'oiE27ZlECvbU5MhKPjVPRQpiMSp1' ? (
+					<>
+						<Button onClick={PullID}>Pull Store ID</Button>
+						<Button onClick={PullUser}>Pull User Info</Button>
+						<Button onClick={PullLists}>Pull Lists</Button>
+					</>
+				) : (
+					''
+				)}
 			</Navbar.Collapse>
 		</Navbar>
 	);
