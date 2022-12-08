@@ -116,9 +116,19 @@ function Edit({}: Props) {
 							<Form.Control type="password" placeholder="Password" />
 						</Form.Group>
 
-						<Button variant="primary" type="submit" onClick={UpdateDetails}>
-							Save
-						</Button>
+						<span>
+							<Button variant="primary" type="submit" onClick={UpdateDetails}>
+								Save
+							</Button>
+							<Button
+								variant="primary"
+								onClick={() => {
+									navigate('/settings');
+								}}
+							>
+								Cancel
+							</Button>
+						</span>
 					</Form>
 				</>
 			)}

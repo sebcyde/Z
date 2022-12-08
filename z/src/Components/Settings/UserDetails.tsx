@@ -19,21 +19,24 @@ function UserDetails({}: Props) {
 	const user = auth.currentUser;
 
 	const PullData = async () => {
-		const docRef = doc(db, `Users/${user!.uid}`);
-		const docSnap = await getDoc(docRef);
+		// Retrieve user display picture
 		const Image = await RetrieveImage();
 		setUserImage(Image);
+
+		// Retrieve user details
+		const docRef = doc(db, `Users/${user!.uid}`);
+		const docSnap = await getDoc(docRef);
 		if (docSnap.exists()) {
 			setUserDetails(docSnap.data());
-			console.log('User details set');
 		} else {
-			console.log('No such document!');
+			console.log('Failed to retrieve user details');
 		}
 	};
 
 	useEffect(() => {
 		PullData().then(() => {
 			setLoading(false);
+			console.log(UserImage);
 			console.log('User Details From Auth:', auth.currentUser);
 			console.log('User Details From DB:', UserDetails);
 		});
@@ -41,7 +44,7 @@ function UserDetails({}: Props) {
 
 	return (
 		<div className="UserDetailsContainer">
-			<img src={UserImage == null ? defaultPicture : UserImage} />
+			<img src={UserImage == null || undefined ? defaultPicture : UserImage} />
 			<h2>
 				{auth.currentUser?.displayName
 					? auth.currentUser?.displayName

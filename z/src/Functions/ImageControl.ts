@@ -1,5 +1,5 @@
 import { getAuth } from 'firebase/auth';
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../config/Firebase';
 
 const auth = getAuth();
@@ -14,7 +14,6 @@ export const ImageUpload = async (File: File) => {
 };
 
 export const RetrieveImage = async () => {
-	// const storage = getStorage();
 	const URL = await getDownloadURL(ref(UserStorageRef));
 	console.log(URL);
 	return URL;
