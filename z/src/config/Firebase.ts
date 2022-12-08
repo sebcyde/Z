@@ -42,8 +42,8 @@ export const SignUp = async (auth: any, email: string, password: string) => {
 			Username: user.displayName,
 			DisplayPicture: user.photoURL,
 			CreationDate: user.metadata.creationTime,
-			// UserLists: { Favourites: [] },
 			UID: user.uid,
+			Admin: false,
 		});
 
 		await setDoc(doc(db, `Users/${user.uid}/MoreInfo/Lists`), {

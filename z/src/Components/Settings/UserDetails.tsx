@@ -36,7 +36,6 @@ function UserDetails({}: Props) {
 	useEffect(() => {
 		PullData().then(() => {
 			setLoading(false);
-			console.log(UserImage);
 			console.log('User Details From Auth:', auth.currentUser);
 			console.log('User Details From DB:', UserDetails);
 		});

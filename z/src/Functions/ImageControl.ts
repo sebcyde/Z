@@ -15,6 +15,5 @@ export const ImageUpload = async (File: File) => {
 
 export const RetrieveImage = async () => {
 	const URL = await getDownloadURL(ref(UserStorageRef));
-	console.log(URL);
 	return URL;
 };
