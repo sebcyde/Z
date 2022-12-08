@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 import LoadingScreen from '../../Pages/LoadingScreen';
 import { Update } from '../../Store/Slices/AnimeSlice';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 type Props = {
 	URL: string;
@@ -15,6 +17,10 @@ function AnimeListBanner({ URL, Title }: Props) {
 	const [AnimeList, setAnimeList] = useState<JSX.Element[][]>();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		AOS.init();
+	}, []);
 
 	const NavigateAnimePage = async (ID: number) => {
 		dispatch(Update(ID));
@@ -62,8 +68,12 @@ function AnimeListBanner({ URL, Title }: Props) {
 				<LoadingScreen />
 			) : (
 				<>
-					<h2 className="Banner">{Title}</h2>
-					<div className="BannerContainer">{AnimeList} </div>
+					<h2 className="Banner" data-aos="fade-left">
+						{Title}
+					</h2>
+					<div className="BannerContainer" data-aos="fade-left">
+						{AnimeList}
+					</div>
 				</>
 			)}
 		</div>
