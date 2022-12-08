@@ -7,13 +7,38 @@ import FavouritesCarousel from '../../Components/Homepage/FavouritesCarousel';
 type Props = {};
 
 function Homepage({}: Props) {
-	const [BannerOne, setBannerOne] = useState<string>('');
-	const [BannerTwo, setBannerTwo] = useState<string>('');
+	const [FaveCarousel, setFaveCarousel] = useState<any>();
+	const [Banner0, setBanner0] = useState<any>();
+	const [Banner1, setBanner1] = useState<any>();
+	const [Banner2, setBanner2] = useState<any>();
+	const [TopPoster0, setTopPoster0] = useState<any>();
 
 	useEffect(() => {
 		setTimeout(() => {
-			setBannerOne('https://api.jikan.moe/v4/top/manga');
-			setBannerTwo('https://api.jikan.moe/v4/seasons/upcoming');
+			setBanner0(
+				<AnimeListBanner
+					URL="https://api.jikan.moe/v4/seasons/upcoming"
+					Title="Upcoming Anime"
+				/>
+			);
+			setBanner1(
+				<AnimeListBanner
+					URL="https://api.jikan.moe/v4/top/manga"
+					Title="Top Manga"
+				/>
+			);
+			setBanner2(
+				<AnimeListBanner
+					URL="https://api.jikan.moe/v4/top/anime"
+					Title="Top Anime"
+				/>
+			);
+			setFaveCarousel(<FavouritesCarousel />);
+		}, 1000);
+		setTimeout(() => {
+			setTopPoster0(
+				<TopPoster URL="https://api.jikan.moe/v4/seasons/upcoming" />
+			);
 		}, 2000);
 	}, []);
 
@@ -21,19 +46,11 @@ function Homepage({}: Props) {
 		<div className="page" style={{ overflowY: 'scroll' }}>
 			<WelcomeBanner />
 			<TopPoster URL="https://api.jikan.moe/v4/seasons/now" />
-			<AnimeListBanner
-				URL="https://api.jikan.moe/v4/seasons/upcoming"
-				Title="Upcoming Anime"
-				SlideDelay="0"
-			/>
-			<AnimeListBanner
-				URL="https://api.jikan.moe/v4/top/anime"
-				Title="Top Anime"
-				SlideDelay="100"
-			/>
-			<FavouritesCarousel />
-			<AnimeListBanner URL={BannerOne} Title="Top Manga" SlideDelay="200" />
-			<TopPoster URL={BannerTwo} />
+			{Banner0}
+			{Banner1}
+			{Banner2}
+			{FaveCarousel}
+			{TopPoster0}
 		</div>
 	);
 }

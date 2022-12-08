@@ -3,6 +3,7 @@ import React, {
 	ChangeEvent,
 	ChangeEventHandler,
 	useCallback,
+	useRef,
 	useState,
 } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
@@ -12,9 +13,16 @@ import '../../Styles/Search.scss';
 function Search() {
 	const [SearchTerm, setSearchTerm] = useState<string | undefined>();
 	const [SearchType, setSearchType] = useState<string>('anime');
+	const SearchInput = useRef(null);
 
 	const InputHandler = (event: any) => {
 		setSearchTerm(event.target.value);
+	};
+
+	const TabSelect = (k: string | null) => {
+		setSearchType(k!);
+		setSearchTerm('');
+		// SearchInput.current!.value = '';
 	};
 
 	const debouncedHandler = useCallback(debounce(InputHandler, 1000), []);
@@ -25,7 +33,7 @@ function Search() {
 				defaultActiveKey="anime"
 				id="tabParent"
 				className="mb-3"
-				onSelect={(k) => setSearchType(k!)}
+				onSelect={TabSelect}
 			>
 				<Tab eventKey="anime" title="Anime" />
 				<Tab eventKey="manga" title="Manga" />
@@ -34,6 +42,8 @@ function Search() {
 			<input
 				placeholder="Search"
 				className="SearchbarInput"
+				ref={SearchInput}
+				value={SearchTerm}
 				onChange={debouncedHandler}
 			/>
 			<SearchResults Query={SearchTerm} SearchType={SearchType} />
