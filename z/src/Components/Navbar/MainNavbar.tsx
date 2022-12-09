@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '../../assets/ZLogo.png';
 import { Button, Container, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
@@ -21,18 +21,22 @@ function MainNavbar({}: Props) {
 		(state: any) => state.FavouritesListState.Favourites
 	);
 	const dispatch = useDispatch();
+	const [Admin, setAdmin] = useState<boolean | undefined>(false);
 	const auth = getAuth();
 	const user = auth.currentUser;
 
-	const PullID = () => {
-		console.log('Anime StoreID:', StoreID);
-		console.log('Manga StoreMangaID:', StoreMangaID);
+	const getAdminStatus = async () => {
+		const UserRef = doc(db, `Users/${user?.uid}`);
+		const UserSnap = await getDoc(UserRef);
+		if (UserSnap.exists()) {
+			setAdmin(UserSnap.data().Admin);
+		}
 	};
 
-	const PullLists = async () => {
-		const auth = getAuth();
-		const user = auth.currentUser;
+	const PullData = async () => {
 		if (user) {
+			console.log('Current User:', user);
+
 			const docRef = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
@@ -41,14 +45,9 @@ function MainNavbar({}: Props) {
 			} else {
 				console.log('No Lists Available!');
 			}
-		}
-	};
-
-	const PullUser = () => {
-		if (user) {
-			console.log('Current User:', user);
-		} else {
-			console.log('No User Available!');
+			console.log('Anime StoreID:', StoreID);
+			console.log('Manga StoreMangaID:', StoreMangaID);
+			console.log('Current User is Admin?', Admin);
 		}
 	};
 
@@ -56,6 +55,10 @@ function MainNavbar({}: Props) {
 		dispatch(UpdateMangaID(0));
 		dispatch(Update(0));
 	};
+
+	useEffect(() => {
+		getAdminStatus();
+	}, []);
 
 	return (
 		<Navbar sticky="top" collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -150,11 +153,9 @@ function MainNavbar({}: Props) {
 						Settings
 					</Nav.Link>
 				</Nav>
-				{user && user.uid === 'oiE27ZlECvbU5MhKPjVPRQpiMSp1' ? (
+				{user && Admin ? (
 					<>
-						<Button onClick={PullID}>Pull Store ID</Button>
-						<Button onClick={PullUser}>Pull User Info</Button>
-						<Button onClick={PullLists}>Pull Lists</Button>
+						<Button onClick={PullData}>Pull Data</Button>
 					</>
 				) : (
 					''
