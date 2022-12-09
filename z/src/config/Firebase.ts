@@ -2,7 +2,6 @@ import { initializeApp } from 'firebase/app';
 import { doc, setDoc } from 'firebase/firestore';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
-import defaultPicture from '../assets/PFP/girl1.png';
 
 import {
 	getAuth,
@@ -10,6 +9,7 @@ import {
 	signInWithEmailAndPassword,
 	onAuthStateChanged,
 } from 'firebase/auth';
+import { DefaultImageUpload } from '../Functions/ImageControl';
 
 const config = {
 	firebase: {
@@ -46,7 +46,7 @@ export const SignUp = async (
 		await setDoc(doc(db, `Users/${user.uid}`), {
 			UserEmail: user.email,
 			Username: Username,
-			DisplayPicture: defaultPicture,
+			DisplayPicture: '',
 			CreationDate: user.metadata.creationTime,
 			UID: user.uid,
 			Admin: false,
@@ -55,6 +55,8 @@ export const SignUp = async (
 		await setDoc(doc(db, `Users/${user.uid}/MoreInfo/Lists`), {
 			Favourites: [],
 		});
+
+		await DefaultImageUpload(user);
 
 		console.log('User Creation Successful:');
 	} catch (error: any) {

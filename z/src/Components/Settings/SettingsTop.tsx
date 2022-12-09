@@ -6,7 +6,10 @@ import defaultPicture from '../../assets/PFP/girl1.png';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/Firebase.js';
 import { useNavigate } from 'react-router-dom';
-import { RetrieveImage } from '../../Functions/ImageControl';
+import {
+	DefaultImageUpload,
+	RetrieveImage,
+} from '../../Functions/ImageControl';
 import LoadingScreen from '../../Pages/LoadingScreen';
 
 type UserAuthObject = {
@@ -27,8 +30,9 @@ function SettingsTop() {
 	const user = auth.currentUser;
 
 	const PullData = async () => {
+		// Doesn't work for default image?
 		const Image = await RetrieveImage(user);
-		if (Image) setUserImage(Image);
+		setUserImage(Image);
 
 		// Retrieve user details from DB
 		const docRef = doc(db, `Users/${user!.uid}`);
@@ -61,6 +65,7 @@ function SettingsTop() {
 					>
 						Edit Profile <AiOutlineRight />
 					</Button>
+					<Button onClick={() => DefaultImageUpload(user)}>Pull Storage</Button>
 				</>
 			)}
 		</div>

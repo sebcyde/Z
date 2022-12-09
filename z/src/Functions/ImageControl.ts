@@ -2,6 +2,7 @@ import { getAuth, updateProfile } from 'firebase/auth';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../config/Firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import DefaultGirl from '../assets/PFP/girl2.png';
 
 export const ImageUpload = async (user: any, File: File) => {
 	const UserStorageRef = ref(storage, user?.uid);
@@ -23,12 +24,30 @@ export const ImageUpload = async (user: any, File: File) => {
 };
 
 export const RetrieveImage = async (user: any) => {
-	const UserStorageRef = ref(storage, user?.uid);
 	// Retrieve user details from DB
 	const UserRef = doc(db, `Users/${user?.uid}`);
 	const docSnap = await getDoc(UserRef);
+
+	const DefaultStorageRef = ref(storage, `DefaultImages/girl1.png`);
+	const UserStorageRef = ref(storage, user?.uid);
+
+	// Need to somehow default one or the other
 	const URL = await getDownloadURL(
-		ref(UserStorageRef, `${docSnap.data()!.DisplayPicture}`)
+		ref(
+			UserStorageRef ? UserStorageRef : DefaultStorageRef,
+			`${docSnap.data()!.DisplayPicture}`
+		)
 	);
+
 	return URL;
+};
+
+export const DefaultImageUpload = async (user: any) => {
+	// Need to upload an initial image to cloud otherwise Retrieve function wont work as cant load page without image
+	const UserStorageRef = ref(storage, user?.uid);
+
+	// These update perfectly
+	const UserRef = doc(db, `Users/${user?.uid}`);
+	await updateProfile(user!, { photoURL: URL });
+	await setDoc(UserRef, { DisplayPicture: URL }, { merge: true });
 };
