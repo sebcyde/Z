@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Logo from '../../assets/ZLogo.png';
 import { Button, Container, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UpdateMangaID } from '../../Store/Slices/MangaSlice';
 import { Update } from '../../Store/Slices/AnimeSlice';
 import { getAuth } from 'firebase/auth';
-import { PullLists, PullUser } from '../../Functions/UserInfo';
 type Props = {};
 
 const NavLinkStyle = {
@@ -25,13 +24,32 @@ function MainNavbar({}: Props) {
 	const auth = getAuth();
 	const user = auth.currentUser;
 
-	useEffect(() => {}, []);
-
-	const PullData = async () => {
+	const PullID = () => {
 		console.log('Anime StoreID:', StoreID);
 		console.log('Manga StoreMangaID:', StoreMangaID);
-		await PullUser();
-		await PullLists();
+	};
+
+	const PullLists = async () => {
+		const auth = getAuth();
+		const user = auth.currentUser;
+		if (user) {
+			const docRef = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				const Lists = docSnap.data();
+				console.log('DB Lists:', Lists);
+			} else {
+				console.log('No Lists Available!');
+			}
+		}
+	};
+
+	const PullUser = () => {
+		if (user) {
+			console.log('Current User:', user);
+		} else {
+			console.log('No User Available!');
+		}
 	};
 
 	const ResetAll = () => {
@@ -132,14 +150,15 @@ function MainNavbar({}: Props) {
 						Settings
 					</Nav.Link>
 				</Nav>
-				{user && user.Admin ? (
+				{user && user.uid === 'oiE27ZlECvbU5MhKPjVPRQpiMSp1' ? (
 					<>
-						<Button onClick={PullData}>Pull Data</Button>
+						<Button onClick={PullID}>Pull Store ID</Button>
+						<Button onClick={PullUser}>Pull User Info</Button>
+						<Button onClick={PullLists}>Pull Lists</Button>
 					</>
 				) : (
 					''
 				)}
-				<Button onClick={PullData}>Pull Data</Button>
 			</Navbar.Collapse>
 		</Navbar>
 	);

@@ -37,9 +37,10 @@ function FavouritesCarousel({}: Props) {
 					? (Favourites = data[Object.keys(data)[1]])
 					: (Favourites = data.Favourites);
 
+				console.log('Carousel List:', Favourites);
 				return Favourites;
 			} else {
-				console.log('Error fetching user lists');
+				console.log('No such document!');
 			}
 		}
 	};
@@ -47,10 +48,8 @@ function FavouritesCarousel({}: Props) {
 	useEffect(() => {
 		PullFavourites().then((Favourites) => {
 			if (Favourites == undefined) {
-				console.log('No lists available for carousel');
 				setNewCarousel('');
 			} else {
-				console.log('Carousel List:', Favourites);
 				setNewCarousel(
 					<>
 						<div className="FavouritesContainer">

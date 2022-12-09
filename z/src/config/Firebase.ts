@@ -27,12 +27,7 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 // Sign Up New Users
-export const SignUp = async (
-	auth: any,
-	email: string,
-	password: string,
-	username: string
-) => {
+export const SignUp = async (auth: any, email: string, password: string) => {
 	try {
 		const UserCred = await createUserWithEmailAndPassword(
 			auth,
@@ -44,7 +39,7 @@ export const SignUp = async (
 
 		await setDoc(doc(db, `Users/${user.uid}`), {
 			UserEmail: user.email,
-			Username: username,
+			Username: user.displayName,
 			DisplayPicture: user.photoURL,
 			CreationDate: user.metadata.creationTime,
 			UID: user.uid,
@@ -53,12 +48,6 @@ export const SignUp = async (
 
 		await setDoc(doc(db, `Users/${user.uid}/MoreInfo/Lists`), {
 			Favourites: [],
-		});
-
-		await setDoc(doc(db, `Users/${user.uid}/MoreInfo/Friends`), {
-			Friends: ['oiE27ZlECvbU5MhKPjVPRQpiMSp1'],
-			Followers: [],
-			Following: [],
 		});
 
 		console.log('User Creation Successful:');

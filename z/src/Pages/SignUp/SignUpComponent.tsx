@@ -8,12 +8,11 @@ import { SignUp, app } from '../../config/Firebase.js';
 function SignUpComponent() {
 	const auth = getAuth(app);
 	const [UserEmail, setUserEmail] = useState('');
-	const [Username, setUsername] = useState('');
 	const [UserPassword, setUserPassword] = useState('');
 
 	const SetSignUp = (e: any) => {
 		e.preventDefault();
-		SignUp(auth, UserEmail, UserPassword, Username);
+		SignUp(auth, UserEmail, UserPassword);
 	};
 
 	return (
@@ -21,11 +20,6 @@ function SignUpComponent() {
 			<div>
 				<h2>Sign Up</h2>
 				<form>
-					<input
-						type="text"
-						placeholder="Username"
-						onChange={(e) => setUsername(e.target.value)}
-					/>
 					<input
 						type="text"
 						placeholder="Email"
