@@ -1,5 +1,5 @@
 import React from 'react';
-import UserDetails from '../../Components/Settings/UserDetails';
+import UserDetails from '../../Components/Settings/SettingsTop';
 import SettingsBottom from '../../Components/Settings/SettingsBottom';
 
 type Props = {};

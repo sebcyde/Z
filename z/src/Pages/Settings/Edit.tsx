@@ -97,11 +97,11 @@ function Edit({}: Props) {
 						</Form.Group>
 						<hr style={HRStyle} />
 
-						<Form.Group className="mb-3" controlId="Name">
+						{/* <Form.Group className="mb-3" controlId="Name">
 							<Form.Label>Name</Form.Label>
 							<Form.Control type="text" placeholder="Enter Name" />
 						</Form.Group>
-						<hr style={HRStyle} />
+						<hr style={HRStyle} /> */}
 
 						<Form.Group className="mb-3" controlId="Email">
 							<Form.Label>Email address</Form.Label>
