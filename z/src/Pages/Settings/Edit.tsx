@@ -64,7 +64,7 @@ function Edit({}: Props) {
 	};
 
 	const UpdateImage = (e: any) => {
-		ImageUpload(e.target.files[0]);
+		ImageUpload(auth.currentUser, e.target.files[0]);
 	};
 
 	const UpdateDetails = async (e: any) => {

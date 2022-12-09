@@ -20,7 +20,7 @@ function UserDetails({}: Props) {
 
 	const PullData = async () => {
 		// Retrieve user display picture
-		const Image = await RetrieveImage();
+		const Image = await RetrieveImage(auth.currentUser);
 		setUserImage(Image);
 
 		// Retrieve user details

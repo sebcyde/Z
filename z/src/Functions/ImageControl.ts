@@ -3,12 +3,9 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../config/Firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
-const auth = getAuth();
-const user = auth.currentUser;
-const UserStorageRef = ref(storage, user?.uid);
-const UserRef = doc(db, `Users/${user?.uid}`);
-
-export const ImageUpload = async (File: File) => {
+export const ImageUpload = async (user: any, File: File) => {
+	const UserStorageRef = ref(storage, user?.uid);
+	const UserRef = doc(db, `Users/${user?.uid}`);
 	const UserImageRef = ref(storage, `${user?.uid}/${File.name}`);
 	console.log('File Name:', File.name);
 
@@ -25,7 +22,9 @@ export const ImageUpload = async (File: File) => {
 	});
 };
 
-export const RetrieveImage = async () => {
+export const RetrieveImage = async (user: any) => {
+	const UserStorageRef = ref(storage, user?.uid);
+	const UserRef = doc(db, `Users/${user?.uid}`);
 	// Retrieve user details from DB
 	const docRef = doc(db, `Users/${user!.uid}`);
 	const docSnap = await getDoc(docRef);
