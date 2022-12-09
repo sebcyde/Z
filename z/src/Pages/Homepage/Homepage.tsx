@@ -17,15 +17,14 @@ function Homepage({}: Props) {
 		setTimeout(() => {
 			setBanner0(
 				<AnimeListBanner
-					URL="https://api.jikan.moe/v4/top/anime"
-					Title="Top Anime"
+					URL="https://api.jikan.moe/v4/top/manga"
+					Title="Top Manga"
 				/>
 			);
-			setFaveCarousel(<FavouritesCarousel />);
 			setTopPoster0(
 				<TopPoster URL="https://api.jikan.moe/v4/seasons/upcoming" />
 			);
-		}, 1000);
+		}, 2000);
 	}, []);
 
 	return (
@@ -33,15 +32,17 @@ function Homepage({}: Props) {
 			<WelcomeBanner />
 			<TopPoster URL="https://api.jikan.moe/v4/seasons/now" />
 			<AnimeListBanner
+				URL="https://api.jikan.moe/v4/top/anime"
+				Title="Top Anime"
+			/>
+			<AnimeListBanner
 				URL="https://api.jikan.moe/v4/seasons/upcoming"
 				Title="Upcoming Anime"
 			/>
-			<AnimeListBanner
-				URL="https://api.jikan.moe/v4/top/manga"
-				Title="Top Manga"
-			/>
+
+			<FavouritesCarousel />
 			{Banner0}
-			{FaveCarousel}
+
 			{TopPoster0}
 		</div>
 	);
