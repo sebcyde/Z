@@ -49,6 +49,10 @@ function SettingsBottom() {
 						<p>{capitalizeFirstLetter(UserDetails.Admin.toString())}</p>
 					</div>
 					<div className="SettingsPageRow">
+						<p>Username</p>
+						<p>{UserDetails?.Username}</p>
+					</div>
+					<div className="SettingsPageRow">
 						<p>Email</p>
 						<p>{user?.email}</p>
 					</div>

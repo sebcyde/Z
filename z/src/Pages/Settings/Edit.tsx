@@ -8,6 +8,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import LoadingScreen from '../LoadingScreen.js';
 import { Toast } from 'react-bootstrap';
+import {
+	UpdateDisplayName,
+	UpdateEmail,
+	UpdatePassword,
+} from '../../Functions/EditDetails.js';
 
 type Props = {};
 type NewUserDetailsType = {
@@ -28,7 +33,6 @@ function Edit({}: Props) {
 
 	const [UserImage, setUserImage] = useState<File>();
 	const [UserDisplayName, setUserDisplayName] = useState<string>();
-	const [UserName, setUserName] = useState<string>();
 	const [UserEmail, setUserEmail] = useState<string>();
 	const [UserPassword, setUserPassword] = useState<string>();
 	const [show, setShow] = useState(false);
@@ -58,19 +62,26 @@ function Edit({}: Props) {
 		Startup();
 	}, []);
 
-	const UpdateState = (key: string, value: string | number) => {
-		// UserDeets.[key] = value;
-		// setUserDeets({UserDeets})
-	};
-
-	const UpdateImage = (e: any) => {
-		ImageUpload(auth.currentUser, e.target.files[0]);
-	};
-
 	const UpdateDetails = async (e: any) => {
 		e.preventDefault();
+		setLoading(true);
+		if (UserImage != undefined) {
+			ImageUpload(auth.currentUser, UserImage);
+		}
+		if (UserDisplayName != undefined) {
+			await UpdateDisplayName(auth.currentUser, UserDisplayName);
+		}
 
+		if (UserEmail != undefined) {
+			await UpdateEmail(auth.currentUser, UserEmail);
+		}
+
+		if (UserPassword != undefined) {
+			await UpdatePassword(auth.currentUser, UserPassword);
+		}
+		setLoading(false);
 		console.log(UserDeets);
+		setShow(true);
 	};
 
 	return (
@@ -86,14 +97,25 @@ function Edit({}: Props) {
 					<Form>
 						<Form.Group className="mb-3" controlId="DisplayPicture">
 							<Form.Label>Display Picture</Form.Label>
-							<Form.Control type="file" onChange={UpdateImage} />
+							<Form.Control
+								type="file"
+								onChange={(e: any) => {
+									setUserImage(e.target.files[0]);
+								}}
+							/>
 						</Form.Group>
 
 						<hr style={HRStyle} />
 
 						<Form.Group className="mb-3" controlId="DisplayName">
 							<Form.Label>Display Name</Form.Label>
-							<Form.Control type="text" placeholder="Display Name" />
+							<Form.Control
+								type="text"
+								placeholder="Display Name"
+								onChange={(e: any) => {
+									setUserDisplayName(e.target.value);
+								}}
+							/>
 						</Form.Group>
 						<hr style={HRStyle} />
 
@@ -119,7 +141,7 @@ function Edit({}: Props) {
 								Save
 							</Button>
 							<Button
-								variant="primary"
+								variant="danger"
 								onClick={() => {
 									navigate('/settings');
 								}}
@@ -131,7 +153,7 @@ function Edit({}: Props) {
 					<Toast
 						onClose={() => setShow(false)}
 						show={show}
-						delay={3000}
+						delay={2000}
 						autohide
 					>
 						<Toast.Header>

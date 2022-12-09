@@ -7,26 +7,34 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/Firebase.js';
 import { useNavigate } from 'react-router-dom';
 import { RetrieveImage } from '../../Functions/ImageControl';
+import LoadingScreen from '../../Pages/LoadingScreen';
 
-type Props = {};
+type UserAuthObject = {
+	CreationDate: string;
+	UserEmail: string;
+	Username: string;
+	DisplayPicture: string;
+	UID: string;
+	Admin: boolean;
+};
 
-function UserDetails({}: Props) {
+function SettingsTop() {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [UserDetails, setUserDetails] = useState<any>();
-	const [UserImage, setUserImage] = useState<string>('');
+	const [UserImage, setUserImage] = useState<string>(defaultPicture);
 	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
 
 	const PullData = async () => {
-		// Retrieve user display picture
-		const Image = await RetrieveImage(auth.currentUser);
-		setUserImage(Image);
+		const Image = await RetrieveImage(user);
+		if (Image) setUserImage(Image);
 
-		// Retrieve user details
+		// Retrieve user details from DB
 		const docRef = doc(db, `Users/${user!.uid}`);
 		const docSnap = await getDoc(docRef);
 		if (docSnap.exists()) {
+			console.log(docSnap.data());
 			setUserDetails(docSnap.data());
 		} else {
 			console.log('Failed to retrieve user details');
@@ -34,31 +42,29 @@ function UserDetails({}: Props) {
 	};
 
 	useEffect(() => {
-		PullData().then(() => {
-			setLoading(false);
-			console.log('User Details From Auth:', auth.currentUser);
-			console.log('User Details From DB:', UserDetails);
-		});
+		PullData().then(() => setLoading(false));
 	}, []);
 
 	return (
 		<div className="UserDetailsContainer">
-			<img src={UserImage == null || undefined ? defaultPicture : UserImage} />
-			<h2>
-				{auth.currentUser?.displayName
-					? auth.currentUser?.displayName
-					: '"Display Name"'}
-			</h2>
-			<p>{auth.currentUser?.email}</p>
-			<Button
-				onClick={() => {
-					navigate('/edit');
-				}}
-			>
-				Edit Profile <AiOutlineRight />
-			</Button>
+			{Loading ? (
+				<LoadingScreen />
+			) : (
+				<>
+					<img src={UserImage} />
+					<h2>{UserDetails.Username}</h2>
+					<p>{auth.currentUser?.email}</p>
+					<Button
+						onClick={() => {
+							navigate('/edit');
+						}}
+					>
+						Edit Profile <AiOutlineRight />
+					</Button>
+				</>
+			)}
 		</div>
 	);
 }
 
-export default UserDetails;
+export default SettingsTop;

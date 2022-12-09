@@ -24,10 +24,9 @@ export const ImageUpload = async (user: any, File: File) => {
 
 export const RetrieveImage = async (user: any) => {
 	const UserStorageRef = ref(storage, user?.uid);
-	const UserRef = doc(db, `Users/${user?.uid}`);
 	// Retrieve user details from DB
-	const docRef = doc(db, `Users/${user!.uid}`);
-	const docSnap = await getDoc(docRef);
+	const UserRef = doc(db, `Users/${user?.uid}`);
+	const docSnap = await getDoc(UserRef);
 	const URL = await getDownloadURL(
 		ref(UserStorageRef, `${docSnap.data()!.DisplayPicture}`)
 	);

@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { doc, setDoc } from 'firebase/firestore';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
+import defaultPicture from '../assets/PFP/girl1.png';
 
 import {
 	getAuth,
@@ -27,7 +28,12 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 // Sign Up New Users
-export const SignUp = async (auth: any, email: string, password: string) => {
+export const SignUp = async (
+	auth: any,
+	email: string,
+	password: string,
+	Username: string
+) => {
 	try {
 		const UserCred = await createUserWithEmailAndPassword(
 			auth,
@@ -39,8 +45,8 @@ export const SignUp = async (auth: any, email: string, password: string) => {
 
 		await setDoc(doc(db, `Users/${user.uid}`), {
 			UserEmail: user.email,
-			Username: user.displayName,
-			DisplayPicture: user.photoURL,
+			Username: Username,
+			DisplayPicture: defaultPicture,
 			CreationDate: user.metadata.creationTime,
 			UID: user.uid,
 			Admin: false,
