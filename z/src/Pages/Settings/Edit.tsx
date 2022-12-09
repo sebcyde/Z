@@ -7,6 +7,7 @@ import { ImageUpload, RetrieveImage } from '../../Functions/ImageControl.js';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import LoadingScreen from '../LoadingScreen.js';
+import { Toast } from 'react-bootstrap';
 
 type Props = {};
 type NewUserDetailsType = {
@@ -30,6 +31,7 @@ function Edit({}: Props) {
 	const [UserName, setUserName] = useState<string>();
 	const [UserEmail, setUserEmail] = useState<string>();
 	const [UserPassword, setUserPassword] = useState<string>();
+	const [show, setShow] = useState(false);
 	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
@@ -63,7 +65,6 @@ function Edit({}: Props) {
 
 	const UpdateImage = (e: any) => {
 		ImageUpload(e.target.files[0]);
-		// setUserImage(e.target.files[0]);
 	};
 
 	const UpdateDetails = async (e: any) => {
@@ -71,9 +72,6 @@ function Edit({}: Props) {
 
 		console.log(UserDeets);
 	};
-
-	// Image location
-	// gs://projectz-d8fdf.appspot.com/oiE27ZlECvbU5MhKPjVPRQpiMSp1
 
 	return (
 		<div>
@@ -130,6 +128,25 @@ function Edit({}: Props) {
 							</Button>
 						</span>
 					</Form>
+					<Toast
+						onClose={() => setShow(false)}
+						show={show}
+						delay={3000}
+						autohide
+					>
+						<Toast.Header>
+							<img
+								src="holder.js/20x20?text=%20"
+								className="rounded me-2"
+								alt=""
+							/>
+							<strong className="me-auto">Bootstrap</strong>
+							<small>11 mins ago</small>
+						</Toast.Header>
+						<Toast.Body>
+							Woohoo, you're reading this text in a Toast!
+						</Toast.Body>
+					</Toast>
 				</>
 			)}
 		</div>

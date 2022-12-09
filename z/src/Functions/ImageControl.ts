@@ -1,7 +1,7 @@
 import { getAuth, updateProfile } from 'firebase/auth';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../config/Firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const auth = getAuth();
 const user = auth.currentUser;
@@ -15,10 +15,8 @@ export const ImageUpload = async (File: File) => {
 	// Update in Firestore
 	await setDoc(UserRef, { DisplayPicture: File.name }, { merge: true });
 
-	// Update in Auth
-	if (user) {
-		await updateProfile(user, { photoURL: File.name });
-	}
+	// Update in Auth - doesn't work sometimes
+	// await updateProfile(user!, { photoURL: File.name });
 
 	// Update in Cloud Storage
 	uploadBytes(UserImageRef, File).then((snapshot) => {
@@ -28,6 +26,11 @@ export const ImageUpload = async (File: File) => {
 };
 
 export const RetrieveImage = async () => {
-	const URL = await getDownloadURL(ref(UserStorageRef, `${user?.photoURL}`));
+	// Retrieve user details from DB
+	const docRef = doc(db, `Users/${user!.uid}`);
+	const docSnap = await getDoc(docRef);
+	const URL = await getDownloadURL(
+		ref(UserStorageRef, `${docSnap.data()!.DisplayPicture}`)
+	);
 	return URL;
 };
