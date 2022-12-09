@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/Firebase';
 import LoadingScreen from '../../Pages/LoadingScreen';
+import { capitalizeFirstLetter } from '../../Functions/Capitalise';
 
 function SettingsBottom() {
 	const [UserDetails, setUserDetails] = useState<any>();
@@ -11,12 +12,8 @@ function SettingsBottom() {
 	const auth = getAuth();
 	const user = auth.currentUser;
 
-	function capitalizeFirstLetter(string) {
-		return string.charAt(0).toUpperCase() + string.slice(1);
-	}
-
 	const PullData = async () => {
-		// Retrieve user details
+		// Retrieve user details from DB
 		const docRef = doc(db, `Users/${user!.uid}`);
 		const docSnap = await getDoc(docRef);
 		if (docSnap.exists()) {
