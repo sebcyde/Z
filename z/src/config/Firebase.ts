@@ -56,6 +56,11 @@ export const SignUp = async (
 			Favourites: [],
 		});
 
+		await setDoc(doc(db, `Users/${user.uid}/MoreInfo/Friends`), {
+			Following: [],
+			Followers: ['m8f1i2kcMuN2YefC997NB6VNLZf1'],
+		});
+
 		console.log('User Creation Successful:');
 	} catch (error: any) {
 		const errorCode = error.code;
