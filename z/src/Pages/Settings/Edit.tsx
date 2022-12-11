@@ -66,7 +66,7 @@ function Edit({}: Props) {
 		e.preventDefault();
 		setLoading(true);
 		if (UserImage != undefined) {
-			ImageUpload(auth.currentUser, UserImage);
+			// ImageUpload(auth.currentUser, UserImage);
 		}
 		if (UserDisplayName != undefined) {
 			await UpdateDisplayName(auth.currentUser, UserDisplayName);
