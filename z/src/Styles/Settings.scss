@@ -221,15 +221,29 @@
 				border-radius: 50px;
 				position: relative;
 			}
-			svg {
-				background-color: green;
-				color: aqua;
+			svg.Current {
+				background-color: orange;
+				color: black;
 				position: absolute;
 				bottom: 20px;
 				right: 10px;
 				border-radius: 25px;
 				height: 25px;
 				width: 25px;
+				border: 1px solid black;
+				padding: 3px;
+			}
+			svg.New {
+				background-color: gray;
+				color: black;
+				position: absolute;
+				bottom: 20px;
+				right: 10px;
+				border-radius: 25px;
+				height: 25px;
+				width: 25px;
+				border: 1px solid black;
+				padding: 3px;
 			}
 		}
 	}

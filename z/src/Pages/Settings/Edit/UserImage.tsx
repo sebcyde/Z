@@ -29,6 +29,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 function UserImage() {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [UserDetails, setUserDetails] = useState<any>();
+	const [NewImage, setNewImage] = useState('');
 	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
@@ -65,9 +66,9 @@ function UserImage() {
 		}
 	};
 
-	const ChangePicture = async (URL: string) => {
+	const ChangePicture = async () => {
 		setLoading(true);
-		await ImageUpload(user, URL);
+		await ImageUpload(user, NewImage);
 		navigate('/settings');
 		setLoading(false);
 	};
@@ -83,19 +84,24 @@ function UserImage() {
 			) : (
 				<>
 					<div className="TopSection">
-						<Button>Cancel</Button>
+						<Button onClick={() => navigate('/settings')}>Cancel</Button>
 						<span>
 							<img src={UserDetails.DisplayPicture} />
 							<p>{UserDetails.Username}</p>
 						</span>
-						<Button>Save</Button>
+						<Button onClick={ChangePicture}>Save</Button>
 					</div>
 					<div className="ImagesContainer">
-						{images.map((Image: string) => {
+						{images.map((Image: string, index: number) => {
 							return (
-								<div>
-									<img src={Image} onClick={() => ChangePicture(Image)} />
-									{UserDetails.DisplayPicture === Image ? <FaCheck /> : ''}
+								<div key={index}>
+									<img src={Image} onClick={() => setNewImage(Image)} />
+									{NewImage === Image ? <FaCheck className="New" /> : ''}
+									{UserDetails.DisplayPicture === Image ? (
+										<FaCheck className="Current" />
+									) : (
+										''
+									)}
 								</div>
 							);
 						})}
