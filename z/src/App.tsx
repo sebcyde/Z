@@ -19,6 +19,7 @@ import UserName from './Pages/Settings/Edit/UserName';
 import UserEmail from './Pages/Settings/Edit/UserEmail';
 import UserImage from './Pages/Settings/Edit/UserImage';
 import Friends from './Pages/Friends/Friends';
+import UserPage from './Pages/Friends/UserPage';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -63,6 +64,7 @@ function App() {
 						<Route path="signin" element={<SignIn />} />
 						<Route path="signup" element={<SignUp />} />
 						<Route path="friends" element={<Friends />} />
+						<Route path="user" element={<UserPage />} />
 						<Route path="edit">
 							<Route path="userimage" element={<UserImage />} />
 							<Route path="username" element={<UserName />} />

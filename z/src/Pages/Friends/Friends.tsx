@@ -4,8 +4,11 @@ import { debounce } from 'lodash';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { FaArrowRight } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import UserSearch from '../../Components/Search/UserSearch';
 import { db } from '../../config/Firebase';
+import { SetUser } from '../../Store/Slices/UserSlice';
 import LoadingScreen from '../LoadingScreen';
 
 const ArrowStyle = {
@@ -19,6 +22,8 @@ function Friends() {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [UserDetails, setUserDetails] = useState<any>();
 	const [SearchType, setSearchType] = useState('following');
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const SearchInput = useRef(null);
 	const auth = getAuth();
 	const user = auth.currentUser;
@@ -81,6 +86,11 @@ function Friends() {
 		setSearchTerm(event.target.value);
 	};
 
+	const NavigateToUser = (User: string) => {
+		dispatch(SetUser(User));
+		navigate('/user');
+	};
+
 	const debouncedHandler = useCallback(debounce(InputHandler, 1000), []);
 
 	useEffect(() => {
@@ -139,7 +149,13 @@ function Friends() {
 							<>
 								{UserFollowing.map((Following, index: number) => {
 									return (
-										<div key={index} className="ConnectionContainer">
+										<div
+											key={index}
+											className="ConnectionContainer"
+											onClick={() => {
+												NavigateToUser(Following.UID);
+											}}
+										>
 											<img
 												src={Following.DisplayPicture}
 												className="ConnectionImage"
@@ -160,7 +176,13 @@ function Friends() {
 							<>
 								{UserFollowers.map((Follower, index: number) => {
 									return (
-										<div key={index} className="ConnectionContainer">
+										<div
+											key={index}
+											className="ConnectionContainer"
+											onClick={() => {
+												NavigateToUser(Follower.UID);
+											}}
+										>
 											<img
 												src={Follower.DisplayPicture}
 												className="ConnectionImage"

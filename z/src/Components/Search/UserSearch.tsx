@@ -1,8 +1,11 @@
 import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { db } from '../../config/Firebase';
 import LoadingScreen from '../../Pages/LoadingScreen';
+import { SetUser } from '../../Store/Slices/UserSlice';
 
 const ArrowStyle = { marginLeft: '10px' };
 
@@ -11,16 +14,20 @@ type Props = { Query: string };
 function UserSearch({ Query }: Props) {
 	const [UserSearchResults, setUserSearchResults] = useState<any[]>();
 	const [Loading, setLoading] = useState<boolean>(false);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const GetUsers = async () => {
 		const querySnapshot = await getDocs(collection(db, 'Users'));
-		querySnapshot.forEach((doc) => {
-			console.log(doc.id, ' => ', doc.data());
-		});
 		const FilteredUsers = querySnapshot.docs.filter((doc) => {
 			return doc.data().Username.toLowerCase().includes(Query.toLowerCase());
 		});
 		setUserSearchResults(FilteredUsers);
+	};
+
+	const NavigateToUser = (User: string) => {
+		dispatch(SetUser(User));
+		navigate('/user');
 	};
 
 	useEffect(() => {
@@ -38,15 +45,16 @@ function UserSearch({ Query }: Props) {
 				<LoadingScreen />
 			) : (
 				<>
-					<div className="Title">
-						<h3>Query: {Query}</h3>
-					</div>
 					<div className="SearchResults">
 						{UserSearchResults?.map((User: any, index: number) => {
-							console.log('User:', User);
-							console.log('User Data:', User.data());
 							return (
-								<div key={index} className="ConnectionContainer">
+								<div
+									key={index}
+									className="ConnectionContainer"
+									onClick={() => {
+										NavigateToUser(User.data().UID);
+									}}
+								>
 									<img
 										src={User.data().DisplayPicture}
 										className="ConnectionImage"

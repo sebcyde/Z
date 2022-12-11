@@ -2,19 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface UserStateInt {
-	UserObject: any;
+	UserID: string;
 }
 
 const initialState: UserStateInt = {
-	UserObject: null,
+	UserID: '',
 };
 
 export const UserState = createSlice({
 	name: 'UserStatePassthrough',
 	initialState,
 	reducers: {
-		SetUser: (state, action: PayloadAction<any>) => {
-			state = action.payload;
+		SetUser: (state, action: PayloadAction<string>) => {
+			state.UserID = action.payload;
 		},
 	},
 });
