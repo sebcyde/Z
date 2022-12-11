@@ -43,6 +43,9 @@
 	}
 }
 .BottomSection {
+	display: flex;
+	flex-direction: column;
+
 	ul {
 		margin-bottom: 0 !important;
 	}
@@ -65,5 +68,15 @@
 		.ConnectionUsername {
 			margin: 0;
 		}
+	}
+
+	.SearchbarInput {
+		background-color: transparent;
+		border: 1px solid orange;
+		padding: 10px;
+		width: 90%;
+		margin: 10px auto;
+		border-radius: 10px;
+		color: white;
 	}
 }

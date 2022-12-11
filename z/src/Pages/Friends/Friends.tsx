@@ -4,6 +4,7 @@ import { debounce } from 'lodash';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { FaArrowRight } from 'react-icons/fa';
+import UserSearch from '../../Components/Search/UserSearch';
 import { db } from '../../config/Firebase';
 import LoadingScreen from '../LoadingScreen';
 
@@ -17,7 +18,6 @@ function Friends() {
 	const [UserFollowing, setUserFollowing] = useState<any[]>([]);
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [UserDetails, setUserDetails] = useState<any>();
-	const [Results, setResults] = useState<any[]>([]);
 	const [SearchType, setSearchType] = useState('following');
 	const SearchInput = useRef(null);
 	const auth = getAuth();
@@ -74,6 +74,7 @@ function Friends() {
 
 	const TabSelect = (k: string | null) => {
 		setSearchType(k!);
+		setSearchTerm('');
 	};
 
 	const InputHandler = (event: any) => {
@@ -121,14 +122,14 @@ function Friends() {
 						{SearchType === 'search' ? (
 							<>
 								<input
-									placeholder="Search"
+									placeholder="Search Usernames"
 									className="SearchbarInput"
 									ref={SearchInput}
-									value={SearchTerm}
+									// value={SearchTerm}
 									onChange={debouncedHandler}
 								/>
 
-								{Results}
+								<UserSearch Query={SearchTerm} />
 							</>
 						) : (
 							''
