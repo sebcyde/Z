@@ -48,6 +48,6 @@ export const DefaultImageUpload = async (user: any) => {
 
 	// These update perfectly
 	const UserRef = doc(db, `Users/${user?.uid}`);
-	await updateProfile(user!, { photoURL: URL });
+	// await updateProfile(user!, { photoURL: URL });
 	await setDoc(UserRef, { DisplayPicture: URL }, { merge: true });
 };
