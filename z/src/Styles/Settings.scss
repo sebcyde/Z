@@ -160,3 +160,77 @@
 		}
 	}
 }
+
+.NewUserImageContainer {
+	height: 100%;
+	.TopSection {
+		height: fit-content;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		justify-content: space-between;
+		padding: 10px;
+		border-bottom: 1px solid rgba(128, 128, 128, 0.267);
+		margin-bottom: 10px;
+
+		button {
+			height: fit-content;
+			width: 70px;
+			background-color: transparent;
+		}
+
+		span {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-evenly;
+			height: 70px;
+
+			img {
+				height: 40px;
+				width: auto;
+				border-radius: 25px;
+				margin-bottom: 5px;
+			}
+
+			p {
+				margin: 0;
+				height: fit-content;
+			}
+		}
+	}
+	.ImagesContainer {
+		height: 100%;
+		display: grid;
+		grid-template-columns: auto auto auto;
+		div {
+			height: 100%;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0;
+			position: relative;
+			top: 0;
+			left: 0;
+			img {
+				border: 1px solid orange;
+				height: 100px !important;
+				width: 100px !important;
+				margin: auto;
+				border-radius: 50px;
+				position: relative;
+			}
+			svg {
+				background-color: green;
+				color: aqua;
+				position: absolute;
+				bottom: 20px;
+				right: 10px;
+				border-radius: 25px;
+				height: 25px;
+				width: 25px;
+			}
+		}
+	}
+}
