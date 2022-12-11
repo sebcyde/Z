@@ -16,6 +16,10 @@ import SignUp from './Pages/SignUp/SignUpComponent';
 import './Styles/Modal.scss';
 import Edit from './Pages/Settings/Edit';
 import People from './Pages/People/People';
+import EditUserImage from './Pages/Settings/EditUserImage';
+import UserName from './Pages/Settings/Edit/UserName';
+import UserEmail from './Pages/Settings/Edit/UserEmail';
+import UserImage from './Pages/Settings/Edit/UserImage';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -59,7 +63,11 @@ function App() {
 						<Route path="settings" element={<Settings />} />
 						<Route path="signin" element={<SignIn />} />
 						<Route path="signup" element={<SignUp />} />
-						<Route path="edit" element={<Edit />} />
+						<Route path="edit">
+							<Route path="userimage" element={<UserImage />} />
+							<Route path="username" element={<UserName />} />
+							<Route path="useremail" element={<UserEmail />} />
+						</Route>
 						<Route path="people" element={<People />} />
 					</Routes>
 				</>

@@ -66,10 +66,10 @@ function SettingsTop() {
 							</h2>
 
 							{UserDetails.Admin ? (
-								<>
+								<span>
 									<p>Admin User</p>
 									<FaCrown />
-								</>
+								</span>
 							) : (
 								<p>Beta Tester</p>
 							)}

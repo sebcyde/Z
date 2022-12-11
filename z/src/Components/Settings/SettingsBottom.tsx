@@ -16,7 +16,6 @@ const ArrowStyle = {
 function SettingsBottom() {
 	const [UserDetails, setUserDetails] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
-	const [UserImage, setUserImage] = useState<File>();
 	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
@@ -43,15 +42,6 @@ function SettingsBottom() {
 			});
 	};
 
-	const UpdateDetails = async (e: any) => {
-		e.preventDefault();
-		setLoading(true);
-		if (UserImage != undefined) {
-			ImageUpload(auth.currentUser, UserImage);
-		}
-		setLoading(false);
-	};
-
 	useEffect(() => {
 		PullData().then(() => setLoading(false));
 	}, []);
@@ -68,7 +58,7 @@ function SettingsBottom() {
 							<a
 								className="BottomA"
 								onClick={() => {
-									navigate('/editUserImage');
+									navigate('/edit/userimage');
 								}}
 							>
 								<p>Change Display Picture</p>
@@ -81,7 +71,7 @@ function SettingsBottom() {
 							<p>Change Username</p>
 							<a
 								onClick={() => {
-									navigate('/editUserName');
+									navigate('/edit/username');
 								}}
 							>
 								<p>
@@ -94,7 +84,7 @@ function SettingsBottom() {
 							<p>Change Email</p>
 							<a
 								onClick={() => {
-									navigate('/editUserEmail');
+									navigate('/edit/useremail');
 								}}
 							>
 								<p>
