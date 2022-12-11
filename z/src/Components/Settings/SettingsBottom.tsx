@@ -7,6 +7,7 @@ import LoadingScreen from '../../Pages/LoadingScreen';
 import { capitalizeFirstLetter } from '../../Functions/Capitalise';
 import { FaArrowRight, FaSignOutAlt, FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { ImageUpload } from '../../Functions/ImageControl';
 
 const ArrowStyle = {
 	marginLeft: '10px',
@@ -15,6 +16,7 @@ const ArrowStyle = {
 function SettingsBottom() {
 	const [UserDetails, setUserDetails] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
+	const [UserImage, setUserImage] = useState<File>();
 	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
@@ -41,6 +43,15 @@ function SettingsBottom() {
 			});
 	};
 
+	const UpdateDetails = async (e: any) => {
+		e.preventDefault();
+		setLoading(true);
+		if (UserImage != undefined) {
+			ImageUpload(auth.currentUser, UserImage);
+		}
+		setLoading(false);
+	};
+
 	useEffect(() => {
 		PullData().then(() => setLoading(false));
 	}, []);
@@ -53,6 +64,19 @@ function SettingsBottom() {
 				<>
 					<div className="SettingsPageSection">
 						<h2 className="SettingsPageTitle">Update Profile</h2>
+						<div className="SettingsPageRow">
+							<a
+								className="BottomA"
+								onClick={() => {
+									navigate('/editUserImage');
+								}}
+							>
+								<p>Change Display Picture</p>
+								<p>
+									<FaArrowRight style={ArrowStyle} />
+								</p>
+							</a>
+						</div>
 						<div className="SettingsPageRow">
 							<p>Change Username</p>
 							<a
