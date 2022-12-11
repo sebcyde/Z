@@ -2,7 +2,7 @@ import { getAuth } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { AiOutlineRight } from 'react-icons/ai';
-import defaultPicture from '../../assets/PFP/girl1.png';
+import defaultPicture from '../../assets/PFP/girl2.png';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/Firebase.js';
 import { useNavigate } from 'react-router-dom';
@@ -56,14 +56,27 @@ function SettingsTop() {
 				<LoadingScreen />
 			) : (
 				<>
-					<img src={UserImage} />
-					<span className="UserInformationContainer">
-						<h2>
-							{UserDetails.Username}
-							{UserDetails.Admin ? <FaCrown /> : ''}
-						</h2>
-						<p>{auth.currentUser?.email}</p>
-					</span>
+					<h1>My Account</h1>
+					<div>
+						<img src={UserImage} />
+						<span className="UserInformationContainer">
+							<h2>
+								{UserDetails.Username}
+								{/* {UserDetails.Admin ? <FaCrown /> : ''} */}
+							</h2>
+
+							{UserDetails.Admin ? (
+								<>
+									<p>Admin User</p>
+									<FaCrown />
+								</>
+							) : (
+								<p>Beta Tester</p>
+							)}
+
+							{/* <p>{auth.currentUser?.email}</p> */}
+						</span>
+					</div>
 				</>
 			)}
 		</div>

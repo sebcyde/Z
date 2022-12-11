@@ -5,10 +5,17 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/Firebase';
 import LoadingScreen from '../../Pages/LoadingScreen';
 import { capitalizeFirstLetter } from '../../Functions/Capitalise';
+import { FaArrowRight, FaSignOutAlt, FaTrashAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+
+const ArrowStyle = {
+	marginLeft: '10px',
+};
 
 function SettingsBottom() {
 	const [UserDetails, setUserDetails] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
+	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
 
@@ -44,40 +51,78 @@ function SettingsBottom() {
 				<LoadingScreen />
 			) : (
 				<>
-					<div className="SettingsPageRow">
-						<p>Admin</p>
-						<p>{capitalizeFirstLetter(UserDetails.Admin.toString())}</p>
-					</div>
-					<div className="SettingsPageRow">
-						<p>Username</p>
-						<p>{UserDetails?.Username}</p>
-					</div>
-					<div className="SettingsPageRow">
-						<p>Email</p>
-						<p>{user?.email}</p>
-					</div>
-					<div className="SettingsPageRow">
-						<p>Phone Number</p>
-						<p>{user?.phoneNumber ? user.phoneNumber : 'Not Set'}</p>
-					</div>
-					<div className="SettingsPageRow">
-						<p>Verified Email</p>
-						<p>{user?.emailVerified ? 'Verified' : 'Not Verified'}</p>
-					</div>
-					<div className="SettingsPageRow">
-						<p>Account Creation</p>
-						<p>{user?.metadata.creationTime}</p>
-					</div>
-					<div className="SettingsPageRow">
-						<p>Last Sign In</p>
-						<p>{user?.metadata.lastSignInTime}</p>
-					</div>
-					<div className="SettingsPageRow">
-						<p>User ID</p>
-						<p>{user?.uid}</p>
+					<div className="SettingsPageSection">
+						<h2 className="SettingsPageTitle">Update Profile</h2>
+						<div className="SettingsPageRow">
+							<p>Change Username</p>
+							<a
+								onClick={() => {
+									navigate('/editUserName');
+								}}
+							>
+								<p>
+									{UserDetails?.Username}
+									<FaArrowRight style={ArrowStyle} />
+								</p>
+							</a>
+						</div>
+						<div className="SettingsPageRow">
+							<p>Change Email</p>
+							<a
+								onClick={() => {
+									navigate('/editUserEmail');
+								}}
+							>
+								<p>
+									{user?.email}
+									<FaArrowRight style={ArrowStyle} />
+								</p>
+							</a>
+						</div>
 					</div>
 
-					<Button onClick={LogOut}>Log Out</Button>
+					<div className="SettingsPageSection">
+						<h2 className="SettingsPageTitle">Account Details</h2>
+						<div className="SettingsPageRow">
+							<p>Verified Email</p>
+							<p>{user?.emailVerified ? 'Verified' : 'Not Verified'}</p>
+						</div>
+						<div className="SettingsPageRow">
+							<p>Account Creation</p>
+							<p>{user?.metadata.creationTime}</p>
+						</div>
+						<div className="SettingsPageRow">
+							<p>Last Sign In</p>
+							<p>{user?.metadata.lastSignInTime}</p>
+						</div>
+						<div className="SettingsPageRow">
+							<p>User ID</p>
+							<p>{user?.uid}</p>
+						</div>
+					</div>
+
+					<div className="SettingsPageSection">
+						<h2 className="SettingsPageTitle">More Options</h2>
+						<div className="SettingsPageRow">
+							<a className="BottomA" onClick={LogOut}>
+								<p>Delete Account</p>
+								<p>
+									<FaTrashAlt />
+								</p>
+							</a>
+						</div>
+						<div className="SettingsPageRow">
+							<a className="BottomA" onClick={LogOut}>
+								<p>Log Out</p>
+								<p>
+									<FaSignOutAlt />
+								</p>
+							</a>
+						</div>
+					</div>
+					<div>
+						<p>App Version 1.1</p>
+					</div>
 				</>
 			)}
 		</div>
