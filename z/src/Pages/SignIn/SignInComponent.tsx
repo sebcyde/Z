@@ -38,6 +38,7 @@ function SignInComponent(): any {
 					/>
 					<Button onClick={SetSignIn}>Sign In</Button>
 					<Link to="/signup">Create account</Link>
+					<p style={{ margin: '10px' }}>App Version: v1.2.1</p>
 				</form>
 			</div>
 		</div>
