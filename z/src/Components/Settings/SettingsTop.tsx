@@ -11,6 +11,7 @@ import {
 	RetrieveImage,
 } from '../../Functions/ImageControl';
 import LoadingScreen from '../../Pages/LoadingScreen';
+import { FaCrown } from 'react-icons/fa';
 
 type UserAuthObject = {
 	CreationDate: string;
@@ -31,8 +32,8 @@ function SettingsTop() {
 
 	const PullData = async () => {
 		// Doesn't work for default image?
-		const Image = await RetrieveImage(user);
-		setUserImage(Image);
+		// const Image = await RetrieveImage(user);
+		// setUserImage(Image);
 
 		// Retrieve user details from DB
 		const docRef = doc(db, `Users/${user!.uid}`);
@@ -56,16 +57,13 @@ function SettingsTop() {
 			) : (
 				<>
 					<img src={UserImage} />
-					<h2>{UserDetails.Username}</h2>
-					<p>{auth.currentUser?.email}</p>
-					<Button
-						onClick={() => {
-							navigate('/edit');
-						}}
-					>
-						Edit Profile <AiOutlineRight />
-					</Button>
-					<Button onClick={() => DefaultImageUpload(user)}>Pull Storage</Button>
+					<span className="UserInformationContainer">
+						<h2>
+							{UserDetails.Username}
+							{UserDetails.Admin ? <FaCrown /> : ''}
+						</h2>
+						<p>{auth.currentUser?.email}</p>
+					</span>
 				</>
 			)}
 		</div>

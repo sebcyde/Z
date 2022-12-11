@@ -1,24 +1,31 @@
 .UserDetailsContainer {
 	border-bottom: 1px solid orange;
 	display: flex;
-	flex-direction: column;
-	padding: 20px;
-	justify-content: center;
+	padding: 10px 20px;
+	justify-content: space-between;
 	align-items: center;
+
 	img {
 		height: 70px;
 		border-radius: 50px;
 	}
-	h2 {
-		margin: 10px;
-		margin-top: 15px;
-	}
-	button {
-		background-color: transparent;
-		border: 1px solid orange;
+
+	.UserInformationContainer {
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		flex-direction: column;
+		text-align: end;
+
+		h2 {
+			margin: 10px 0px;
+			margin-top: 15px;
+		}
+		button {
+			background-color: transparent;
+			border: 1px solid orange;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
 	}
 }
 
