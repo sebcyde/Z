@@ -1,40 +1,17 @@
 import { getAuth } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
-import { AiOutlineRight } from 'react-icons/ai';
-import defaultPicture from '../../assets/PFP/girl2.png';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/Firebase.js';
-import { useNavigate } from 'react-router-dom';
-import {
-	DefaultImageUpload,
-	RetrieveImage,
-} from '../../Functions/ImageControl';
 import LoadingScreen from '../../Pages/LoadingScreen';
 import { FaCrown } from 'react-icons/fa';
-
-type UserAuthObject = {
-	CreationDate: string;
-	UserEmail: string;
-	Username: string;
-	DisplayPicture: string;
-	UID: string;
-	Admin: boolean;
-};
 
 function SettingsTop() {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [UserDetails, setUserDetails] = useState<any>();
-	const [UserImage, setUserImage] = useState<string>(defaultPicture);
-	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
 
 	const PullData = async () => {
-		// Doesn't work for default image?
-		// const Image = await RetrieveImage(user);
-		// setUserImage(Image);
-
 		// Retrieve user details from DB
 		const docRef = doc(db, `Users/${user!.uid}`);
 		const docSnap = await getDoc(docRef);
@@ -58,12 +35,9 @@ function SettingsTop() {
 				<>
 					<h1>My Account</h1>
 					<div>
-						<img src={UserImage} />
+						<img src={UserDetails.DisplayPicture} />
 						<span className="UserInformationContainer">
-							<h2>
-								{UserDetails.Username}
-								{/* {UserDetails.Admin ? <FaCrown /> : ''} */}
-							</h2>
+							<h2>{UserDetails.Username}</h2>
 
 							{UserDetails.Admin ? (
 								<span>
@@ -73,8 +47,6 @@ function SettingsTop() {
 							) : (
 								<p>Beta Tester</p>
 							)}
-
-							{/* <p>{auth.currentUser?.email}</p> */}
 						</span>
 					</div>
 				</>

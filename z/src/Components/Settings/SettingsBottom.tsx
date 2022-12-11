@@ -20,13 +20,13 @@ const ArrowStyle = {
 };
 
 function SettingsBottom() {
+	const [ShowError, setShowError] = useState<boolean>(false);
 	const [UserDetails, setUserDetails] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [showReAuth, setshowReAuth] = useState(false);
 	const handleReAuthClose = () => setshowReAuth(false);
 	const handleReAuthShow = () => setshowReAuth(true);
 	const [UserPassword, setUserPassword] = useState('');
-	const [ShowError, setShowError] = useState<boolean>(false);
 	const [UserEmail, setUserEmail] = useState('');
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);

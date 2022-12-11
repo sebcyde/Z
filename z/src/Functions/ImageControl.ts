@@ -4,23 +4,23 @@ import { db, storage } from '../config/Firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import DefaultGirl from '../assets/PFP/girl2.png';
 
-export const ImageUpload = async (user: any, File: File) => {
-	const UserStorageRef = ref(storage, user?.uid);
+export const ImageUpload = async (user: any, Image: string) => {
+	// const UserStorageRef = ref(storage, user?.uid);
 	const UserRef = doc(db, `Users/${user?.uid}`);
-	const UserImageRef = ref(storage, `${user?.uid}/${File.name}`);
-	console.log('File Name:', File.name);
+	// const UserImageRef = ref(storage, `${user?.uid}/${Image}`);
+	console.log('File Name:', Image);
 
 	// Update in Firestore
-	await setDoc(UserRef, { DisplayPicture: File.name }, { merge: true });
+	await setDoc(UserRef, { DisplayPicture: Image }, { merge: true });
 
 	// Update in Auth - doesn't work sometimes
-	// await updateProfile(user!, { photoURL: File.name });
+	await updateProfile(user!, { photoURL: Image });
 
 	// Update in Cloud Storage
-	uploadBytes(UserImageRef, File).then((snapshot) => {
-		console.log('Snapshot metadata:', snapshot.metadata);
-		console.log('Uploaded image:', File.name);
-	});
+	// uploadBytes(UserImageRef, Image).then((snapshot) => {
+	// 	console.log('Snapshot metadata:', snapshot.metadata);
+	// 	console.log('Uploaded image:', File.name);
+	// });
 };
 
 export const RetrieveImage = async (user: any) => {
