@@ -123,16 +123,6 @@ function MainNavbar({}: Props) {
 						onClick={ResetAll}
 					>
 						People
-						<span
-							style={{
-								color: 'red',
-								margin: '0px',
-								width: 'fit-content',
-								marginLeft: '10px',
-							}}
-						>
-							NEW!
-						</span>
 					</Nav.Link>
 					<Nav.Link
 						eventKey="6"
@@ -151,12 +141,33 @@ function MainNavbar({}: Props) {
 						onClick={ResetAll}
 					>
 						Settings
+						<span
+							style={{
+								color: 'red',
+								margin: '0px',
+								width: 'fit-content',
+								marginLeft: '10px',
+							}}
+						>
+							Updated!
+						</span>
 					</Nav.Link>
 				</Nav>
 				{user && Admin ? (
-					<>
-						<Button onClick={PullData}>Pull Data</Button>
-					</>
+					<div
+						style={{
+							width: '100%',
+							display: 'flex',
+							justifyContent: 'center',
+						}}
+					>
+						<Button
+							onClick={PullData}
+							style={{ margin: '10px auto', width: '90%' }}
+						>
+							Pull Data
+						</Button>
+					</div>
 				) : (
 					''
 				)}
