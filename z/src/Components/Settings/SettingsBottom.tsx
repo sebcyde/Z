@@ -184,7 +184,7 @@ function SettingsBottom() {
 						</div>
 					</div>
 					<div>
-						<p>App Version 1.1</p>
+						<p>App Version 1.2</p>
 					</div>
 					<Modal show={show} onHide={handleClose} centered>
 						<Modal.Header closeButton>
