@@ -1,5 +1,5 @@
-import { doc, setDoc, updateDoc } from 'firebase/firestore';
-import { updateEmail, updatePassword } from 'firebase/auth';
+import { deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
+import { deleteUser, updateEmail, updatePassword } from 'firebase/auth';
 import { db } from '../config/Firebase';
 
 export const UpdateDisplayName = async (User: any, NewUserName: string) => {
@@ -18,4 +18,12 @@ export const UpdateEmail = async (User: any, NewEmail: string) => {
 export const UpdatePassword = async (User: any, NewPassword: string) => {
 	await updatePassword(User, NewPassword);
 	console.log('Password update succesful');
+};
+
+export const DeleteAccount = async (user: any) => {
+	console.log(`Starting removal of user: ${user.uid}.`);
+	await deleteDoc(doc(db, `Users/${user?.uid}`));
+	console.log('Removal from Database successful.');
+	await deleteUser(user);
+	console.log('Removal from Auth object successful.');
 };
