@@ -111,7 +111,7 @@ function UserPage({}: Props) {
 												<Dropdown.Item
 													eventKey="3"
 													onClick={() => {
-														SaveList(UserLists[key]);
+														SaveList(UserLists[key], key);
 													}}
 												>
 													Save {key}

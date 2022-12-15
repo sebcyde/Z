@@ -3,7 +3,6 @@ import WelcomeBanner from '../../Components/Homepage/WelcomeBanner';
 import AnimeListBanner from '../../Components/Anime/AnimeListBanner';
 import TopPoster from '../../Components/Homepage/TopPoster';
 import FavouritesCarousel from '../../Components/Homepage/FavouritesCarousel';
-import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 type Props = {};
@@ -28,7 +27,10 @@ function Homepage({}: Props) {
 	}, []);
 
 	return (
-		<div className="page" style={{ overflowY: 'scroll' }}>
+		<div
+			className="page"
+			style={{ overflowY: 'scroll', paddingBottom: '40px' }}
+		>
 			<WelcomeBanner />
 			<TopPoster URL="https://api.jikan.moe/v4/seasons/now" />
 			<AnimeListBanner
