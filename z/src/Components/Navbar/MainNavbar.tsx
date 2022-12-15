@@ -63,7 +63,10 @@ function MainNavbar({}: Props) {
 				if (QueryListsSnap.exists()) {
 					const QueryLists = QueryListsSnap.data();
 					console.log('User Search Query DB Lists:', QueryLists);
-					console.log('Search Query User is Admin?', QuerydocSnap.data().Admin);
+					console.log(
+						'Search Query User is Admin?',
+						QuerydocSnap.data()?.Admin
+					);
 				} else {
 					console.log('User Search Query - No Lists Available!');
 				}
