@@ -1,6 +1,7 @@
 import { doc, getDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
-import { FaArrowLeft, FaCrown } from 'react-icons/fa';
+import React, { useEffect, useState, useRef } from 'react';
+import { Dropdown } from 'react-bootstrap';
+import { FaArrowLeft, FaCrown, FaEllipsisH } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../config/Firebase';
@@ -15,6 +16,7 @@ function UserPage({}: Props) {
 	const [UserLists, setUserLists] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
 	const navigate = useNavigate();
+	const ref = useRef();
 
 	const PullData = async () => {
 		// Retrieve user details from DB
@@ -37,9 +39,15 @@ function UserPage({}: Props) {
 		}
 	};
 
-	useEffect(() => {
-		console.log(UserQuery);
+	const NavigateToList = (Key: string) => {
+		console.log('Navigating To List:', Key);
+	};
 
+	const SaveList = (List) => {
+		console.log('Saving List');
+	};
+
+	useEffect(() => {
 		PullData().then(() => setLoading(false));
 	}, []);
 
@@ -75,63 +83,54 @@ function UserPage({}: Props) {
 							)}
 						</span>
 					</div>
+					<p className="UserDetailsList">{UserDetails.Username} Lists:</p>
 					<div className="UserLists">
-						<h2
-							style={{
-								width: '100%',
-								margin: '20px auto',
-								marginBottom: '10px',
-								textAlign: 'center',
-							}}
-						>
-							{UserDetails.Username} Lists:
-						</h2>
 						{Object.keys(UserLists).map((key, index) => {
+							console.log(`${key} Detail:`, UserLists[key]);
 							return (
-								<div key={index} style={{ width: '95%', margin: '0 auto' }}>
-									<h2>{key}</h2>
-									<hr />
+								<div key={index} className="UserList">
+									<div className='UserListImageContainer'>
+										<img
+											src={UserLists[key][0]?.images.jpg.large_image_url}
+											className="UserListImage"
+										/>
+									</div>
+									<span>
+										<h2 className="UserListTitle">{key}</h2>
+
+										<Dropdown>
+											<Dropdown.Toggle
+												id="dropdown-custom-components"
+												variant="secondary"
+											>
+												<FaEllipsisH />
+											</Dropdown.Toggle>
+
+											<Dropdown.Menu>
+												<Dropdown.Item
+													eventKey="1"
+													onClick={() => {
+														NavigateToList(key);
+													}}
+												>
+													View List
+												</Dropdown.Item>
+												<Dropdown.Item
+													eventKey="2"
+													onClick={() => {
+														SaveList(key);
+													}}
+												>
+													Save List
+												</Dropdown.Item>
+												<Dropdown.Divider />
+												<Dropdown.Item eventKey="1">Red-Orange</Dropdown.Item>
+											</Dropdown.Menu>
+										</Dropdown>
+									</span>
 								</div>
 							);
 						})}
-
-						{/* {UserLists.Favourites.length > 0 ? (
-							<>
-								<h2
-									style={{
-										width: '100%',
-										margin: '20px auto',
-										marginBottom: '5px',
-										textAlign: 'center',
-									}}
-								>
-									{UserDetails.Username} Lists:
-								</h2>
-								{UserLists.Favourites.map((Item: any, index: number) => {
-									return <h3 key={index}>{Item.title}</h3>;
-								})}
-							</>
-						) : (
-							<>
-								<h2
-									style={{
-										width: '100%',
-										margin: '20px auto',
-										marginBottom: '5px',
-										textAlign: 'center',
-									}}
-								>
-									{UserDetails.Username} has no lists yet :(
-								</h2>
-								<p
-									style={{
-										textAlign: 'center',
-									}}
-								>
-									Check back later
-								</p>
-							</>
-						)} */}
 					</div>
 				</>
 			)}
