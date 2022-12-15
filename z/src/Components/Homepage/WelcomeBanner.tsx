@@ -15,7 +15,7 @@ function WelcomeBanner() {
 			}}
 		>
 			<h4 style={{ margin: '0px', fontSize: '18px' }}>
-				Current Version: V1.2.1
+				Current Version: V1.3.1
 			</h4>
 		</div>
 	);

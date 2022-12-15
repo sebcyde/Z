@@ -171,16 +171,6 @@ function MainNavbar({}: Props) {
 						onClick={ResetAll}
 					>
 						Settings
-						<span
-							style={{
-								color: 'red',
-								margin: '0px',
-								width: 'fit-content',
-								marginLeft: '10px',
-							}}
-						>
-							Updated!
-						</span>
 					</Nav.Link>
 				</Nav>
 				{user && Admin ? (
