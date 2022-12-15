@@ -24,6 +24,7 @@
 				margin: 0px;
 			}
 		}
+
 		span {
 			display: flex;
 			flex-direction: column;
@@ -148,6 +149,20 @@
 					margin-right: 5px;
 				}
 			}
+		}
+	}
+
+	.UserDetailsButtonContainer {
+		width: 100%;
+		display: flex;
+		justify-content: space-evenly;
+		margin-top: 10px;
+		.FollowButton,
+		.UnfollowButton {
+			width: 43%;
+		}
+		.RecoButton {
+			width: 43%;
 		}
 	}
 

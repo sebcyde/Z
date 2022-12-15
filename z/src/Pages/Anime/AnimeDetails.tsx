@@ -83,7 +83,6 @@ function AnimeDetails({}: Props) {
 
 	const AddFavourite = async (Item: object) => {
 		// Add To DB
-
 		if (user) {
 			const UserDB = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			await updateDoc(UserDB, {

@@ -1,11 +1,14 @@
+import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState, useRef } from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { Button, Dropdown } from 'react-bootstrap';
 import { FaArrowLeft, FaCrown, FaEllipsisH } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../config/Firebase';
+import { Follow, UnFollow } from '../../Functions/Follow';
 import { NavigateToList } from '../../Functions/NavigateToList';
+import { Recommend } from '../../Functions/Recommend';
 import { SaveList } from '../../Functions/SaveList';
 import LoadingScreen from '../LoadingScreen';
 
@@ -13,12 +16,15 @@ type Props = {};
 const ArrowStyle = { marginRight: '10px' };
 
 function UserPage({}: Props) {
+	const [MyFriendsList, setMyFriendsList] = useState<any>();
 	const UserQuery = useSelector((state: any) => state.UserState);
 	const [UserDetails, setUserDetails] = useState<any>();
 	const [UserLists, setUserLists] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
 	const navigate = useNavigate();
 	const ref = useRef();
+	const auth = getAuth();
+	const user = auth.currentUser;
 
 	const PullData = async () => {
 		// Retrieve user details from DB
@@ -39,6 +45,29 @@ function UserPage({}: Props) {
 		} else {
 			console.log('Failed to retrieve user lists');
 		}
+
+		const MyFriendsRef = doc(db, `Users/${user?.uid}/MoreInfo/Friends`);
+		const MyFriendsSnap = await getDoc(MyFriendsRef);
+		if (MyFriendsSnap.exists()) {
+			console.log('My Friends Lists:', MyFriendsSnap.data());
+			setMyFriendsList(MyFriendsSnap.data());
+		} else {
+			console.log('Failed to retrieve user lists');
+		}
+	};
+
+	const F = async () => {
+		setLoading(true);
+		await Follow(UserDetails);
+		await PullData();
+		setLoading(false);
+	};
+
+	const UF = async () => {
+		setLoading(true);
+		await UnFollow(UserDetails);
+		await PullData();
+		setLoading(false);
 	};
 
 	useEffect(() => {
@@ -77,6 +106,25 @@ function UserPage({}: Props) {
 							)}
 						</span>
 					</div>
+					<span className="UserDetailsButtonContainer">
+						<>
+							{MyFriendsList.Following.includes(UserDetails.UID) ? (
+								<Button className="UnfollowButton" onClick={UF}>
+									Unfollow
+								</Button>
+							) : (
+								<Button className="FollowButton" onClick={F}>
+									Follow
+								</Button>
+							)}
+						</>
+						<Button
+							className="RecoButton"
+							onClick={() => Recommend(UserDetails)}
+						>
+							Recommend
+						</Button>
+					</span>
 					<p className="UserDetailsList">{UserDetails.Username} Lists:</p>
 					<div className="UserLists">
 						{Object.keys(UserLists).map((key, index) => {
