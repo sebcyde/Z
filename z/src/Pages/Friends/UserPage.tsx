@@ -17,6 +17,7 @@ const ArrowStyle = { marginRight: '10px' };
 
 function UserPage({}: Props) {
 	const [MyFriendsList, setMyFriendsList] = useState<any>();
+	const [UserFriends, setUserFriends] = useState<any>();
 	const UserQuery = useSelector((state: any) => state.UserState);
 	const [UserDetails, setUserDetails] = useState<any>();
 	const [UserLists, setUserLists] = useState<any>();
@@ -33,6 +34,18 @@ function UserPage({}: Props) {
 		if (docSnap.exists()) {
 			console.log('User Details:', docSnap.data());
 			setUserDetails(docSnap.data());
+		} else {
+			console.log('Failed to retrieve user details');
+		}
+
+		const UserConnectionsRef = doc(
+			db,
+			`Users/${UserQuery.UserID}/MoreInfo/Friends`
+		);
+		const UserConnectionsSnap = await getDoc(UserConnectionsRef);
+		if (UserConnectionsSnap.exists()) {
+			console.log('User Friends:', UserConnectionsSnap.data());
+			setUserFriends(UserConnectionsSnap.data());
 		} else {
 			console.log('Failed to retrieve user details');
 		}
@@ -104,11 +117,16 @@ function UserPage({}: Props) {
 							) : (
 								<p>Beta Tester</p>
 							)}
+							<span className="UserDetailsAdmin">
+								<p>Followers: {UserFriends.Followers.length}</p>
+							</span>
 						</span>
 					</div>
 					<span className="UserDetailsButtonContainer">
 						<>
-							{MyFriendsList.Following.includes(UserDetails.UID) ? (
+							{user?.uid === UserDetails.UID ? (
+								''
+							) : MyFriendsList.Following.includes(UserDetails.UID) ? (
 								<Button className="UnfollowButton" onClick={UF}>
 									Unfollow
 								</Button>
