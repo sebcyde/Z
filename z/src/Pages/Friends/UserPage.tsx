@@ -66,7 +66,7 @@ function UserPage({}: Props) {
 						<span>
 							<h2>{UserDetails.Username}</h2>
 							{UserDetails.Admin ? (
-								<span>
+								<span className="UserDetailsAdmin">
 									<p>Admin User</p>
 									<FaCrown />
 								</span>

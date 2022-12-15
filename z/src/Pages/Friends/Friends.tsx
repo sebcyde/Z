@@ -3,7 +3,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { debounce } from 'lodash';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaCrown } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import UserSearch from '../../Components/Search/UserSearch';
@@ -161,9 +161,16 @@ function Friends() {
 												className="ConnectionImage"
 											/>
 
-											<h2 className="ConnectionUsername">
-												{Following.Username}
-											</h2>
+											<div className="ConnectionDetailsContainer">
+												<span>
+													<h2 className="ConnectionAdmin">
+														{Following.Admin ? <FaCrown /> : ''}
+													</h2>
+													<h2 className="ConnectionUsername">
+														{Following.Username}
+													</h2>
+												</span>
+											</div>
 											<FaArrowRight style={ArrowStyle} />
 										</div>
 									);
@@ -188,9 +195,16 @@ function Friends() {
 												className="ConnectionImage"
 											/>
 
-											<h2 className="ConnectionUsername">
-												{Follower.Username}
-											</h2>
+											<div className="ConnectionDetailsContainer">
+												<span>
+													<h2 className="ConnectionAdmin">
+														{Follower.Admin ? <FaCrown /> : ''}
+													</h2>
+													<h2 className="ConnectionUsername">
+														{Follower.Username}
+													</h2>
+												</span>
+											</div>
 											<FaArrowRight style={ArrowStyle} />
 										</div>
 									);

@@ -15,6 +15,7 @@ const NavLinkStyle = {
 };
 
 function MainNavbar({}: Props) {
+	const UserID = useSelector((state: any) => state.UserState);
 	const StoreID = useSelector((state: any) => state.IDState);
 	const StoreMangaID = useSelector((state: any) => state.MangaIDState);
 	const FaveList = useSelector(
@@ -35,19 +36,38 @@ function MainNavbar({}: Props) {
 
 	const PullData = async () => {
 		if (user) {
+			console.log('Anime StoreID:', StoreID);
+			console.log('Manga StoreMangaID:', StoreMangaID);
 			console.log('Current User:', user);
-
 			const docRef = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
 				const Lists = docSnap.data();
-				console.log('DB Lists:', Lists);
+				console.log('Current User DB Lists:', Lists);
 			} else {
 				console.log('No Lists Available!');
 			}
-			console.log('Anime StoreID:', StoreID);
-			console.log('Manga StoreMangaID:', StoreMangaID);
+
 			console.log('Current User is Admin?', Admin);
+			if (UserID != '') {
+				const QuerydocRef = doc(db, `Users/${UserID.UserID}`);
+				const QuerydocSnap = await getDoc(QuerydocRef);
+				if (QuerydocSnap.exists()) {
+					const Querydocs = QuerydocSnap.data();
+					console.log('User Search Query:', Querydocs);
+				} else {
+					console.log('User Search Query - No Info Available!');
+				}
+				const QueryListsRef = doc(db, `Users/${UserID.UserID}/MoreInfo/Lists`);
+				const QueryListsSnap = await getDoc(QueryListsRef);
+				if (QueryListsSnap.exists()) {
+					const QueryLists = QueryListsSnap.data();
+					console.log('User Search Query DB Lists:', QueryLists);
+					console.log('Search Query User is Admin?', QuerydocSnap.data().Admin);
+				} else {
+					console.log('User Search Query - No Lists Available!');
+				}
+			}
 		}
 	};
 
