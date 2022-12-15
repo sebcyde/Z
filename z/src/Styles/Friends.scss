@@ -162,10 +162,13 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
+		height: 70vh;
+		overflow-x: scroll;
+		padding-bottom: 40px;
 
 		.UserList {
 			background-color: gray;
-			height: 140px;
+			height: 170px;
 			width: 42%;
 			border: 2px solid gainsboro;
 			margin: 10px;
@@ -173,7 +176,6 @@
 			align-items: flex-end;
 			border-radius: 10px;
 			position: relative;
-			// overflow: hidden;
 
 			.UserListImageContainer {
 				width: 100%;

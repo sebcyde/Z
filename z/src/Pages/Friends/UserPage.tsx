@@ -5,6 +5,8 @@ import { FaArrowLeft, FaCrown, FaEllipsisH } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../config/Firebase';
+import { NavigateToList } from '../../Functions/NavigateToList';
+import { SaveList } from '../../Functions/SaveList';
 import LoadingScreen from '../LoadingScreen';
 
 type Props = {};
@@ -37,14 +39,6 @@ function UserPage({}: Props) {
 		} else {
 			console.log('Failed to retrieve user lists');
 		}
-	};
-
-	const NavigateToList = (Key: string) => {
-		console.log('Navigating To List:', Key);
-	};
-
-	const SaveList = (List) => {
-		console.log('Saving List');
 	};
 
 	useEffect(() => {
@@ -86,10 +80,9 @@ function UserPage({}: Props) {
 					<p className="UserDetailsList">{UserDetails.Username} Lists:</p>
 					<div className="UserLists">
 						{Object.keys(UserLists).map((key, index) => {
-							console.log(`${key} Detail:`, UserLists[key]);
 							return (
 								<div key={index} className="UserList">
-									<div className='UserListImageContainer'>
+									<div className="UserListImageContainer">
 										<img
 											src={UserLists[key][0]?.images.jpg.large_image_url}
 											className="UserListImage"
@@ -108,23 +101,21 @@ function UserPage({}: Props) {
 
 											<Dropdown.Menu>
 												<Dropdown.Item
-													eventKey="1"
-													onClick={() => {
-														NavigateToList(key);
-													}}
-												>
-													View List
-												</Dropdown.Item>
-												<Dropdown.Item
 													eventKey="2"
 													onClick={() => {
-														SaveList(key);
+														NavigateToList(UserLists[key]);
 													}}
 												>
-													Save List
+													View {key}
 												</Dropdown.Item>
-												<Dropdown.Divider />
-												<Dropdown.Item eventKey="1">Red-Orange</Dropdown.Item>
+												<Dropdown.Item
+													eventKey="3"
+													onClick={() => {
+														SaveList(UserLists[key]);
+													}}
+												>
+													Save {key}
+												</Dropdown.Item>
 											</Dropdown.Menu>
 										</Dropdown>
 									</span>
