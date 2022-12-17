@@ -102,7 +102,7 @@ function MainNavbar({}: Props) {
 			</Container>
 			<Navbar.Collapse id="responsive-navbar-nav">
 				<Nav className="me-auto">
-					<Nav.Link
+					{/* <Nav.Link
 						eventKey="1"
 						as={Link}
 						to="/"
@@ -110,7 +110,7 @@ function MainNavbar({}: Props) {
 						onClick={ResetAll}
 					>
 						Home
-					</Nav.Link>
+					</Nav.Link> */}
 
 					<Nav.Link
 						eventKey="2"
@@ -139,7 +139,7 @@ function MainNavbar({}: Props) {
 					>
 						People
 					</Nav.Link>
-					<Nav.Link
+					{/* <Nav.Link
 						eventKey="5"
 						as={Link}
 						to="search"
@@ -147,8 +147,8 @@ function MainNavbar({}: Props) {
 						onClick={ResetAll}
 					>
 						Search
-					</Nav.Link>
-					<Nav.Link
+					</Nav.Link> */}
+					{/* <Nav.Link
 						eventKey="6"
 						as={Link}
 						to="mylists"
@@ -156,7 +156,7 @@ function MainNavbar({}: Props) {
 						onClick={ResetAll}
 					>
 						My Lists
-					</Nav.Link>
+					</Nav.Link> */}
 					<Nav.Link
 						eventKey="7"
 						as={Link}

@@ -20,10 +20,13 @@ import UserEmail from './Pages/Settings/Edit/UserEmail';
 import UserImage from './Pages/Settings/Edit/UserImage';
 import Friends from './Pages/Friends/Friends';
 import UserPage from './Pages/Friends/UserPage';
+import Recommend from './Pages/Recommend/Recommend';
+import BottomNavbar from './Components/Navbar/BottomNavbar';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [MainNav, setMainNav] = useState<any>(undefined);
+	const [BottomNav, setBottomNav] = useState<any>(undefined);
 	const navigate = useNavigate();
 	const auth = getAuth();
 
@@ -39,9 +42,11 @@ function App() {
 				console.log('From App. No User Present');
 				navigate('/signin');
 				setMainNav(undefined);
+				setBottomNav(undefined);
 			} else {
 				navigate('/');
 				setMainNav(<MainNavbar />);
+				setBottomNav(<BottomNavbar />);
 			}
 		});
 	}, []);
@@ -65,6 +70,7 @@ function App() {
 						<Route path="signup" element={<SignUp />} />
 						<Route path="friends" element={<Friends />} />
 						<Route path="user" element={<UserPage />} />
+						<Route path="recommend" element={<Recommend />} />
 						<Route path="edit">
 							<Route path="userimage" element={<UserImage />} />
 							<Route path="username" element={<UserName />} />
@@ -72,6 +78,7 @@ function App() {
 						</Route>
 						<Route path="people" element={<People />} />
 					</Routes>
+					{BottomNav}
 				</>
 			)}
 		</div>
