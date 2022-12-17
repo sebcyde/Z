@@ -138,7 +138,7 @@ function UserPage({}: Props) {
 						</>
 						<Button
 							className="RecoButton"
-							onClick={() => Recommend(UserDetails)}
+							onClick={() => navigate('/recommend')}
 						>
 							Recommend
 						</Button>
