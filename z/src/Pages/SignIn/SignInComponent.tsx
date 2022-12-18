@@ -5,8 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { SignIn, app } from '../../config/Firebase.js';
 import { Box, TextField } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 function SignInComponent(): any {
+	const Version = useSelector((state: any) => state.VersionState);
 	const auth = getAuth(app);
 	const [UserEmail, setUserEmail] = useState('');
 	const [UserPassword, setUserPassword] = useState('');
@@ -18,32 +20,6 @@ function SignInComponent(): any {
 	};
 
 	return (
-		// <div className="SignInContainer">
-		// 	<div>
-		// 		<h2>Sign In</h2>
-		// 		<form
-		// 			onSubmit={(e) => {
-		// 				e.preventDefault();
-		// 				SignIn(auth, UserEmail, UserPassword);
-		// 			}}
-		// 		>
-		// 			<input
-		// 				type="text"
-		// 				placeholder="Email"
-		// 				onChange={(e) => setUserEmail(e.target.value)}
-		// 			/>
-		// 			<input
-		// 				type="password"
-		// 				placeholder="Password"
-		// 				onChange={(e) => setUserPassword(e.target.value)}
-		// 			/>
-		// 			<Button onClick={SetSignIn}>Sign In</Button>
-		// 			<Link to="/signup">Create account</Link>
-		// 			<p style={{ margin: '10px' }}>App Version: v1.2.1</p>
-		// 		</form>
-		// 	</div>
-		// </div>
-
 		<div className="AuthPage">
 			<Box
 				component="form"
@@ -74,7 +50,7 @@ function SignInComponent(): any {
 				<Button onClick={SetSignIn}>Sign Up</Button>
 				<Link to="/signup">Create account</Link>
 				<p style={{ margin: '10px', textAlign: 'center' }}>
-					App Version: v1.2.1
+					App Version: v{Version.Version}
 				</p>
 			</Box>
 		</div>

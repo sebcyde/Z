@@ -3,6 +3,7 @@ import { AnimeIDState } from './Slices/AnimeSlice';
 import { MangaIDState } from './Slices/MangaSlice';
 import { FavouritesListState } from './Slices/FavouritesListSlice';
 import { UserState } from './Slices/UserSlice';
+import { VersionState } from './Slices/VersionSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
 		MangaIDState: MangaIDState.reducer,
 		FavouritesListState: FavouritesListState.reducer,
 		UserState: UserState.reducer,
+		VersionState: VersionState.reducer,
 	},
 });
 

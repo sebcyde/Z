@@ -256,32 +256,6 @@ function AnimeDetails({}: Props) {
 							</span>
 							<p>Add To MyList</p>
 						</LoadingButton>
-						{/* <span className="ButtonContainer">
-							<button className="AddButton" onClick={handleShow}>
-								Add To MyList
-								{InMyList ? (
-									<span className="material-symbols-outlined">
-										playlist_add_check
-									</span>
-								) : (
-									<span className="material-symbols-outlined">
-										playlist_add
-									</span>
-								)}
-							</button>
-
-							<button
-								className="AddButton"
-								onClick={() => AddFavourite(AnimeData)}
-							>
-								Add To Favourites
-								{InFavourites ? (
-									<span className="material-symbols-outlined">star</span>
-								) : (
-									<span className="material-symbols-outlined">star</span>
-								)}
-							</button>
-						</span> */}
 
 						{AnimeData.airing == false &&
 						AnimeData.status === 'Not yet aired' ? (

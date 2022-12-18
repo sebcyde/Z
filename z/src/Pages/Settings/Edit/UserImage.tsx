@@ -78,7 +78,7 @@ function UserImage() {
 	}, []);
 
 	return (
-		<div className="NewUserImageContainer">
+		<div className="NewUserImageContainer" style={{ paddingBottom: '40px' }}>
 			{Loading ? (
 				<LoadingScreen />
 			) : (
@@ -91,7 +91,7 @@ function UserImage() {
 						</span>
 						<Button onClick={ChangePicture}>Save</Button>
 					</div>
-					<div className="ImagesContainer">
+					<div className="ImagesContainer" style={{ paddingBottom: '40px' }}>
 						{images.map((Image: string, index: number) => {
 							return (
 								<div key={index}>

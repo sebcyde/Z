@@ -14,12 +14,14 @@ import { FaArrowRight, FaSignOutAlt, FaTrashAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { ImageUpload } from '../../Functions/ImageControl';
 import { DeleteAccount } from '../../Functions/EditDetails';
+import { useSelector } from 'react-redux';
 
 const ArrowStyle = {
 	marginLeft: '10px',
 };
 
 function SettingsBottom() {
+	const Version = useSelector((state: any) => state.VersionState);
 	const [ShowError, setShowError] = useState<boolean>(false);
 	const [UserDetails, setUserDetails] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -96,7 +98,7 @@ function SettingsBottom() {
 	}, []);
 
 	return (
-		<div className="SettingsBottomSection">
+		<div className="SettingsBottomSection" style={{ paddingBottom: '50px' }}>
 			{Loading ? (
 				<LoadingScreen />
 			) : (
@@ -184,7 +186,7 @@ function SettingsBottom() {
 						</div>
 					</div>
 					<div>
-						<p>App Version 1.3.1</p>
+						<p>App Version v{Version.Version}</p>
 					</div>
 					<Modal show={show} onHide={handleClose} centered>
 						<Modal.Header closeButton>

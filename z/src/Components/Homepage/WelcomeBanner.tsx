@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function WelcomeBanner() {
+	const Version = useSelector((state: any) => state.VersionState);
+
 	return (
 		<div
 			style={{
@@ -15,7 +18,7 @@ function WelcomeBanner() {
 			}}
 		>
 			<h4 style={{ margin: '0px', fontSize: '18px' }}>
-				Current Version: V1.3.1
+				Current Version: V{Version.Version}
 			</h4>
 		</div>
 	);
