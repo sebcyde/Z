@@ -22,8 +22,10 @@ function BottomNavbar({}: Props) {
 				left: 0,
 				right: 0,
 				backgroundColor: 'black',
+				zIndex: '2',
 			}}
 			elevation={10}
+			className="BottomNav"
 		>
 			<BottomNavigation
 				showLabels

@@ -52,7 +52,7 @@ function App() {
 	}, []);
 
 	return (
-		<div className="App">
+		<div className="App" style={{ zIndex: '1' }}>
 			{Loading ? (
 				<LoadingScreen />
 			) : (
