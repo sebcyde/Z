@@ -1,3 +1,5 @@
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Box, Button, TextField } from '@mui/material';
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
@@ -5,6 +7,7 @@ import { FaArrowLeft, FaCrown } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../config/Firebase';
+import { SendMessage } from '../../Functions/SendMessage';
 import LoadingScreen from '../LoadingScreen';
 
 type Props = {};
@@ -16,6 +19,7 @@ function Recommend({}: Props) {
 	const [UserDBDetails, setUserDBDetails] = useState<any>();
 	const [QUserDetails, setQUserDetails] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
+	const [NewMessage, setNewMessage] = useState('');
 	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
@@ -59,8 +63,6 @@ function Recommend({}: Props) {
 		}
 	};
 
-	const NavFriends = () => navigate('/');
-
 	useEffect(() => {
 		PullData().then(() => setLoading(false));
 	}, []);
@@ -70,7 +72,7 @@ function Recommend({}: Props) {
 			{Loading ? (
 				<LoadingScreen />
 			) : (
-				<div className="RecommendContainer">
+				<div className="MessagePage page">
 					<div className="Navigation">
 						<span
 							style={{
@@ -80,16 +82,36 @@ function Recommend({}: Props) {
 							onClick={() => navigate('/user')}
 						>
 							<FaArrowLeft style={ArrowStyle} />
-							<p>Back</p>
+							<img src={QUserDetails.DisplayPicture} />
+							<span>
+								<h2>{QUserDetails.Username}</h2>
+								<p>{QUserDetails.Admin ? <FaCrown /> : ''}</p>
+							</span>
 						</span>
 					</div>
-					<div className="RecoUserBanner">
-						<img src={QUserDetails.DisplayPicture} />
-						<span>
-							<h2>{QUserDetails.Username}</h2>
-							<p>{QUserDetails.Admin ? <FaCrown /> : ''}</p>
-						</span>
-					</div>
+					<div className="MessagesContainer"></div>
+					<Box className="NewMessageContainer">
+						<TextField
+							id="input-with-sx"
+							placeholder="With sx"
+							variant="standard"
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+								setNewMessage(e.currentTarget.value);
+							}}
+						/>
+						<Button
+							className="SendImage"
+							onClick={() => {
+								SendMessage(
+									user!.uid,
+									[QUserDetails.UID, 'yQoOZR0QoVdrfzHa3dlGP8EjqoL2'],
+									NewMessage
+								);
+							}}
+						>
+							<ArrowForwardIcon />
+						</Button>
+					</Box>
 				</div>
 			)}
 		</>

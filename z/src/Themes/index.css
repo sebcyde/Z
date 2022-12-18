@@ -13,7 +13,7 @@ body,
 }
 
 .page {
-	height: 100%;
+	height: calc(100% - 56px - 66px);
 	width: 100%;
 	overflow: hidden;
 	padding-bottom: 40px;
