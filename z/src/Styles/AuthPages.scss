@@ -89,11 +89,14 @@
 				width: 100%;
 				input {
 					width: 100%;
-
-					::after {
-						display: none;
-						border: none;
-					}
+				}
+				&::after {
+					display: none;
+					border: none !important;
+				}
+				&:after {
+					display: none;
+					border: none !important;
 				}
 			}
 			label {
