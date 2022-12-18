@@ -8,10 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UpdateMangaID } from '../../Store/Slices/MangaSlice';
 import { Update } from '../../Store/Slices/AnimeSlice';
 import { getAuth } from 'firebase/auth';
+import EmailIcon from '@mui/icons-material/Email';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import PeopleIcon from '@mui/icons-material/People';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+import { Divider } from '@mui/material';
 type Props = {};
 
 const NavLinkStyle = {
-	paddingLeft: '10px',
+	padding: '5px 20px',
 };
 
 function MainNavbar({}: Props) {
@@ -119,8 +125,9 @@ function MainNavbar({}: Props) {
 						style={NavLinkStyle}
 						onClick={ResetAll}
 					>
-						Anime
+						<LiveTvIcon /> Anime
 					</Nav.Link>
+					<Divider variant="middle" light={true} />
 					<Nav.Link
 						eventKey="3"
 						as={Link}
@@ -128,8 +135,10 @@ function MainNavbar({}: Props) {
 						style={NavLinkStyle}
 						onClick={ResetAll}
 					>
+						<AutoStoriesIcon />
 						Manga
 					</Nav.Link>
+					<Divider variant="middle" light={true} />
 					<Nav.Link
 						eventKey="4"
 						as={Link}
@@ -137,8 +146,10 @@ function MainNavbar({}: Props) {
 						style={NavLinkStyle}
 						onClick={ResetAll}
 					>
+						<PeopleIcon />
 						People
 					</Nav.Link>
+					<Divider variant="middle" light={true} />
 					{/* <Nav.Link
 						eventKey="5"
 						as={Link}
@@ -160,13 +171,14 @@ function MainNavbar({}: Props) {
 					<Nav.Link
 						eventKey="7"
 						as={Link}
-						to="friends"
+						to="messages"
 						style={NavLinkStyle}
 						onClick={ResetAll}
 					>
-						My Friends
+						<EmailIcon /> Messages
 					</Nav.Link>
-					<Nav.Link
+
+					{/* <Nav.Link
 						eventKey="8"
 						as={Link}
 						to="settings"
@@ -174,7 +186,7 @@ function MainNavbar({}: Props) {
 						onClick={ResetAll}
 					>
 						Settings
-					</Nav.Link>
+					</Nav.Link> */}
 				</Nav>
 				{user && Admin ? (
 					<div
@@ -188,6 +200,7 @@ function MainNavbar({}: Props) {
 							onClick={PullData}
 							style={{ margin: '10px auto', width: '90%' }}
 						>
+							<KeyboardDoubleArrowDownIcon />
 							Pull Data
 						</Button>
 					</div>

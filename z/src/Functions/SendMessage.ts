@@ -10,7 +10,7 @@ import { db } from '../config/Firebase';
 export const SendMessage = async (
 	LoggedInUser: string,
 	RecievingUsers: string[],
-	Message: string
+	Message    : string
 ) => {
 	const AddToUserDB = async () => {
 		// Add message to Logged in users DB
