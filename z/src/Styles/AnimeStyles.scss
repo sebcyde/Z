@@ -172,20 +172,6 @@
 		min-height: 233px;
 	}
 
-	.BannerSimilar {
-		position: relative;
-		top: 0px;
-		left: 0px;
-		margin: 20px;
-		font-size: 10px;
-	}
-
-	.Banner {
-		width: 100%;
-		margin: 10px 0px 10px 20px;
-		font-size: 18px;
-	}
-
 	.SimilarContainer,
 	.BannerContainer {
 		width: 100%;
@@ -193,7 +179,8 @@
 		overflow-x: scroll;
 		overflow-y: hidden;
 
-		.AnimeContainer {
+		.AnimeContainer,
+		.SimilarAnimeContainer {
 			height: fit-content;
 			min-height: 340px;
 			padding: 1px;
@@ -328,19 +315,19 @@
 }
 
 .PosterContainer {
-	position: relative;
+	display: flex;
+	flex-direction: column;
+
 	.PosterImage {
-		position: absolute;
-		z-index: 1;
-		height: auto;
+		height: 450px;
 		width: 100%;
 	}
 
 	.PosterDetails {
-		position: relative;
-		z-index: 2;
-		.PosterTitle {
-		}
+		background-color: black;
+		padding: 10px 20px;
+		width: 100%;
+		margin: 0px;
 
 		.PosterSynopsis {
 			display: -webkit-box;
@@ -354,6 +341,11 @@
 			border: 1px solid orange;
 		}
 	}
+}
+
+.MuiDivider-light {
+	background-color: white;
+	margin: 10px 16px !important;
 }
 
 .Button {

@@ -1,3 +1,4 @@
+import { Divider } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
@@ -27,36 +28,33 @@ function TopPoster({ URL }: Props) {
 				const Ani = response.data.data[0];
 				console.log('Poster Anime:', Ani);
 				return (
-					<div
-						className="PosterContainer"
-						style={{
-							height: '500px',
-							display: 'flex',
-							justifyContent: 'center',
-						}}
-					>
-						<img
-							src={Ani.images.jpg.large_image_url}
-							alt="Poster image"
-							className="PosterImage"
-							style={{ height: '500px', opacity: '.6' }}
-						/>
+					<>
 						<div
-							className="PosterDetails"
-							style={{ width: '95%', bottom: '30px', position: 'absolute' }}
+							className="PosterContainer"
+							style={{
+								display: 'flex',
+								justifyContent: 'center',
+							}}
 						>
-							<h2 className="PosterTitle">{Ani.title}</h2>
-							<p className="PosterSynopsis">{Ani.synopsis}</p>
-							<Button
-								className="PosterButton"
-								onClick={() => {
-									NavigateAnimePage(Ani.mal_id);
-								}}
-							>
-								Read More
-							</Button>
+							<img
+								src={Ani.images.jpg.large_image_url}
+								alt="Poster image"
+								className="PosterImage"
+							/>
+							<div className="PosterDetails">
+								<h2 className="PosterTitle">{Ani.title}</h2>
+								<p className="PosterSynopsis">{Ani.synopsis}</p>
+								<Button
+									className="PosterButton"
+									onClick={() => {
+										NavigateAnimePage(Ani.mal_id);
+									}}
+								>
+									Read More
+								</Button>
+							</div>
 						</div>
-					</div>
+					</>
 				);
 			})
 			.then((NewAnime) => setAnimePoster(NewAnime))
@@ -65,7 +63,18 @@ function TopPoster({ URL }: Props) {
 			})
 			.catch((err) => console.log(err));
 	}, [URL]);
-	return <>{Loading ? '' : AnimePoster}</>;
+	return (
+		<>
+			{Loading ? (
+				''
+			) : (
+				<>
+					{AnimePoster}
+					<Divider variant="middle" light={true} />
+				</>
+			)}
+		</>
+	);
 }
 
 export default TopPoster;

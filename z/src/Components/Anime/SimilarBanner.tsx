@@ -6,6 +6,13 @@ import axios from 'axios';
 import Anime from '../../Pages/Anime/Anime';
 import { Update } from '../../Store/Slices/AnimeSlice';
 import { Container } from 'react-bootstrap/lib/Tab';
+import {
+	Card,
+	CardActionArea,
+	CardContent,
+	CardMedia,
+	Typography,
+} from '@mui/material';
 type Props = { Genres: any[]; Title: string };
 
 function SimilarBanner({ Genres, Title }: Props) {
@@ -36,22 +43,27 @@ function SimilarBanner({ Genres, Title }: Props) {
 				.then(() => {
 					const NewAnime = Animes.map((SimAn, index: number) => {
 						return (
-							<div
+							<Card
 								key={index}
-								className="SimilarAnimeContainer"
+								className="AnimeContainer"
 								onClick={() => {
 									NavigateAnimePage(SimAn.mal_id);
 								}}
 							>
-								<img src={SimAn.images.jpg.image_url} />
-								<div className="SimilarAnimeDetailsContainer">
-									<h3 className="SimilarAnimeTitle">{SimAn.title}</h3>
-									<span className="SimilarAnimeGenres">
-										<p>{SimAn.genres[0].name}</p>
-										<p>{SimAn.genres[1].name}</p>
-									</span>
-								</div>
-							</div>
+								<CardActionArea>
+									<CardMedia
+										component="img"
+										height="140"
+										image={SimAn.images.jpg.image_url}
+										alt="green iguana"
+									/>
+									<CardContent>
+										<Typography gutterBottom variant="h5" component="div">
+											{SimAn.title}
+										</Typography>
+									</CardContent>
+								</CardActionArea>
+							</Card>
 						);
 					});
 

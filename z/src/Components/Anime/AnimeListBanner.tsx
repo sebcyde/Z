@@ -45,20 +45,13 @@ function AnimeListBanner({ URL, Title, List }: Props) {
 					console.log('Response:', response);
 					const NewAnime = response.data.data.map((Ani: any, index: number) => {
 						return (
-							// <div
-							// 	key={index}
-							// 	className="AnimeContainer"
-							// 	onClick={() => {
-							// 		NavigateAnimePage(Ani.mal_id);
-							// 	}}
-							// >
-							// 	<img src={Ani.images.jpg.image_url} />
-							// 	<div className="AnimeDetailsContainer">
-							// 		<h3 className="AnimeTitle">{Ani.title}</h3>
-							// 		<h3 className="AnimeEpisodes">Episodes: {Ani.episodes}</h3>
-							// 	</div>
-							// </div>
-							<Card className="AnimeContainer">
+							<Card
+								key={index}
+								className="AnimeContainer"
+								onClick={() => {
+									NavigateAnimePage(Ani.mal_id);
+								}}
+							>
 								<CardActionArea>
 									<CardMedia
 										component="img"
