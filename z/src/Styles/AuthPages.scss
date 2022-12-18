@@ -56,3 +56,56 @@
 		}
 	}
 }
+
+.AuthPage {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.AuthContainer {
+		padding: 20px;
+		width: 90%;
+		margin: auto;
+		background-color: #333533;
+		border-radius: 3px;
+		box-shadow: 3px 3px 3px #333533;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		h2 {
+			text-align: center;
+			margin: 0;
+			width: 100%;
+		}
+		div {
+			box-sizing: border-box;
+			width: 90%;
+			color: white;
+			border-bottom: 1px solid white;
+			div {
+				width: 100%;
+				input {
+					width: 100%;
+
+					::after {
+						display: none;
+						border: none;
+					}
+				}
+			}
+			label {
+				color: white;
+			}
+		}
+		button {
+			margin-top: 25px;
+		}
+		a {
+			text-align: center;
+			color: gray;
+		}
+	}
+}
