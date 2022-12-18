@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowLeft, FaCrown } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import MessageComponent from '../../Components/Messages/MessageComponent';
 import { db } from '../../config/Firebase';
 import { SendMessage } from '../../Functions/SendMessage';
 import LoadingScreen from '../LoadingScreen';
@@ -23,6 +24,7 @@ function Recommend({}: Props) {
 	const navigate = useNavigate();
 	const auth = getAuth();
 	const user = auth.currentUser;
+	const ChatParticipants: string[] = [user?.uid, UserQueryID.UID];
 
 	const PullData = async () => {
 		console.log(UserQueryID);
@@ -89,7 +91,12 @@ function Recommend({}: Props) {
 							</span>
 						</span>
 					</div>
-					<div className="MessagesContainer"></div>
+					<div className="MessagesContainer">
+						<MessageComponent
+							User={user!.uid}
+							ChatParticipants={ChatParticipants}
+						/>
+					</div>
 					<Box className="NewMessageContainer">
 						<TextField
 							id="input-with-sx"
@@ -98,15 +105,13 @@ function Recommend({}: Props) {
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								setNewMessage(e.currentTarget.value);
 							}}
+							value={NewMessage}
 						/>
 						<Button
 							className="SendImage"
 							onClick={() => {
-								SendMessage(
-									user!.uid,
-									[QUserDetails.UID, 'yQoOZR0QoVdrfzHa3dlGP8EjqoL2'],
-									NewMessage
-								);
+								SendMessage(user!.uid, [QUserDetails.UID], NewMessage);
+								setNewMessage('');
 							}}
 						>
 							<ArrowForwardIcon />

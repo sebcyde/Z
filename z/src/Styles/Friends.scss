@@ -259,11 +259,12 @@
 
 .MessagePage {
 	height: calc(100% - 56px - 66px);
-	background-color: white;
+	background-color: black;
 	// border: 1px solid yellow;
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	color: white !important;
 	.Navigation {
 		display: flex;
 		height: fit-content;
@@ -344,6 +345,7 @@
 					margin: 0;
 					font-size: 20px;
 					padding: 0px;
+					color: white;
 				}
 			}
 		}
