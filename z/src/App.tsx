@@ -20,8 +20,8 @@ import UserEmail from './Pages/Settings/Edit/UserEmail';
 import UserImage from './Pages/Settings/Edit/UserImage';
 import Friends from './Pages/Friends/Friends';
 import UserPage from './Pages/Friends/UserPage';
-import Recommend from './Pages/Recommend/Recommend';
 import BottomNavbar from './Components/Navbar/BottomNavbar';
+import Message from './Pages/Message/Message';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -70,7 +70,7 @@ function App() {
 						<Route path="signup" element={<SignUp />} />
 						<Route path="friends" element={<Friends />} />
 						<Route path="user" element={<UserPage />} />
-						<Route path="recommend" element={<Recommend />} />
+						<Route path="message" element={<Message />} />
 						<Route path="edit">
 							<Route path="userimage" element={<UserImage />} />
 							<Route path="username" element={<UserName />} />

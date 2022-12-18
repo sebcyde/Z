@@ -140,7 +140,7 @@ function UserPage({}: Props) {
 							className="RecoButton"
 							onClick={() => navigate('/recommend')}
 						>
-							Recommend
+							Message
 						</Button>
 					</span>
 					<p className="UserDetailsList">{UserDetails.Username} Lists:</p>

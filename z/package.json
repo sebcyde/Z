@@ -12,7 +12,11 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@emotion/react": "^11.10.5",
+		"@emotion/styled": "^11.10.5",
 		"@firebase/firestore-types": "^2.5.1",
+		"@mui/icons-material": "^5.11.0",
+		"@mui/material": "^5.11.0",
 		"@reduxjs/toolkit": "^1.9.0",
 		"@types/firebase": "^3.2.1",
 		"@types/styled-components": "^5.1.26",
