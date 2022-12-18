@@ -235,16 +235,27 @@ function AnimeDetails({}: Props) {
 
 					<div className="AnimeDetailsContainer">
 						<img src={AnimeData.images.jpg.large_image_url} />
-						<h2 className="AnimeTitle">{AnimeData.title}</h2>
-						<span className="AnimeRating">
-							<Rating
-								name="half-rating-read"
-								value={AnimeData.score / 2}
-								precision={0.1}
-								readOnly
-							/>
-							<p>Average: {AnimeData.score}</p>
-						</span>
+						<h2
+							className="AnimeTitle "
+							style={AnimeData.score ? null : { marginBottom: '15px' }}
+						>
+							{AnimeData.title}
+						</h2>
+						{AnimeData.score ? (
+							<>
+								<span className="AnimeRating">
+									<Rating
+										name="half-rating-read"
+										value={AnimeData.score / 2}
+										precision={0.1}
+										readOnly
+									/>
+									<p>Average: {AnimeData.score}</p>
+								</span>
+							</>
+						) : (
+							''
+						)}
 
 						<LoadingButton
 							loading={ButtonLoading}
@@ -259,7 +270,12 @@ function AnimeDetails({}: Props) {
 
 						{AnimeData.airing == false &&
 						AnimeData.status === 'Not yet aired' ? (
-							<p className="AnimeSynopsis">{AnimeData.status}</p>
+							<p
+								className="AnimeSynopsis"
+								style={{ margin: '15px 0px 0px 15px' }}
+							>
+								{AnimeData.status}
+							</p>
 						) : (
 							''
 						)}
