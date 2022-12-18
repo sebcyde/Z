@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { app } from '../../config/Firebase';
+import LoadingScreen from '../../Pages/LoadingScreen';
 type Props = { User: string; ChatParticipants: string[] };
 
 type DBMessageObject = {
@@ -28,7 +29,6 @@ type DBMessageObject = {
 function MessageComponent({ User, ChatParticipants }: Props) {
 	const [ActualChat, setActualChat] = useState<any>();
 	const [Loading, setLoading] = useState(true);
-	console.log(User);
 
 	const [value, loading, error] = useCollection(
 		collection(getFirestore(app), `Users/${User}/MoreInfo/Chats/AllChats`),
@@ -37,38 +37,27 @@ function MessageComponent({ User, ChatParticipants }: Props) {
 		}
 	);
 
-	const RetrieveChat = async (
-		ChatParticipants: string[],
-		DBDocParticipants: string[]
-	) => {
-		console.log('Chat Participant:', ChatParticipants.length);
-		console.log('DB Doc Participants:', DBDocParticipants.length);
-
-		if (ChatParticipants.length != DBDocParticipants.length) return false;
-
-		// Needs to go in a loop of all DB chats
-
-		const Chat = DBDocParticipants.forEach((User) => {
-			if (ChatParticipants.includes(User)) return true;
-		});
-
-		return Chat;
-	};
-
 	const GetChat = async () => {
 		const PossibleChats: DocumentData[] = [];
 
 		await Promise.all(
 			value!.docs.map(async (doc) => {
-				console.log(doc.data().MessageObject.Message);
-
 				if (ChatParticipants.length != doc.data().Users.length) return null;
 
-				const Pos = doc.data().Users.map((User: any) => {
-					if (!ChatParticipants.includes(User)) return null;
+				const Pos = doc.data().Users.map((User: any, index: number) => {
+					let DBUsers = doc
+						.data()
+						.Users.sort((a: string, b: string) => a.localeCompare(b));
+
+					let CPUsers = ChatParticipants.sort((a: string, b: string) =>
+						a.localeCompare(b)
+					);
+
+					if (DBUsers[index] != CPUsers[index]) return false;
+					else return true;
 				});
 
-				if (Pos != null) PossibleChats.push(doc.data());
+				if (!Pos.includes(false)) PossibleChats.push(doc.data());
 			})
 		);
 
@@ -85,24 +74,27 @@ function MessageComponent({ User, ChatParticipants }: Props) {
 
 		setActualChat(
 			PossibleChats.map((Chat: DocumentData) => {
+				let Hours = Chat.MessageObject.Time.toDate().getHours();
+				let Minutes = Chat.MessageObject.Time.toDate().getMinutes();
+
+				const withPmAm = Chat.MessageObject.Time.toDate().toLocaleTimeString(
+					'en-GB',
+					{
+						hour: '2-digit',
+						minute: '2-digit',
+					}
+				);
+
 				return (
 					<div
-						className="Message"
-						style={
+						className={
 							User == Chat.MessageObject.SendingUser
-								? {
-										marginLeft: 'auto',
-										backgroundColor: 'gray',
-										color: 'white',
-								  }
-								: {
-										marginRight: 'auto',
-										backgroundColor: 'green',
-										color: 'white',
-								  }
+								? 'Sender Message'
+								: 'Reciever Message'
 						}
 					>
 						<p>{Chat.MessageObject.Message}</p>
+						<p className="MessageTimeStamp">{withPmAm}</p>
 					</div>
 				);
 			})
@@ -111,16 +103,14 @@ function MessageComponent({ User, ChatParticipants }: Props) {
 
 	useEffect(() => {
 		if (value) {
-			GetChat()
-				.then(() => setLoading(false))
-				.then(() => console.log(ActualChat));
+			GetChat().then(() => setLoading(false));
 		}
 	}, [value]);
 
 	return (
 		<div className="ChatContainer">
 			{Loading ? (
-				<h2>Retreiving Chat</h2>
+				<LoadingScreen />
 			) : (
 				ActualChat && <>{ActualChat.map((Chat: any) => Chat)}</>
 			)}

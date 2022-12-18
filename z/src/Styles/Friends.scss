@@ -260,7 +260,6 @@
 .MessagePage {
 	height: calc(100% - 56px - 66px);
 	background-color: black;
-	// border: 1px solid yellow;
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -303,8 +302,35 @@
 		}
 	}
 	.MessagesContainer {
-		height: 80%;
+		height: calc(100% - 50px);
 		overflow-x: scroll;
+		.Message {
+			width: fit-content;
+			max-width: 45%;
+			padding: 10px;
+			margin: 5px;
+			border-radius: 5px;
+
+			&.Sender {
+				margin-left: auto;
+				background-color: gray;
+				color: white;
+			}
+			&.Reciever {
+				margin-right: auto;
+				background-color: green;
+				color: white;
+			}
+			p {
+				margin: 0;
+			}
+
+			.MessageTimeStamp {
+				width: 100%;
+				font-size: 11px;
+				text-align: right !important;
+			}
+		}
 	}
 	.NewMessageContainer {
 		position: relative;
@@ -317,6 +343,8 @@
 		padding: 5px;
 		overflow: hidden;
 		border: 1px solid orange;
+		width: calc(100% - 10px);
+		margin: 0 auto;
 
 		> div {
 			height: fit-content;

@@ -1,5 +1,5 @@
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, CircularProgress, TextField } from '@mui/material';
 import { getAuth } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
@@ -16,6 +16,7 @@ const ArrowStyle = { marginRight: '10px' };
 
 function Recommend({}: Props) {
 	const UserQueryID = useSelector((state: any) => state.UserState);
+	const [SendButtonLoading, setSendButtonLoading] = useState(false);
 	const [QUserDBDetails, setQUserDBDetails] = useState<any>();
 	const [UserDBDetails, setUserDBDetails] = useState<any>();
 	const [QUserDetails, setQUserDetails] = useState<any>();
@@ -74,7 +75,7 @@ function Recommend({}: Props) {
 			{Loading ? (
 				<LoadingScreen />
 			) : (
-				<div className="MessagePage page">
+				<div className="MessagePage ">
 					<div className="Navigation">
 						<span
 							style={{
@@ -94,13 +95,13 @@ function Recommend({}: Props) {
 					<div className="MessagesContainer">
 						<MessageComponent
 							User={user!.uid}
-							ChatParticipants={ChatParticipants}
+							ChatParticipants={[user!.uid, QUserDetails.UID]}
 						/>
 					</div>
 					<Box className="NewMessageContainer">
 						<TextField
 							id="input-with-sx"
-							placeholder="With sx"
+							placeholder="Send a message..."
 							variant="standard"
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								setNewMessage(e.currentTarget.value);
@@ -110,11 +111,19 @@ function Recommend({}: Props) {
 						<Button
 							className="SendImage"
 							onClick={() => {
-								SendMessage(user!.uid, [QUserDetails.UID], NewMessage);
-								setNewMessage('');
+								if (NewMessage.length > 0) {
+									setSendButtonLoading(true);
+									SendMessage(user!.uid, [QUserDetails.UID], NewMessage);
+									setNewMessage('');
+									setSendButtonLoading(false);
+								}
 							}}
 						>
-							<ArrowForwardIcon />
+							{SendButtonLoading ? (
+								<CircularProgress color="inherit" />
+							) : (
+								<ArrowForwardIcon />
+							)}
 						</Button>
 					</Box>
 				</div>
