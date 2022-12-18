@@ -24,7 +24,8 @@ import Modal from 'react-bootstrap/Modal';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { BsPlusLg } from 'react-icons/bs';
 import '../../Styles/Modal.scss';
-import { LoadingButton, Rating } from '@mui/lab';
+import { LoadingButton } from '@mui/lab';
+import { Rating } from '@mui/material';
 
 type Props = {};
 
@@ -35,10 +36,9 @@ function AnimeDetails({}: Props) {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [ModalLoading, setModalLoading] = useState<boolean>(true);
 	const [UserLists, setUserLists] = useState<any[]>([]);
-	const [InFavourites, setInFavourites] = useState<boolean>(false);
+	const [InList, setInList] = useState<boolean>(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const InMyList: boolean = false;
 	const [show, setShow] = useState(false);
 	const [Editing, setEditing] = useState<boolean>(false);
 	const NewListRef = useRef<HTMLInputElement>(null);
@@ -57,10 +57,6 @@ function AnimeDetails({}: Props) {
 	const ResetID = () => {
 		dispatch(Update(0));
 		navigate('/');
-	};
-
-	const ShowDetails = () => {
-		console.log(AnimeData);
 	};
 
 	const PullLists = async () => {
@@ -86,19 +82,6 @@ function AnimeDetails({}: Props) {
 			} else {
 				console.log('No such document!');
 			}
-		}
-	};
-
-	const AddFavourite = async (Item: object) => {
-		// Add To DB
-		if (user) {
-			const UserDB = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
-			await updateDoc(UserDB, {
-				Favourites: arrayUnion(Item),
-			});
-			console.log('Item Added To Favourites');
-			PullLists();
-			handleClose();
 		}
 	};
 
@@ -142,7 +125,7 @@ function AnimeDetails({}: Props) {
 				return Data;
 			})
 			.then((Data) => {
-				console.log(Data);
+				console.log('Anime Data:', Data);
 				setAnimeData(Data);
 				setLoading(false);
 			})
@@ -237,7 +220,7 @@ function AnimeDetails({}: Props) {
 						<img src={AnimeData.images.jpg.large_image_url} />
 						<h2
 							className="AnimeTitle "
-							style={AnimeData.score ? null : { marginBottom: '15px' }}
+							style={AnimeData.score ? undefined : { marginBottom: '15px' }}
 						>
 							{AnimeData.title}
 						</h2>
@@ -282,7 +265,12 @@ function AnimeDetails({}: Props) {
 
 						<p className="AnimeSynopsis">{AnimeData.synopsis}</p>
 					</div>
-					<YouTubeEmbed ID={AnimeData.trailer.youtube_id} />
+					{AnimeData.trailer.youtube_id ? (
+						<YouTubeEmbed ID={AnimeData.trailer.youtube_id} />
+					) : (
+						''
+					)}
+
 					<SimilarBanner Genres={AnimeData.genres} Title={AnimeData.title} />
 				</>
 			)}
@@ -290,7 +278,6 @@ function AnimeDetails({}: Props) {
 			{user && user.uid === 'oiE27ZlECvbU5MhKPjVPRQpiMSp1' ? (
 				<>
 					<Button onClick={ResetID}>Reset ID</Button>
-					<Button onClick={ShowDetails}>Show Details</Button>
 				</>
 			) : (
 				''

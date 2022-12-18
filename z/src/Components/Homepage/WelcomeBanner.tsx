@@ -18,7 +18,7 @@ function WelcomeBanner() {
 			}}
 		>
 			<h4 style={{ margin: '0px', fontSize: '18px' }}>
-				Current Version: v{Version.Version}
+				App Version: v{Version.Version}
 			</h4>
 		</div>
 	);
