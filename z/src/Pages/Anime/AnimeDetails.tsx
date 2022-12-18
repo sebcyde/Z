@@ -24,11 +24,13 @@ import Modal from 'react-bootstrap/Modal';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { BsPlusLg } from 'react-icons/bs';
 import '../../Styles/Modal.scss';
+import { LoadingButton, Rating } from '@mui/lab';
 
 type Props = {};
 
 function AnimeDetails({}: Props) {
 	const StoreID = useSelector((state: any) => state.IDState);
+	const [ButtonLoading, setButtonLoading] = useState(false);
 	const [AnimeData, setAnimeData] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [ModalLoading, setModalLoading] = useState<boolean>(true);
@@ -43,8 +45,14 @@ function AnimeDetails({}: Props) {
 	const auth = getAuth();
 	const user = auth.currentUser;
 
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	const handleClose = () => {
+		setShow(false);
+		setButtonLoading(false);
+	};
+	const handleShow = () => {
+		setButtonLoading(true);
+		setShow(true);
+	};
 
 	const ResetID = () => {
 		dispatch(Update(0));
@@ -228,11 +236,27 @@ function AnimeDetails({}: Props) {
 					<div className="AnimeDetailsContainer">
 						<img src={AnimeData.images.jpg.large_image_url} />
 						<h2 className="AnimeTitle">{AnimeData.title}</h2>
-						<span className="AnimeScoreContainer">
-							<p>Rank: {AnimeData.rank}</p>
-							<p>Score: {AnimeData.score}</p>
+						<span className="AnimeRating">
+							<Rating
+								name="half-rating-read"
+								value={AnimeData.score / 2}
+								precision={0.1}
+								readOnly
+							/>
+							<p>Average: {AnimeData.score}</p>
 						</span>
-						<span className="ButtonContainer">
+
+						<LoadingButton
+							loading={ButtonLoading}
+							variant="outlined"
+							onClick={handleShow}
+						>
+							<span className="material-symbols-outlined">
+								playlist_add_check
+							</span>
+							<p>Add To MyList</p>
+						</LoadingButton>
+						{/* <span className="ButtonContainer">
 							<button className="AddButton" onClick={handleShow}>
 								Add To MyList
 								{InMyList ? (
@@ -257,12 +281,7 @@ function AnimeDetails({}: Props) {
 									<span className="material-symbols-outlined">star</span>
 								)}
 							</button>
-						</span>
-						<span className="AnimeGenreContainer">
-							{AnimeData.genres.forEach((element: any) => {
-								return <div className="AnimeGenreTag">{element.name}</div>;
-							})}
-						</span>
+						</span> */}
 
 						{AnimeData.airing == false &&
 						AnimeData.status === 'Not yet aired' ? (
@@ -271,7 +290,6 @@ function AnimeDetails({}: Props) {
 							''
 						)}
 
-						<h3 className="AnimeSynopsisTitle">Synopsis:</h3>
 						<p className="AnimeSynopsis">{AnimeData.synopsis}</p>
 					</div>
 					<YouTubeEmbed ID={AnimeData.trailer.youtube_id} />
