@@ -29,8 +29,11 @@ function Messages({}: Props) {
 		if (value) {
 			value.docs.forEach((level1doc) => {
 				X++;
-				value!.docs.map(async (doc) => {
-					if (level1doc.data().MessageID != doc.data().MessageID) {
+				value.docs.map(async (doc) => {
+					let L1ID = level1doc.data().MessageID;
+					let L2ID = doc.data().MessageID;
+
+					if (L1ID && L2ID && L1ID != L2ID) {
 						if (!AllIDs.has(doc.data().MessageID)) {
 							AllIDs.add(doc.data().MessageID);
 							SortedMessages.push(doc.data());

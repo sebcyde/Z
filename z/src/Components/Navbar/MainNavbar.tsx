@@ -13,6 +13,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import PeopleIcon from '@mui/icons-material/People';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { Divider } from '@mui/material';
 type Props = {};
 
@@ -159,15 +160,17 @@ function MainNavbar({}: Props) {
 					>
 						Search
 					</Nav.Link> */}
-					{/* <Nav.Link
+					<Nav.Link
 						eventKey="6"
 						as={Link}
 						to="mylists"
 						style={NavLinkStyle}
 						onClick={ResetAll}
 					>
-						My Lists
-					</Nav.Link> */}
+						<FormatListBulletedIcon /> My Lists
+					</Nav.Link>
+
+					{/* <Divider variant="middle" light={true} />
 					<Nav.Link
 						eventKey="7"
 						as={Link}
@@ -176,7 +179,7 @@ function MainNavbar({}: Props) {
 						onClick={ResetAll}
 					>
 						<EmailIcon /> Messages
-					</Nav.Link>
+					</Nav.Link> */}
 
 					{/* <Nav.Link
 						eventKey="8"
