@@ -6,12 +6,15 @@ import {
 	setDoc,
 } from 'firebase/firestore';
 import { db } from '../config/Firebase';
+import { v4 as uuidv4 } from 'uuid';
 
 export const SendMessage = async (
 	LoggedInUser: string,
 	RecievingUsers: string[],
-	Message    : string
+	Message: string
 ) => {
+	const UniqueMessageID = uuidv4();
+
 	const AddToUserDB = async () => {
 		// Add message to Logged in users DB
 		await addDoc(
@@ -23,6 +26,7 @@ export const SendMessage = async (
 					Message: Message,
 					Time: serverTimestamp(),
 				},
+				MessageID: UniqueMessageID,
 			}
 		);
 	};
@@ -37,6 +41,7 @@ export const SendMessage = async (
 						Message: Message,
 						Time: serverTimestamp(),
 					},
+					MessageID: UniqueMessageID,
 				});
 			})
 		);
