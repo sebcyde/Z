@@ -31,7 +31,7 @@ function Recommend({}: Props) {
 	const EndOfMessagesRef = useRef<null | HTMLDivElement>(null);
 
 	const [value, loading, error] = useCollection(
-		collection(getFirestore(app), `Users/${user.uid}/MoreInfo/Chats/AllChats`),
+		collection(getFirestore(app), `Users/${user?.uid}/MoreInfo/Chats/AllChats`),
 		{
 			snapshotListenOptions: { includeMetadataChanges: true },
 		}
