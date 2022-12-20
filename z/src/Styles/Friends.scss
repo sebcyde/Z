@@ -307,18 +307,18 @@
 		.Message {
 			width: fit-content;
 			max-width: 45%;
-			padding: 10px;
+			padding: 7px 10px;
 			margin: 5px;
 			border-radius: 5px;
 
 			&.Sender {
 				margin-left: auto;
-				background-color: gray;
+				background-color: rgb(97, 97, 97);
 				color: white;
 			}
 			&.Reciever {
 				margin-right: auto;
-				background-color: green;
+				background-color: rgb(0, 80, 0);
 				color: white;
 			}
 			p {
@@ -327,7 +327,7 @@
 
 			.MessageTimeStamp {
 				width: 100%;
-				font-size: 11px;
+				font-size: 8px;
 				text-align: right !important;
 			}
 		}

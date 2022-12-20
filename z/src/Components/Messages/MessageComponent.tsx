@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {
-	addDoc,
-	collection,
-	doc,
-	DocumentData,
-	getFirestore,
-	serverTimestamp,
-	setDoc,
-	Timestamp,
-} from 'firebase/firestore';
+import { collection, DocumentData, getFirestore } from 'firebase/firestore';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { app } from '../../config/Firebase';
 import LoadingScreen from '../../Pages/LoadingScreen';
+
 type Props = { User: string; ChatParticipants: string[] };
 
 type DBMessageObject = {

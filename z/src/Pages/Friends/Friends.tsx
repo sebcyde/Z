@@ -10,6 +10,16 @@ import UserSearch from '../../Components/Search/UserSearch';
 import { db } from '../../config/Firebase';
 import { SetUser } from '../../Store/Slices/UserSlice';
 import LoadingScreen from '../LoadingScreen';
+import * as Scroll from 'react-scroll';
+import {
+	Link,
+	Button,
+	Element,
+	Events,
+	animateScroll as scroll,
+	scrollSpy,
+	scroller,
+} from 'react-scroll';
 
 const ArrowStyle = {
 	marginLeft: '10px',

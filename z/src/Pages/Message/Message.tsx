@@ -1,15 +1,17 @@
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Box, Button, CircularProgress, TextField } from '@mui/material';
 import { getAuth } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import { collection, doc, getDoc, getFirestore } from 'firebase/firestore';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaArrowLeft, FaCrown } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import MessageComponent from '../../Components/Messages/MessageComponent';
-import { db } from '../../config/Firebase';
+import { app, db } from '../../config/Firebase';
 import { SendMessage } from '../../Functions/SendMessage';
 import LoadingScreen from '../LoadingScreen';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 type Props = {};
 const ArrowStyle = { marginRight: '10px' };
@@ -26,6 +28,22 @@ function Recommend({}: Props) {
 	const auth = getAuth();
 	const user = auth.currentUser;
 	const ChatParticipants: string[] = [user?.uid, UserQueryID.UID];
+	const EndOfMessagesRef = useRef<null | HTMLDivElement>(null);
+
+	const [value, loading, error] = useCollection(
+		collection(getFirestore(app), `Users/${user.uid}/MoreInfo/Chats/AllChats`),
+		{
+			snapshotListenOptions: { includeMetadataChanges: true },
+		}
+	);
+
+	const ScrollToBottom = () => {
+		console.log('Scrolling');
+		EndOfMessagesRef.current!.scrollIntoView({
+			behavior: 'smooth',
+			block: 'start',
+		});
+	};
 
 	const PullData = async () => {
 		console.log(UserQueryID);
@@ -67,8 +85,16 @@ function Recommend({}: Props) {
 	};
 
 	useEffect(() => {
-		PullData().then(() => setLoading(false));
+		PullData().then(() => {
+			setLoading(false);
+		});
 	}, []);
+
+	useEffect(() => {
+		setTimeout(() => {
+			ScrollToBottom();
+		}, 1000);
+	}, [value]);
 
 	return (
 		<>
@@ -97,6 +123,7 @@ function Recommend({}: Props) {
 							User={user!.uid}
 							ChatParticipants={[user!.uid, QUserDetails.UID]}
 						/>
+						<div ref={EndOfMessagesRef}></div>
 					</div>
 					<Box className="NewMessageContainer">
 						<TextField
@@ -113,14 +140,18 @@ function Recommend({}: Props) {
 							onClick={() => {
 								if (NewMessage.length > 0) {
 									setSendButtonLoading(true);
-									SendMessage(user!.uid, [QUserDetails.UID], NewMessage);
-									setNewMessage('');
-									setSendButtonLoading(false);
+									SendMessage(user!.uid, [QUserDetails.UID], NewMessage).then(
+										() => {
+											setNewMessage('');
+											setSendButtonLoading(false);
+											ScrollToBottom();
+										}
+									);
 								}
 							}}
 						>
 							{SendButtonLoading ? (
-								<CircularProgress color="inherit" />
+								<HourglassEmptyIcon />
 							) : (
 								<ArrowForwardIcon />
 							)}
