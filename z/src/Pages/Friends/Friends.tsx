@@ -10,19 +10,14 @@ import UserSearch from '../../Components/Search/UserSearch';
 import { db } from '../../config/Firebase';
 import { SetUser } from '../../Store/Slices/UserSlice';
 import LoadingScreen from '../LoadingScreen';
-import * as Scroll from 'react-scroll';
-import {
-	Link,
-	Button,
-	Element,
-	Events,
-	animateScroll as scroll,
-	scrollSpy,
-	scroller,
-} from 'react-scroll';
 
 const ArrowStyle = {
 	marginLeft: '10px',
+};
+
+type UserConnections = {
+	Following: string[];
+	Followers: string[];
 };
 
 function Friends() {
@@ -65,26 +60,21 @@ function Friends() {
 
 		console.log('My Connectons:', ConnectionsSnap.data());
 
-		const Following = await Promise.all(
-			ConnectionsSnap.data()?.Following.map(
-				async (Followed: string, index: number): Promise<any> => {
-					const FollowedData = await PullConnection(Followed);
-					return FollowedData;
-				}
-			)
-		);
-
-		const Followers = await Promise.all(
-			ConnectionsSnap.data()?.Followers.map(
-				async (Follower: string, index: number): Promise<any> => {
-					const FollowerData = await PullConnection(Follower);
-					return FollowerData;
-				}
-			)
-		);
-
-		setUserFollowing(Following);
-		setUserFollowers(Followers);
+		// Retrieve and set following and followers data
+		const [following, followers] = await Promise.all([
+			Promise.all(
+				ConnectionsSnap.data()?.Following.map(
+					async (followed: string) => await PullConnection(followed)
+				)
+			),
+			Promise.all(
+				ConnectionsSnap.data()?.Followers.map(
+					async (follower: string) => await PullConnection(follower)
+				)
+			),
+		]);
+		setUserFollowing(following);
+		setUserFollowers(followers);
 	};
 
 	const TabSelect = (k: string | null) => {

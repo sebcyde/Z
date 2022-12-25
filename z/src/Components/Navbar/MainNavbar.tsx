@@ -3,7 +3,7 @@ import Logo from '../../assets/ZLogo.png';
 import { Button, Container, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
 import { db } from '../../config/Firebase';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdateMangaID } from '../../Store/Slices/MangaSlice';
 import { Update } from '../../Store/Slices/AnimeSlice';
@@ -15,6 +15,7 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { Divider } from '@mui/material';
+import { UpdateAdminData } from '../../Store/Slices/AdminSlice';
 type Props = {};
 
 const NavLinkStyle = {
@@ -32,12 +33,15 @@ function MainNavbar({}: Props) {
 	const [Admin, setAdmin] = useState<boolean | undefined>(false);
 	const auth = getAuth();
 	const user = auth.currentUser;
+	const navigate = useNavigate();
+	let AdminData = {};
 
 	const getAdminStatus = async () => {
 		const UserRef = doc(db, `Users/${user?.uid}`);
 		const UserSnap = await getDoc(UserRef);
 		if (UserSnap.exists()) {
 			setAdmin(UserSnap.data().Admin);
+			AdminData = { ...UserSnap.data() };
 		}
 	};
 
@@ -51,33 +55,44 @@ function MainNavbar({}: Props) {
 			if (docSnap.exists()) {
 				const Lists = docSnap.data();
 				console.log('Current User DB Lists:', Lists);
+				AdminData = { ...AdminData, ...Lists };
 			} else {
 				console.log('No Lists Available!');
 			}
 
 			console.log('Current User is Admin?', Admin);
-			if (UserID != '') {
-				const QuerydocRef = doc(db, `Users/${UserID.UserID}`);
+			console.log(UserID);
+			if (user.uid != '') {
+				const QuerydocRef = doc(db, `Users/${user.uid}`);
 				const QuerydocSnap = await getDoc(QuerydocRef);
 				if (QuerydocSnap.exists()) {
 					const Querydocs = QuerydocSnap.data();
 					console.log('User Search Query:', Querydocs);
+					AdminData = { ...AdminData, Querydocs };
 				} else {
 					console.log('User Search Query - No Info Available!');
 				}
-				const QueryListsRef = doc(db, `Users/${UserID.UserID}/MoreInfo/Lists`);
-				const QueryListsSnap = await getDoc(QueryListsRef);
-				if (QueryListsSnap.exists()) {
-					const QueryLists = QueryListsSnap.data();
-					console.log('User Search Query DB Lists:', QueryLists);
-					console.log(
-						'Search Query User is Admin?',
-						QuerydocSnap.data()?.Admin
-					);
-				} else {
-					console.log('User Search Query - No Lists Available!');
-				}
+				// const QueryListsRef = doc(db, `Users/${UserID.UserID}/MoreInfo/Lists`);
+				// const QueryListsSnap = await getDoc(QueryListsRef);
+				// if (QueryListsSnap.exists()) {
+				// 	const QueryLists = QueryListsSnap.data();
+				// 	console.log('User Search Query DB Lists:', QueryLists);
+				// 	console.log(
+				// 		'Search Query User is Admin?',
+				// 		QuerydocSnap.data()?.Admin
+				// 	);
+				// 	AdminData = { ...AdminData, QueryLists };
+				// 	AdminData = {
+				// 		...AdminData,
+				// 		'Search Query User is Admin?': QuerydocSnap.data()?.Admin,
+				// 	};
+				// } else {
+				// 	console.log('User Search Query - No Lists Available!');
+				// }
 			}
+
+			dispatch(UpdateAdminData(AdminData));
+			navigate('/admin');
 		}
 	};
 

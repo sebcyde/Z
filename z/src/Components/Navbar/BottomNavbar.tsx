@@ -34,9 +34,15 @@ function BottomNavbar({}: Props) {
 					if (newValue == 'Home') navigate('/');
 					else if (newValue == 'Search') navigate('/search');
 					else if (newValue == 'Friends') navigate('/friends');
+					else if (newValue == 'Messages') navigate('/messages');
 					else if (newValue == 'Settings') navigate('/settings');
 				}}
 			>
+				{/* <BottomNavigationAction
+					value="Messages"
+					label="Messages"
+					icon={<GroupIcon />}
+				/> */}
 				<BottomNavigationAction value="Home" label="Home" icon={<HomeIcon />} />
 				<BottomNavigationAction
 					value="Search"

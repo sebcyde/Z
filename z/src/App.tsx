@@ -23,6 +23,7 @@ import UserPage from './Pages/Friends/UserPage';
 import BottomNavbar from './Components/Navbar/BottomNavbar';
 import Message from './Pages/Message/Message';
 import Messages from './Pages/Message/Messages';
+import AdminPage from './Pages/AdminPages/AdminPage';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -65,6 +66,7 @@ function App() {
 						<Route path="animedetails" element={<AnimeDetails />} />
 						<Route path="search" element={<Search />} />
 						<Route path="manga" element={<Manga />} />
+						<Route path="admin" element={<AdminPage />} />
 						<Route path="mylists" element={<MyLists />} />
 						<Route path="settings" element={<Settings />} />
 						<Route path="signin" element={<SignIn />} />
