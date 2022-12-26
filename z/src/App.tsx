@@ -22,10 +22,10 @@ import Friends from './Pages/Friends/Friends';
 import UserPage from './Pages/Friends/UserPage';
 import BottomNavbar from './Components/Navbar/BottomNavbar';
 import Chat from './Pages/Message/Chat';
-import Messages from './Pages/Message/Messages';
 import AdminPage from './Pages/AdminPages/AdminPage';
 import AllChats from './Pages/Message/AllChats';
 import AllNotifications from './Pages/Notifications/AllNotifications';
+import NewChat from './Pages/Message/NewChat';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -78,7 +78,8 @@ function App() {
 						<Route path="message" element={<Chat />} />
 						<Route path="notifications" element={<AllNotifications />} />
 						<Route path="allchats" element={<AllChats />} />
-						<Route path="messages" element={<Messages />} />
+						<Route path="newchat" element={<NewChat />} />
+
 						<Route path="edit">
 							<Route path="userimage" element={<UserImage />} />
 							<Route path="username" element={<UserName />} />

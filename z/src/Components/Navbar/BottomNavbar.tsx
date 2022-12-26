@@ -37,7 +37,7 @@ function BottomNavbar({}: Props) {
 					else if (newValue == 'Search') navigate('/search');
 					else if (newValue == 'Friends') navigate('/friends');
 					else if (newValue == 'Notifications') navigate('/notifications');
-					else if (newValue == 'Messages') navigate('/messages');
+					else if (newValue == 'Messages') navigate('/allchats');
 					else if (newValue == 'Settings') navigate('/settings');
 				}}
 			>

@@ -108,14 +108,26 @@ function Recommend({}: Props) {
 								display: 'flex',
 								alignItems: 'center',
 							}}
-							onClick={() => navigate('/user')}
 						>
-							<FaArrowLeft style={ArrowStyle} />
-							<img src={QUserDetails.DisplayPicture} />
-							<span>
+							<span onClick={() => navigate('/allchats')}>
+								<FaArrowLeft />
+								<h2>back</h2>
+							</span>
+
+							<span
+								onClick={() => {
+									navigate('/user');
+								}}
+							>
 								<h2>{QUserDetails.Username}</h2>
 								<p>{QUserDetails.Admin ? <FaCrown /> : ''}</p>
 							</span>
+							<img
+								src={QUserDetails.DisplayPicture}
+								onClick={() => {
+									navigate('/user');
+								}}
+							/>
 						</span>
 					</div>
 					<div className="MessagesContainer">

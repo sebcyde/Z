@@ -21,3 +21,13 @@
 		}
 	}
 }
+
+.navbar.navbar-expand-lg {
+	height: 65px;
+}
+
+.navbar-collapse.collapse.show,
+.navbar-collapse.collapsing {
+	z-index: 999999999999;
+	background-color: #212529;
+}

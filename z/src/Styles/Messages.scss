@@ -1,0 +1,121 @@
+.AllChatsContainer {
+	display: flex;
+	flex-direction: column;
+
+	ul {
+		margin-bottom: 0 !important;
+	}
+
+	> div:nth-of-type(2) {
+		.SearchResults {
+			padding-bottom: 50px;
+		}
+	}
+
+	.NewChatBanner {
+		display: flex;
+		height: 65px;
+		background-color: black;
+		align-items: center;
+		padding: 0px 20px;
+		justify-content: space-between;
+		border-bottom: 2px solid gray;
+		h4 {
+			margin: 0;
+			font-size: 20px;
+		}
+		svg {
+			height: 30px;
+			width: 30px;
+		}
+	}
+
+	.CreateChatBanner {
+		position: sticky;
+		top: 65px;
+		display: flex;
+		flex-direction: column;
+		height: fit-content;
+		padding: 10px;
+		background-color: black;
+		border-bottom: 2px solid gray;
+		align-items: flex-start;
+
+		span {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			margin-bottom: 10px;
+
+			p {
+				margin: 0;
+				font-size: 20px;
+			}
+			svg {
+				margin-right: 5px;
+				height: 20px;
+				width: 20px;
+			}
+		}
+		input {
+			width: 100%;
+			margin-bottom: 5px;
+		}
+	}
+
+	.ConnectionContainer {
+		width: 95%;
+		margin: 0 auto;
+		padding: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-bottom: 1px solid gray;
+
+		img.ConnectionImage {
+			height: 50px;
+			width: 50px;
+			border-radius: 50%;
+		}
+
+		.ConnectionDetailsContainer {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			span {
+				display: flex;
+				align-items: center;
+				width: 100%;
+				padding-left: 15px;
+				.ConnectionAdmin {
+					margin-right: 5px;
+					font-size: 20px;
+					color: gold;
+					position: relative;
+					top: 2px;
+					font-size: 20px;
+				}
+
+				.ConnectionUsername {
+					margin: 0;
+					font-size: 19px;
+				}
+			}
+		}
+	}
+
+	.Mui-expanded {
+		// background-color: blue;
+	}
+
+	.SearchbarInput {
+		background-color: transparent;
+		border: 1px solid orange;
+		padding: 10px;
+		width: 95%;
+		margin: auto;
+		border-radius: 10px;
+		color: white;
+	}
+}
