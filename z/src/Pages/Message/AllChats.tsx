@@ -1,5 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
+import ChatsList from '../../Components/Messages/ChatsList';
 
 function AllChats() {
 	const navigate = useNavigate();
@@ -16,6 +17,7 @@ function AllChats() {
 	return (
 		<div className="AllChatsContainer">
 			<NewChatBanner />
+			<ChatsList />
 		</div>
 	);
 }

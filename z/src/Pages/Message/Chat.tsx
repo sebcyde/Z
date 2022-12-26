@@ -1,17 +1,26 @@
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Box, Button, CircularProgress, TextField } from '@mui/material';
 import { getAuth } from 'firebase/auth';
-import { collection, doc, getDoc, getFirestore } from 'firebase/firestore';
+import {
+	collection,
+	doc,
+	getDoc,
+	getFirestore,
+	query,
+	setDoc,
+	where,
+} from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { FaArrowLeft, FaCrown } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import MessageComponent from '../../Components/Messages/MessageComponent';
-import { app, db } from '../../config/Firebase';
+import { app, auth, db } from '../../config/Firebase';
 import { SendMessage } from '../../Functions/SendMessage';
 import LoadingScreen from '../LoadingScreen';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 type Props = {};
 const ArrowStyle = { marginRight: '10px' };
@@ -25,17 +34,54 @@ function Recommend({}: Props) {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [NewMessage, setNewMessage] = useState('');
 	const navigate = useNavigate();
-	const auth = getAuth();
-	const user = auth.currentUser;
-	const ChatParticipants: string[] = [user?.uid, UserQueryID.UID];
+	// const auth = getAuth();
+	// const user = auth.currentUser;
+
 	const EndOfMessagesRef = useRef<null | HTMLDivElement>(null);
 
-	const [value, loading, error] = useCollection(
-		collection(getFirestore(app), `Users/${user?.uid}/MoreInfo/Chats/AllChats`),
-		{
-			snapshotListenOptions: { includeMetadataChanges: true },
-		}
+	// New Version of Messaging
+	const [user] = useAuthState(auth);
+	const newChatRef = doc(collection(db, 'Chats'));
+	const UserChatRef = query(
+		collection(db, 'Chats'),
+		where('users', 'array-contains', user?.uid)
 	);
+	const [ChatsSnapshot] = useCollection(UserChatRef);
+
+	const ChatAlreadyExists = (RecipientEmail: string) =>
+		!!ChatsSnapshot?.docs.find(
+			(chat) =>
+				chat.data().users.find((user: any) => user === RecipientEmail).length >
+				0
+		);
+
+	const Send = async () => {
+		if (!ChatAlreadyExists(UserQueryID.UserID)) {
+			await setDoc(newChatRef, {
+				users: [user?.uid, UserQueryID.UserID],
+			});
+			console.log('Message Sent');
+		}
+	};
+
+	useEffect(() => {
+		Send();
+	}, []);
+
+	// End of New Version Messaging
+
+	const [value] = useCollection(
+		collection(getFirestore(app), `Users/${user?.uid}/MoreInfo/Chats/AllChats`)
+	);
+
+	const ChatParticipants: string[] = [user?.uid, UserQueryID.UID];
+
+	// const [value, loading, error] = useCollection(
+	// 	collection(getFirestore(app), `Users/${user?.uid}/MoreInfo/Chats/AllChats`),
+	// 	{
+	// 		snapshotListenOptions: { includeMetadataChanges: true },
+	// 	}
+	// );
 
 	const ScrollToBottom = () => {
 		console.log('Scrolling');

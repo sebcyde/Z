@@ -119,3 +119,25 @@
 		color: white;
 	}
 }
+
+.ChatPreviewContainer {
+	display: flex;
+	flex-direction: column-reverse;
+	.ChatPreviewSingleContainer {
+		width: 95%;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid gray;
+		> div > div {
+			margin: 10px;
+		}
+
+		p {
+			margin: 0;
+			width: 30%;
+			border: 1px solid red;
+			text-transform: capitalize;
+		}
+	}
+}
