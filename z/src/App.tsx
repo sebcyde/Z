@@ -21,9 +21,11 @@ import UserImage from './Pages/Settings/Edit/UserImage';
 import Friends from './Pages/Friends/Friends';
 import UserPage from './Pages/Friends/UserPage';
 import BottomNavbar from './Components/Navbar/BottomNavbar';
-import Message from './Pages/Message/Message';
+import Chat from './Pages/Message/Chat';
 import Messages from './Pages/Message/Messages';
 import AdminPage from './Pages/AdminPages/AdminPage';
+import AllChats from './Pages/Message/AllChats';
+import AllNotifications from './Pages/Notifications/AllNotifications';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -73,7 +75,9 @@ function App() {
 						<Route path="signup" element={<SignUp />} />
 						<Route path="friends" element={<Friends />} />
 						<Route path="user" element={<UserPage />} />
-						<Route path="message" element={<Message />} />
+						<Route path="message" element={<Chat />} />
+						<Route path="notifications" element={<AllNotifications />} />
+						<Route path="allchats" element={<AllChats />} />
 						<Route path="messages" element={<Messages />} />
 						<Route path="edit">
 							<Route path="userimage" element={<UserImage />} />

@@ -6,6 +6,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import GroupIcon from '@mui/icons-material/Group';
 import SettingsIcon from '@mui/icons-material/Settings';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import EmailIcon from '@mui/icons-material/Email';
 import { Paper } from '@mui/material';
 
 type Props = {};
@@ -34,6 +36,7 @@ function BottomNavbar({}: Props) {
 					if (newValue == 'Home') navigate('/');
 					else if (newValue == 'Search') navigate('/search');
 					else if (newValue == 'Friends') navigate('/friends');
+					else if (newValue == 'Notifications') navigate('/notifications');
 					else if (newValue == 'Messages') navigate('/messages');
 					else if (newValue == 'Settings') navigate('/settings');
 				}}
@@ -44,20 +47,26 @@ function BottomNavbar({}: Props) {
 					icon={<GroupIcon />}
 				/> */}
 				<BottomNavigationAction value="Home" label="Home" icon={<HomeIcon />} />
+
 				<BottomNavigationAction
 					value="Search"
 					label="Search"
 					icon={<SearchIcon />}
 				/>
 				<BottomNavigationAction
+					value="Notifications"
+					label="Notifications"
+					icon={<NotificationsIcon />}
+				/>
+				{/* <BottomNavigationAction
 					value="Friends"
 					label="Friends"
 					icon={<GroupIcon />}
-				/>
+				/> */}
 				<BottomNavigationAction
-					value="Settings"
-					label="Account"
-					icon={<SettingsIcon />}
+					value="Messages"
+					label="Messages"
+					icon={<EmailIcon />}
 				/>
 			</BottomNavigation>
 		</Paper>

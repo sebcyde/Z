@@ -14,6 +14,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Divider } from '@mui/material';
 import { UpdateAdminData } from '../../Store/Slices/AdminSlice';
 type Props = {};
@@ -117,6 +118,7 @@ function MainNavbar({}: Props) {
 						className="d-inline-block align-top"
 					/>
 				</Navbar.Brand>
+
 				<Navbar.Toggle
 					aria-controls="responsive-navbar-nav"
 					style={{ border: 'none', color: '#edf2f4' }}
@@ -124,16 +126,6 @@ function MainNavbar({}: Props) {
 			</Container>
 			<Navbar.Collapse id="responsive-navbar-nav">
 				<Nav className="me-auto">
-					{/* <Nav.Link
-						eventKey="1"
-						as={Link}
-						to="/"
-						style={NavLinkStyle}
-						onClick={ResetAll}
-					>
-						Home
-					</Nav.Link> */}
-
 					<Nav.Link
 						eventKey="2"
 						as={Link}
@@ -184,27 +176,18 @@ function MainNavbar({}: Props) {
 					>
 						<FormatListBulletedIcon /> My Lists
 					</Nav.Link>
+					<Divider variant="middle" light={true} />
 
-					{/* <Divider variant="middle" light={true} />
 					<Nav.Link
-						eventKey="7"
-						as={Link}
-						to="messages"
-						style={NavLinkStyle}
-						onClick={ResetAll}
-					>
-						<EmailIcon /> Messages
-					</Nav.Link> */}
-
-					{/* <Nav.Link
 						eventKey="8"
 						as={Link}
 						to="settings"
 						style={NavLinkStyle}
 						onClick={ResetAll}
 					>
-						Settings
-					</Nav.Link> */}
+						<SettingsIcon /> Settings
+					</Nav.Link>
+					<Divider variant="middle" light={true} />
 				</Nav>
 				{user && Admin ? (
 					<div
