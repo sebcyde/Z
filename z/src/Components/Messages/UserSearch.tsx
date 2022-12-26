@@ -30,11 +30,7 @@ function UserSearch({ Query }: Props) {
 	const GetUsers = async () => {
 		const querySnapshot = await getDocs(collection(db, 'Users'));
 		const FilteredUsers = querySnapshot.docs.filter((doc) => {
-			return (
-				doc.data().Username.toLowerCase().includes(Query!.toLowerCase()) &&
-				doc.data().Username.toLowerCase() !=
-					value?.data()?.Username.toLowerCase()
-			);
+			return doc.data().Username.toLowerCase().includes(Query!.toLowerCase());
 		});
 
 		setUserSearchResults(FilteredUsers);
@@ -43,12 +39,7 @@ function UserSearch({ Query }: Props) {
 	const GetAllUsers = async () => {
 		const querySnapshot = await getDocs(collection(db, 'Users'));
 
-		const FilteredUsers = querySnapshot.docs.filter((doc) => {
-			return (
-				doc.data().Username.toLowerCase() !=
-				value?.data()?.Username.toLowerCase()
-			);
-		});
+		const FilteredUsers = querySnapshot.docs;
 		setUserSearchResults(FilteredUsers);
 	};
 
@@ -58,25 +49,28 @@ function UserSearch({ Query }: Props) {
 	};
 
 	useEffect(() => {
-		if (value) {
-			if (Query !== undefined) {
-				setLoading(true);
-				GetUsers().then(() => setLoading(false));
-			} else {
-				setLoading(true);
-				GetAllUsers().then(() => setLoading(false));
-			}
+		if (Query !== undefined) {
+			setLoading(true);
+			GetUsers().then(() => setLoading(false));
+		} else {
+			setLoading(true);
+			GetAllUsers().then(() => setLoading(false));
 		}
 	}, [Query]);
 
 	return (
 		<div>
-			{Loading ? (
+			{Loading || !value ? (
 				<LoadingScreen />
 			) : (
 				<>
 					<div className="SearchResults">
-						{UserSearchResults?.map((User: any, index: number) => {
+						{UserSearchResults?.filter((doc) => {
+							return (
+								doc.data().Username.toLowerCase() !=
+								value?.data()?.Username.toLowerCase()
+							);
+						}).map((User: any, index: number) => {
 							return (
 								<div
 									key={index}
