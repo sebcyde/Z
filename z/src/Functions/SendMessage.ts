@@ -7,6 +7,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/Firebase';
 import { v4 as uuidv4 } from 'uuid';
+import { UpdateLastSeen } from './UpdateLastSeen';
 
 export const SendMessage = async (
 	LoggedInUser: string,
@@ -50,6 +51,7 @@ export const SendMessage = async (
 	try {
 		await AddToUserDB();
 		await AddToRemainingDBs();
+		await UpdateLastSeen()
 		console.log('Added to all DBs');
 	} catch (error: any) {
 		console.log(error.message);

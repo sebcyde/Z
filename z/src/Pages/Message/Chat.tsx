@@ -34,39 +34,39 @@ function Recommend({}: Props) {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [NewMessage, setNewMessage] = useState('');
 	const navigate = useNavigate();
-	// const auth = getAuth();
-	// const user = auth.currentUser;
+	const auth = getAuth();
+	const user = auth.currentUser;
 
 	const EndOfMessagesRef = useRef<null | HTMLDivElement>(null);
 
 	// New Version of Messaging
-	const [user] = useAuthState(auth);
-	const newChatRef = doc(collection(db, 'Chats'));
-	const UserChatRef = query(
-		collection(db, 'Chats'),
-		where('users', 'array-contains', user?.uid)
-	);
-	const [ChatsSnapshot] = useCollection(UserChatRef);
+	// const [user] = useAuthState(auth);
+	// const newChatRef = doc(collection(db, 'Chats'));
+	// const UserChatRef = query(
+	// 	collection(db, 'Chats'),
+	// 	where('users', 'array-contains', user?.uid)
+	// );
+	// const [ChatsSnapshot] = useCollection(UserChatRef);
 
-	const ChatAlreadyExists = (RecipientEmail: string) =>
-		!!ChatsSnapshot?.docs.find(
-			(chat) =>
-				chat.data().users.find((user: any) => user === RecipientEmail).length >
-				0
-		);
+	// const ChatAlreadyExists = (RecipientEmail: string) =>
+	// 	!!ChatsSnapshot?.docs.find(
+	// 		(chat) =>
+	// 			chat.data().users.find((user: any) => user === RecipientEmail).length >
+	// 			0
+	// 	);
 
-	const Send = async () => {
-		if (!ChatAlreadyExists(UserQueryID.UserID)) {
-			await setDoc(newChatRef, {
-				users: [user?.uid, UserQueryID.UserID],
-			});
-			console.log('Message Sent');
-		}
-	};
+	// const Send = async () => {
+	// 	if (!ChatAlreadyExists(UserQueryID.UserID)) {
+	// 		await setDoc(newChatRef, {
+	// 			users: [user?.uid, UserQueryID.UserID],
+	// 		});
+	// 		console.log('Message Sent');
+	// 	}
+	// };
 
-	useEffect(() => {
-		Send();
-	}, []);
+	// useEffect(() => {
+	// 	Send();
+	// }, []);
 
 	// End of New Version Messaging
 

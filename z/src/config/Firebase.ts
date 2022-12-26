@@ -1,6 +1,6 @@
 import DefaultImage from '../assets/PFP/girl2.png';
 import { initializeApp } from 'firebase/app';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
@@ -50,6 +50,7 @@ export const SignUp = async (
 			CreationDate: user.metadata.creationTime,
 			UID: user.uid,
 			Admin: false,
+			LastSeen: serverTimestamp()
 		});
 
 		await setDoc(doc(db, `Users/${user.uid}/MoreInfo/Lists`), {
