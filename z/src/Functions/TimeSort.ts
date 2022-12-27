@@ -14,7 +14,6 @@ export const TimeSort = (Array: MessageObject[]) => {
 
 export const ChatSort = (Array: any) => {
 	let Data = Array.map((Doc: any) => Doc.data());
-	console.log('Chat Sort Data:', Data);
 	return Data.sort((a: any, b: any) => {
 		if (TimeSort(a.Messages)[0].Timestamp > TimeSort(b.Messages)[0].Timestamp) {
 			return -1;

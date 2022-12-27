@@ -60,7 +60,6 @@ function Recommend({}: Props) {
 
 	async function Send(NewMessage: any) {
 		const UniqueMessageID = uuidv4();
-
 		const chatExists = await ChatAlreadyExists();
 
 		if (chatExists == undefined || chatExists.length == 0) {
