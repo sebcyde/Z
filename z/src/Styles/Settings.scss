@@ -18,7 +18,10 @@
 
 		img {
 			height: 70px;
+			width: 70px;
+			object-fit: cover;
 			border-radius: 50px;
+			border: 2px solid white;
 		}
 
 		.UserInformationContainer {
@@ -44,6 +47,7 @@
 				svg {
 					position: relative;
 					top: 1px;
+					color: gold;
 				}
 			}
 			button {
