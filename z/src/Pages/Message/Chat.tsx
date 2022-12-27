@@ -50,8 +50,10 @@ function Recommend({}: Props) {
 	const ChatAlreadyExists = async () => {
 		return ChatValue?.docs.filter((doc) => {
 			return (
-				doc.data().users[0] == user?.uid &&
-				doc.data().users[1] == QUserDetails.UID
+				(doc.data().users[0] == user?.uid &&
+					doc.data().users[1] == QUserDetails.UID) ||
+				(doc.data().users[1] == user?.uid &&
+					doc.data().users[0] == QUserDetails.UID)
 			);
 		});
 	};
@@ -163,7 +165,7 @@ function Recommend({}: Props) {
 					<div className="MessagesContainer">
 						<MessageComponent
 							User={user!.uid}
-							ChatParticipants={[user!.uid, QUserDetails.UID]}
+							ChatParticipants={QUserDetails.UID}
 						/>
 						<div ref={EndOfMessagesRef}></div>
 					</div>

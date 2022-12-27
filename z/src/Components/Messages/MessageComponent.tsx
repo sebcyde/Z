@@ -3,108 +3,71 @@ import { collection, DocumentData, getFirestore } from 'firebase/firestore';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { app } from '../../config/Firebase';
 import LoadingScreen from '../../Pages/LoadingScreen';
+import { TimeSort } from '../../Functions/TimeSort';
+import { MessageObject } from '../../Types/MessageTypes';
+import { reverse } from 'lodash';
 
-type Props = { User: string; ChatParticipants: string[] };
-
-type DBMessageObject = {
-	Users: string[];
-	MessageObject: {
-		SendingUser: string;
-		Message: string;
-		Time: {
-			seconds: number;
-			nanoseconds: number;
-		};
-	};
-};
+type Props = { User: string; ChatParticipants: string };
 
 function MessageComponent({ User, ChatParticipants }: Props) {
-	const [ActualChat, setActualChat] = useState<any>();
+	const [AllMessages, setAllMessages] = useState<MessageObject[]>();
 	const [Loading, setLoading] = useState(true);
 
-	const [value, loading, error] = useCollection(
-		collection(getFirestore(app), `Users/${User}/MoreInfo/Chats/AllChats`),
-		{
-			snapshotListenOptions: { includeMetadataChanges: true },
-		}
-	);
+	// Start of new Messaging Component
+	const [ChatValue] = useCollection(collection(getFirestore(app), `Chats`));
 
-	const GetChat = async () => {
-		const PossibleChats: DocumentData[] = [];
-
-		await Promise.all(
-			value!.docs.map(async (doc) => {
-				if (ChatParticipants.length != doc.data().Users.length) return null;
-
-				const Pos = doc.data().Users.map((User: any, index: number) => {
-					let DBUsers = doc
-						.data()
-						.Users.sort((a: string, b: string) => a.localeCompare(b));
-
-					let CPUsers = ChatParticipants.sort((a: string, b: string) =>
-						a.localeCompare(b)
-					);
-
-					if (DBUsers[index] != CPUsers[index]) return false;
-					else return true;
-				});
-
-				if (!Pos.includes(false)) PossibleChats.push(doc.data());
-			})
-		);
-
-		PossibleChats.sort(function compare(a: any, b: any) {
-			if (a.MessageObject.Time.toDate() < b.MessageObject.Time.toDate()) {
-				return -1;
-			}
-			if (a.MessageObject.Time.toDate() < b.MessageObject.Time.toDate()) {
-				return 1;
-			}
-			// a must be equal to b
-			return 0;
+	const ChatAlreadyExists = async () => {
+		return ChatValue?.docs.filter((doc) => {
+			return (
+				(doc.data().users[0] == User &&
+					doc.data().users[1] == ChatParticipants) ||
+				(doc.data().users[1] == User && doc.data().users[0] == ChatParticipants)
+			);
 		});
-
-		setActualChat(
-			PossibleChats.map((Chat: DocumentData) => {
-				let Hours = Chat.MessageObject.Time.toDate().getHours();
-				let Minutes = Chat.MessageObject.Time.toDate().getMinutes();
-
-				const withPmAm = Chat.MessageObject.Time.toDate().toLocaleTimeString(
-					'en-GB',
-					{
-						hour: '2-digit',
-						minute: '2-digit',
-					}
-				);
-
-				return (
-					<div
-						className={
-							User == Chat.MessageObject.SendingUser
-								? 'Sender Message'
-								: 'Reciever Message'
-						}
-					>
-						<p>{Chat.MessageObject.Message}</p>
-						<p className="MessageTimeStamp">{withPmAm}</p>
-					</div>
-				);
-			})
-		);
 	};
 
-	useEffect(() => {
-		if (value) {
-			GetChat().then(() => setLoading(false));
+	const PullMessages = async () => {
+		const chatExists = await ChatAlreadyExists();
+
+		console.log('Chat Filter Response:', chatExists);
+
+		if (chatExists == undefined || chatExists.length == 0) {
+			console.log('Chat doesnt exist');
+		} else {
+			console.log('Messages Data:', chatExists[0].data());
+			let SortedMessages = TimeSort(chatExists[0].data().Messages);
+
+			setAllMessages(SortedMessages.reverse());
 		}
-	}, [value]);
+	};
+
+	// End
+
+	useEffect(() => {
+		PullMessages().then(() => setLoading(false));
+	}, [ChatValue]);
 
 	return (
 		<div className="ChatContainer">
 			{Loading ? (
 				<LoadingScreen />
 			) : (
-				ActualChat && <>{ActualChat.map((Chat: any) => Chat)}</>
+				AllMessages && (
+					<>
+						{AllMessages.map((Chat: MessageObject) => {
+							return (
+								<div
+									className={
+										User == Chat.Sender ? 'Sender Message' : 'Reciever Message'
+									}
+								>
+									<p>{Chat.Message}</p>
+									<p className="MessageTimeStamp">{Chat.Timestamp}</p>
+								</div>
+							);
+						})}
+					</>
+				)
 			)}
 		</div>
 	);
