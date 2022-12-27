@@ -2,12 +2,16 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Box, Button, CircularProgress, TextField } from '@mui/material';
 import { getAuth } from 'firebase/auth';
 import {
+	arrayUnion,
 	collection,
 	doc,
 	getDoc,
+	getDocs,
 	getFirestore,
 	query,
+	serverTimestamp,
 	setDoc,
+	updateDoc,
 	where,
 } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
@@ -21,6 +25,9 @@ import LoadingScreen from '../LoadingScreen';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { UpdateLastSeen } from '../../Functions/UpdateLastSeen';
+import { v4 as uuidv4 } from 'uuid';
+import { MessageObject } from '../../Types/MessageTypes';
 
 type Props = {};
 const ArrowStyle = { marginRight: '10px' };
@@ -34,39 +41,55 @@ function Recommend({}: Props) {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [NewMessage, setNewMessage] = useState('');
 	const navigate = useNavigate();
-	const auth = getAuth();
-	const user = auth.currentUser;
+	const [Ref1, setRef1] = useState<any>();
+	// const auth = getAuth();
+	// const user = auth.currentUser;
 
 	const EndOfMessagesRef = useRef<null | HTMLDivElement>(null);
 
 	// New Version of Messaging
-	// const [user] = useAuthState(auth);
-	// const newChatRef = doc(collection(db, 'Chats'));
-	// const UserChatRef = query(
-	// 	collection(db, 'Chats'),
-	// 	where('users', 'array-contains', user?.uid)
-	// );
-	// const [ChatsSnapshot] = useCollection(UserChatRef);
+	const [user] = useAuthState(auth);
+	const [ChatValue] = useCollection(collection(getFirestore(app), `Chats`));
 
-	// const ChatAlreadyExists = (RecipientEmail: string) =>
-	// 	!!ChatsSnapshot?.docs.find(
-	// 		(chat) =>
-	// 			chat.data().users.find((user: any) => user === RecipientEmail).length >
-	// 			0
-	// 	);
+	async function Send(NewMessage: any) {
+		const UniqueMessageID = uuidv4();
 
-	// const Send = async () => {
-	// 	if (!ChatAlreadyExists(UserQueryID.UserID)) {
-	// 		await setDoc(newChatRef, {
-	// 			users: [user?.uid, UserQueryID.UserID],
-	// 		});
-	// 		console.log('Message Sent');
-	// 	}
-	// };
+		async function ChatAlreadyExists() {
+			return ChatValue?.docs.filter((doc) => {
+				return (
+					doc.data().users[0] == user?.uid &&
+					doc.data().users[1] == QUserDetails.UID
+				);
+			});
+		}
 
-	// useEffect(() => {
-	// 	Send();
-	// }, []);
+		const chatExists = await ChatAlreadyExists();
+
+		if (chatExists == undefined || chatExists.length == 0) {
+			console.log("Chat doesn't exist");
+			// Create new chat and add message to messages array
+			await setDoc(doc(db, `Chats/${UniqueMessageID}`), {
+				ChatID: UniqueMessageID,
+				users: [user?.uid, QUserDetails.UID],
+				Messages: [
+					{
+						Message: NewMessage,
+						Sender: QUserDetails.UID,
+						Timestamp: Date.now(),
+					},
+				],
+			});
+		} else {
+			// If a chat already exists, add to the Messages array
+			await updateDoc(doc(db, `Chats/${chatExists[0].data().ChatID}`), {
+				Messages: arrayUnion({
+					Message: NewMessage,
+					Sender: QUserDetails.UID,
+					Timestamp: Date.now(),
+				}),
+			});
+		}
+	}
 
 	// End of New Version Messaging
 
@@ -198,13 +221,12 @@ function Recommend({}: Props) {
 							onClick={() => {
 								if (NewMessage.length > 0) {
 									setSendButtonLoading(true);
-									SendMessage(user!.uid, [QUserDetails.UID], NewMessage).then(
-										() => {
-											setNewMessage('');
-											setSendButtonLoading(false);
-											ScrollToBottom();
-										}
-									);
+
+									Send(NewMessage).then(() => {
+										setNewMessage('');
+										setSendButtonLoading(false);
+										ScrollToBottom();
+									});
 								}
 							}}
 						>

@@ -123,6 +123,17 @@
 .ChatPreviewContainer {
 	display: flex;
 	flex-direction: column-reverse;
+
+	.MuiAvatar-root {
+		border: 2px solid white;
+		height: fit-content;
+		width: fit-content;
+		img {
+			height: 45px;
+			width: 45px;
+		}
+	}
+
 	.ChatPreviewSingleContainer {
 		width: 95%;
 		margin: 0 auto;

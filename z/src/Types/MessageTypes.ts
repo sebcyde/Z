@@ -1,8 +1,5 @@
 export type MessageObject = {
 	Message: string;
-	Timestamp: {
-		seconds: number;
-		nanoseconds: number;
-	};
+	Timestamp: number;
 	Sender: string;
 };
