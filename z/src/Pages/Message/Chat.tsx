@@ -41,27 +41,23 @@ function Recommend({}: Props) {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [NewMessage, setNewMessage] = useState('');
 	const navigate = useNavigate();
-	const [Ref1, setRef1] = useState<any>();
-	// const auth = getAuth();
-	// const user = auth.currentUser;
 
 	const EndOfMessagesRef = useRef<null | HTMLDivElement>(null);
 
-	// New Version of Messaging
 	const [user] = useAuthState(auth);
 	const [ChatValue] = useCollection(collection(getFirestore(app), `Chats`));
 
+	const ChatAlreadyExists = async () => {
+		return ChatValue?.docs.filter((doc) => {
+			return (
+				doc.data().users[0] == user?.uid &&
+				doc.data().users[1] == QUserDetails.UID
+			);
+		});
+	};
+
 	async function Send(NewMessage: any) {
 		const UniqueMessageID = uuidv4();
-
-		async function ChatAlreadyExists() {
-			return ChatValue?.docs.filter((doc) => {
-				return (
-					doc.data().users[0] == user?.uid &&
-					doc.data().users[1] == QUserDetails.UID
-				);
-			});
-		}
 
 		const chatExists = await ChatAlreadyExists();
 
@@ -91,23 +87,11 @@ function Recommend({}: Props) {
 		}
 	}
 
-	// End of New Version Messaging
-
 	const [value] = useCollection(
 		collection(getFirestore(app), `Users/${user?.uid}/MoreInfo/Chats/AllChats`)
 	);
 
-	const ChatParticipants: string[] = [user?.uid, UserQueryID.UID];
-
-	// const [value, loading, error] = useCollection(
-	// 	collection(getFirestore(app), `Users/${user?.uid}/MoreInfo/Chats/AllChats`),
-	// 	{
-	// 		snapshotListenOptions: { includeMetadataChanges: true },
-	// 	}
-	// );
-
 	const ScrollToBottom = () => {
-		console.log('Scrolling');
 		EndOfMessagesRef.current!.scrollIntoView({
 			behavior: 'smooth',
 			block: 'start',
@@ -115,37 +99,14 @@ function Recommend({}: Props) {
 	};
 
 	const PullData = async () => {
-		console.log(UserQueryID);
 		try {
 			if (user) {
-				const UserDB = doc(db, `Users/${user.uid}/MoreInfo/Recommendations`);
-				const UserDBSnap = await getDoc(UserDB);
-				if (UserDBSnap.exists()) {
-					console.log('User Details:', UserDBSnap.data());
-					setUserDBDetails(UserDBSnap.data());
-				} else {
-					console.log('Failed to retrieve user details');
-				}
-
-				const QUserDB = doc(
-					db,
-					`Users/${UserQueryID.UserID}/MoreInfo/Recommendations`
-				);
-				const QUserDBSnap = await getDoc(QUserDB);
-				if (QUserDBSnap.exists()) {
-					console.log('Q User Details:', QUserDBSnap.data());
-					setQUserDBDetails(QUserDBSnap.data());
-				} else {
-					console.log('Failed to retrieve Quser details');
-				}
-
 				const QUser = doc(db, `Users/${UserQueryID.UserID}`);
 				const QUserSnap = await getDoc(QUser);
 				if (QUserSnap.exists()) {
-					console.log('Q User Details:', QUserSnap.data());
 					setQUserDetails(QUserSnap.data());
 				} else {
-					console.log('Failed to retrieve Quser details');
+					console.log('Failed to retrieve recipient details');
 				}
 			}
 		} catch (error: any) {
