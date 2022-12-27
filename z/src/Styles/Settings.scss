@@ -200,23 +200,26 @@
 		}
 	}
 	.ImagesContainer {
-		height: 100%;
+		height: fit-content;
 		display: grid;
 		grid-template-columns: auto auto auto;
+		padding-bottom: 70px;
 		div {
-			height: 100%;
-			width: 100%;
+			height: fit-content;
+			width: fit-content;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			margin: 0;
+			margin: 10px auto;
 			position: relative;
 			top: 0;
 			left: 0;
+
 			img {
 				border: 1px solid orange;
-				height: 100px !important;
-				width: 100px !important;
+				height: 90px !important;
+				width: 90px !important;
+				object-fit: cover;
 				margin: auto;
 				border-radius: 50px;
 				position: relative;

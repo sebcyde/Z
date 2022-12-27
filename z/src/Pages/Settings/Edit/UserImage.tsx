@@ -22,6 +22,28 @@ import Image15 from '../../../assets/PFP/Girl5.jpg';
 import Image16 from '../../../assets/PFP/Girl6.jpg';
 import Image17 from '../../../assets/PFP/Girl7.jpg';
 import Image18 from '../../../assets/PFP/mask1.png';
+import Image19 from '../../../assets/PFP/boy11.jpg';
+import Image20 from '../../../assets/PFP/boy12.jpg';
+import Image21 from '../../../assets/PFP/boy13.jpg';
+import Image22 from '../../../assets/PFP/boy14.jpg';
+import Image23 from '../../../assets/PFP/boy15.jpg';
+import Image24 from '../../../assets/PFP/boy16.jpg';
+import Image25 from '../../../assets/PFP/boy17.jpg';
+import Image26 from '../../../assets/PFP/boy24.jpg';
+import Image27 from '../../../assets/PFP/girl12.jpg';
+import Image28 from '../../../assets/PFP/girl13.jpg';
+import Image29 from '../../../assets/PFP/girl14.jpg';
+import Image30 from '../../../assets/PFP/girl15.png';
+import Image31 from '../../../assets/PFP/girl16.jpg';
+import Image32 from '../../../assets/PFP/girl17.jpg';
+import Image33 from '../../../assets/PFP/girl18.jpg';
+import Image34 from '../../../assets/PFP/girl19.jpg';
+import Image35 from '../../../assets/PFP/girl20.jpg';
+import Image36 from '../../../assets/PFP/girl21.jpg';
+import Image37 from '../../../assets/PFP/girl22.webp';
+import Image38 from '../../../assets/PFP/girl23.png';
+import Image39 from '../../../assets/PFP/images.jpg';
+
 import { FaCheck } from 'react-icons/fa';
 import { ImageUpload } from '../../../Functions/ImageControl';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -52,6 +74,27 @@ function UserImage() {
 		Image16,
 		Image17,
 		Image18,
+		Image19,
+		Image20,
+		Image21,
+		Image22,
+		Image23,
+		Image24,
+		Image25,
+		Image26,
+		Image27,
+		Image28,
+		Image29,
+		Image30,
+		Image31,
+		Image32,
+		Image33,
+		Image34,
+		Image35,
+		Image36,
+		Image37,
+		Image38,
+		Image39,
 	];
 
 	const PullData = async () => {
@@ -91,7 +134,7 @@ function UserImage() {
 						</span>
 						<Button onClick={ChangePicture}>Save</Button>
 					</div>
-					<div className="ImagesContainer" style={{ paddingBottom: '40px' }}>
+					<div className="ImagesContainer">
 						{images.map((Image: string, index: number) => {
 							return (
 								<div key={index}>

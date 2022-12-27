@@ -47,7 +47,7 @@ function SignInComponent(): any {
 					variant="standard"
 					onChange={(e) => setUserPassword(e.target.value)}
 				/>
-				<Button onClick={SetSignIn}>Sign Up</Button>
+				<Button onClick={SetSignIn}>Sign In</Button>
 				<Link to="/signup">Create account</Link>
 				<p style={{ margin: '10px', textAlign: 'center' }}>
 					App Version: v{Version.Version}

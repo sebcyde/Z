@@ -142,6 +142,10 @@
 		border-bottom: 1px solid gray;
 		> div > div {
 			margin: 10px;
+			img {
+				height: 45px;
+				width: 45px;
+			}
 		}
 
 		> div:nth-of-type(2) {
