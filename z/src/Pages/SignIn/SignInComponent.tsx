@@ -43,6 +43,7 @@ function SignInComponent(): any {
 				/>
 				<TextField
 					id="standard-basic"
+					type="password"
 					label="Password"
 					variant="standard"
 					onChange={(e) => setUserPassword(e.target.value)}
