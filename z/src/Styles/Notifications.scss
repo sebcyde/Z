@@ -1,18 +1,21 @@
 .NoticationContainer {
-	border: 1px solid red;
+	border-bottom: 1px solid rgba(128, 128, 128, 0.603);
 	display: flex;
 	align-items: center;
+	width: 95%;
+	margin: auto;
 	.ImageContainer {
 		margin: 10px;
 		height: fit-content;
 		width: fit-content;
 		border-radius: 50%;
-		overflow: hidden;
+
+		border: 2px solid white;
 		img {
 			height: 45px;
 			width: 45px;
 			object-fit: cover;
-			border: 2px solid white;
+			border-radius: 50%;
 		}
 	}
 	span {
@@ -26,6 +29,7 @@
 			margin: 0;
 		}
 		.NotificationTitle {
+			font-size: 16px;
 		}
 		.NotificationTimestamp {
 			font-size: 14px;

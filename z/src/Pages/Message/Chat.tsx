@@ -28,6 +28,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { UpdateLastSeen } from '../../Functions/UpdateLastSeen';
 import { v4 as uuidv4 } from 'uuid';
 import { MessageObject } from '../../Types/MessageTypes';
+import { SendNotif } from '../../Functions/SendNotif';
 
 type Props = {};
 const ArrowStyle = { marginRight: '10px' };
@@ -86,6 +87,25 @@ function Recommend({}: Props) {
 				}),
 			});
 		}
+
+		if (user) {
+			const docRef = doc(db, `Users/${user.uid}`);
+			const docSnap = await getDoc(docRef);
+			if (docSnap.exists()) {
+				console.log('Reciever Name:', user);
+				console.log('Sender Name:', docSnap.data().Username);
+				await SendNotif(
+					QUserDetails.UID,
+					docSnap.data().Username,
+					'Message',
+					docSnap.data().DisplayPicture
+				);
+			} else {
+				console.log('No user doc for notif to send!');
+			}
+		}
+
+		//SendNotif(user?.displayName, 'Message', user?.photoURL!);
 	}
 
 	const [value] = useCollection(

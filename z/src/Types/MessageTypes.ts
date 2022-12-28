@@ -11,7 +11,7 @@ export type MessageObject = {
 };
 
 export type NotifObject = {
-	Time: number;
+	Time: string;
 	Username: string;
 	Type: string;
 	Image: string;

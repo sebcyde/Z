@@ -6,6 +6,8 @@ import { auth, db } from '../../config/Firebase';
 import { NotiSort } from '../../Functions/TimeSort';
 import { NotifObject } from '../../Types/MessageTypes';
 import LoadingScreen from '../LoadingScreen';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
 
 type Props = {};
 
@@ -13,6 +15,9 @@ const AllNotifications = (props: Props) => {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [NotiData, setNotiData] = useState<NotifObject[]>();
 	const [user] = useAuthState(auth);
+	TimeAgo.setDefaultLocale(en.locale);
+	TimeAgo.addLocale(en);
+	const timeAgo = new TimeAgo('en-US');
 
 	// Retrieve Notifications from DB
 	const PullData = async () => {
@@ -20,7 +25,7 @@ const AllNotifications = (props: Props) => {
 		const docSnap = await getDoc(docRef);
 		if (docSnap.exists()) {
 			console.log('Notifications Data:', NotiSort(docSnap.data().Notif));
-			setNotiData(NotiSort(docSnap.data().Notif).reverse());
+			setNotiData(NotiSort(docSnap.data().Notif));
 		} else {
 			console.log(`Failed to retrieve notifications for user: ${user?.uid}`);
 		}
@@ -36,14 +41,20 @@ const AllNotifications = (props: Props) => {
 				<LoadingScreen />
 			) : (
 				<>
-					{NotiData?.map((Notif) => (
-						<NotificationComponent
-							Type={Notif.Type}
-							Timestamp={Notif.Time}
-							User={Notif.Username}
-							Image={Notif.Image}
-						/>
-					))}
+					{NotiData ? (
+						<>
+							{NotiData?.map((Notif) => (
+								<NotificationComponent
+									Type={Notif.Type}
+									Timestamp={timeAgo.format(new Date(Notif.Time))}
+									User={Notif.Username}
+									Image={Notif.Image}
+								/>
+							))}
+						</>
+					) : (
+						<h3>No New Notifications</h3>
+					)}
 				</>
 			)}
 		</div>
