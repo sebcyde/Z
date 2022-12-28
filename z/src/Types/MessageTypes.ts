@@ -9,3 +9,10 @@ export type MessageObject = {
 	Timestamp: number;
 	Sender: string;
 };
+
+export type NotifObject = {
+	Time: number;
+	Username: string;
+	Type: string;
+	Image: string;
+};

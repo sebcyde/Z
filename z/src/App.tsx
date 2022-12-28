@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Anime from './Pages/Anime/Anime';
 import Homepage from './Pages/Homepage/Homepage';
@@ -26,20 +25,24 @@ import AdminPage from './Pages/AdminPages/AdminPage';
 import AllChats from './Pages/Message/AllChats';
 import AllNotifications from './Pages/Notifications/AllNotifications';
 import NewChat from './Pages/Message/NewChat';
+import { UpdateLastSeen } from './Functions/UpdateLastSeen';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [MainNav, setMainNav] = useState<any>(undefined);
 	const [BottomNav, setBottomNav] = useState<any>(undefined);
 	const navigate = useNavigate();
+	const location = useLocation();
 	const auth = getAuth();
 
+	// initial app loading
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false);
 		}, 1000);
 	}, []);
 
+	// Navigate to sign in if no user
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
 			if (!user) {
@@ -54,6 +57,11 @@ function App() {
 			}
 		});
 	}, []);
+
+	// Update users last seen timestamp in DB
+	useEffect(() => {
+		UpdateLastSeen();
+	}, [location]);
 
 	return (
 		<div className="App" style={{ zIndex: '1' }}>

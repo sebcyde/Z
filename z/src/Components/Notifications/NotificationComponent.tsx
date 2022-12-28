@@ -1,26 +1,39 @@
+import { doc, getDoc } from 'firebase/firestore';
 import React from 'react';
+import { db } from '../../config/Firebase';
 
 type Props = {
-	Event: string;
-	User?: string;
+	Type: string;
+	User: string;
 	Timestamp: number;
+	Image: string;
 };
 
-const NotificationComponent = ({ Event, User, Timestamp }: Props) => {
-	const Notication = () => {
-		return (
-			<div className="NoticationContainer">
-				<div className="ImageContainer">
-					<img />
-				</div>
-				{Event == 'Follow' ? <p>{User} followed you.</p> : ''}
-				{Event == 'Message' ? <p>{User} sent you a message.</p> : ''}
-				
+const NotificationComponent = ({ Type, User, Timestamp, Image }: Props) => {
+	return (
+		<div className="NoticationContainer">
+			<div className="ImageContainer">
+				<img src={Image} />
 			</div>
-		);
-	};
 
-	return <div>NotificationComponent</div>;
+			{Type == 'Follow' ? (
+				<span>
+					<p className="NotificationTitle">{User} followed you.</p>{' '}
+					<p className="NotificationTimestamp">{Timestamp}</p>
+				</span>
+			) : (
+				''
+			)}
+			{Type == 'Message' ? (
+				<span>
+					<p className="NotificationTitle">{User} sent you a message.</p>
+					<p className="NotificationTimestamp">{Timestamp}</p>
+				</span>
+			) : (
+				''
+			)}
+		</div>
+	);
 };
 
 export default NotificationComponent;

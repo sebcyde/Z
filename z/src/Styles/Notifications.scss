@@ -1,0 +1,35 @@
+.NoticationContainer {
+	border: 1px solid red;
+	display: flex;
+	align-items: center;
+	.ImageContainer {
+		margin: 10px;
+		height: fit-content;
+		width: fit-content;
+		border-radius: 50%;
+		overflow: hidden;
+		img {
+			height: 45px;
+			width: 45px;
+			object-fit: cover;
+			border: 2px solid white;
+		}
+	}
+	span {
+		display: flex;
+		align-items: center;
+		padding: 15px 10px;
+		font-size: 18px;
+		justify-content: space-between;
+		width: 100%;
+		p {
+			margin: 0;
+		}
+		.NotificationTitle {
+		}
+		.NotificationTimestamp {
+			font-size: 14px;
+			color: gray;
+		}
+	}
+}
