@@ -27,9 +27,7 @@ type Props = {
 
 const ChatPreview = ({ id, users }: Props) => {
 	const [Recipients, setRecipients] = useState<any[]>([]);
-	const [ChatSnapshot, setChatSnapshot] = useState<any>();
 	const [FinalMessages, setFinalMessages] = useState<MessageObject>();
-	const [DocID, setDocID] = useState<string>('');
 	const [Loading, setLoading] = useState(true);
 	const [user] = useAuthState(auth);
 	const RawUserData: any[] = [];

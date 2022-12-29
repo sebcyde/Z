@@ -7,8 +7,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../config/Firebase';
 import { Follow, UnFollow } from '../../Functions/Follow';
-import { NavigateToList } from '../../Functions/NavigateToList';
-import { Recommend } from '../../Functions/Recommend';
 import { SaveList } from '../../Functions/SaveList';
 import LoadingScreen from '../LoadingScreen';
 
@@ -81,6 +79,11 @@ function UserPage({}: Props) {
 		await UnFollow(UserDetails);
 		await PullData();
 		setLoading(false);
+	};
+
+	const NavigateToList = async (List: any) => {
+
+		console.log('Navigating To List:', List);
 	};
 
 	useEffect(() => {

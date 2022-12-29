@@ -26,14 +26,16 @@ import AllChats from './Pages/Message/AllChats';
 import AllNotifications from './Pages/Notifications/AllNotifications';
 import NewChat from './Pages/Message/NewChat';
 import { UpdateLastSeen } from './Functions/UpdateLastSeen';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './config/Firebase';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [MainNav, setMainNav] = useState<any>(undefined);
 	const [BottomNav, setBottomNav] = useState<any>(undefined);
+	const [user] = useAuthState(auth);
 	const navigate = useNavigate();
 	const location = useLocation();
-	const auth = getAuth();
 
 	// initial app loading
 	useEffect(() => {
@@ -59,9 +61,9 @@ function App() {
 	}, []);
 
 	// Update users last seen timestamp in DB
-	useEffect(() => {
-		UpdateLastSeen();
-	}, [location]);
+	// useEffect(() => {
+	// 	if (user) UpdateLastSeen(user.uid);
+	// }, [location]);
 
 	return (
 		<div className="App" style={{ zIndex: '1' }}>

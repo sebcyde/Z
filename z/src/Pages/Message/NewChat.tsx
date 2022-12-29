@@ -33,6 +33,10 @@ function NewChat() {
 		);
 	};
 
+	useEffect(() => {
+		console.log('Search Term:', SearchTerm);
+	}, [SearchTerm]);
+
 	return (
 		<div className="AllChatsContainer">
 			<NewChatBanner />

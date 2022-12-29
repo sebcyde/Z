@@ -15,12 +15,12 @@ import {
 
 const ArrowStyle = { marginLeft: '10px' };
 
-type Props = { Query: string | undefined };
+type Props = { Query: string };
 
 function UserSearch({ Query }: Props) {
 	const [UserSearchResults, setUserSearchResults] = useState<any[]>();
 	const [user] = useAuthState(auth);
-	const [value, loading, error] = useDocument(
+	const [value, loading] = useDocument(
 		doc(getFirestore(app), `Users/${user?.uid}`)
 	);
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -28,6 +28,7 @@ function UserSearch({ Query }: Props) {
 	const navigate = useNavigate();
 
 	const GetUsers = async () => {
+		console.log('Fetching Query Users');
 		const querySnapshot = await getDocs(collection(db, 'Users'));
 		const FilteredUsers = querySnapshot.docs.filter((doc) => {
 			return doc.data().Username.toLowerCase().includes(Query!.toLowerCase());
@@ -37,10 +38,11 @@ function UserSearch({ Query }: Props) {
 	};
 
 	const GetAllUsers = async () => {
+		console.log('Fetching All Users');
 		const querySnapshot = await getDocs(collection(db, 'Users'));
 
-		const FilteredUsers = querySnapshot.docs;
-		setUserSearchResults(FilteredUsers);
+		// const FilteredUsers = querySnapshot.docs;
+		setUserSearchResults(querySnapshot.docs);
 	};
 
 	const NavigateToUser = (User: string) => {
@@ -49,23 +51,23 @@ function UserSearch({ Query }: Props) {
 	};
 
 	useEffect(() => {
-		if (Query !== undefined) {
-			setLoading(true);
+		if (Query != undefined) {
 			GetUsers().then(() => setLoading(false));
 		} else {
-			setLoading(true);
 			GetAllUsers().then(() => setLoading(false));
 		}
 	}, [Query]);
 
 	return (
 		<div>
-			{Loading || !value ? (
+			{Loading || loading ? (
 				<LoadingScreen />
 			) : (
 				<>
 					<div className="SearchResults">
 						{UserSearchResults?.filter((doc) => {
+							console.log('Search Result:', doc.data());
+							console.log('Value Result:', value?.data());
 							return (
 								doc.data().Username.toLowerCase() !=
 								value?.data()?.Username.toLowerCase()

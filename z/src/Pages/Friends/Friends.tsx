@@ -6,7 +6,7 @@ import { Tab, Tabs } from 'react-bootstrap';
 import { FaArrowRight, FaCrown } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import UserSearch from '../../Components/Search/UserSearch';
+import UserSearch from '../../Components/Messages/UserSearch';
 import { db } from '../../config/Firebase';
 import { SetUser } from '../../Store/Slices/UserSlice';
 import LoadingScreen from '../LoadingScreen';

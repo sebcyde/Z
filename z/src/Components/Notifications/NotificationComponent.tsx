@@ -10,7 +10,6 @@ type Props = {
 };
 
 const NotificationComponent = ({ Type, User, Timestamp, Image }: Props) => {
-	console.log('Type');
 	return (
 		<div className="NoticationContainer">
 			<div className="ImageContainer">
