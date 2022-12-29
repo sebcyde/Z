@@ -5,7 +5,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 
 function NewChat() {
-	const [SearchTerm, setSearchTerm] = useState<string | undefined>();
+	const [SearchTerm, setSearchTerm] = useState<string>('');
 	const navigate = useNavigate();
 	const SearchInput = useRef(null);
 
