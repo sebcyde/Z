@@ -147,68 +147,80 @@ function Friends() {
 
 						{SearchType === 'following' ? (
 							<>
-								{UserFollowing.map((Following, index: number) => {
-									return (
-										<div
-											key={index}
-											className="ConnectionContainer"
-											onClick={() => {
-												NavigateToUser(Following.UID);
-											}}
-										>
-											<img
-												src={Following.DisplayPicture}
-												className="ConnectionImage"
-											/>
+								{UserFollowing.length > 0 ? (
+									<>
+										{UserFollowing.map((Following, index: number) => {
+											return (
+												<div
+													key={index}
+													className="ConnectionContainer"
+													onClick={() => {
+														NavigateToUser(Following.UID);
+													}}
+												>
+													<img
+														src={Following.DisplayPicture}
+														className="ConnectionImage"
+													/>
 
-											<div className="ConnectionDetailsContainer">
-												<span>
-													<h2 className="ConnectionAdmin">
-														{Following.Admin ? <FaCrown /> : ''}
-													</h2>
-													<h2 className="ConnectionUsername">
-														{Following.Username}
-													</h2>
-												</span>
-											</div>
-											<FaArrowRight style={ArrowStyle} />
-										</div>
-									);
-								})}
+													<div className="ConnectionDetailsContainer">
+														<span>
+															<h2 className="ConnectionAdmin">
+																{Following.Admin ? <FaCrown /> : ''}
+															</h2>
+															<h2 className="ConnectionUsername">
+																{Following.Username}
+															</h2>
+														</span>
+													</div>
+													<FaArrowRight style={ArrowStyle} />
+												</div>
+											);
+										})}
+									</>
+								) : (
+									<h2>You're not following anyone</h2>
+								)}
 							</>
 						) : (
 							''
 						)}
 						{SearchType === 'followers' ? (
 							<>
-								{UserFollowers.map((Follower, index: number) => {
-									return (
-										<div
-											key={index}
-											className="ConnectionContainer"
-											onClick={() => {
-												NavigateToUser(Follower.UID);
-											}}
-										>
-											<img
-												src={Follower.DisplayPicture}
-												className="ConnectionImage"
-											/>
+								{UserFollowers.length > 0 ? (
+									<>
+										{UserFollowers.map((Follower, index: number) => {
+											return (
+												<div
+													key={index}
+													className="ConnectionContainer"
+													onClick={() => {
+														NavigateToUser(Follower.UID);
+													}}
+												>
+													<img
+														src={Follower.DisplayPicture}
+														className="ConnectionImage"
+													/>
 
-											<div className="ConnectionDetailsContainer">
-												<span>
-													<h2 className="ConnectionAdmin">
-														{Follower.Admin ? <FaCrown /> : ''}
-													</h2>
-													<h2 className="ConnectionUsername">
-														{Follower.Username}
-													</h2>
-												</span>
-											</div>
-											<FaArrowRight style={ArrowStyle} />
-										</div>
-									);
-								})}
+													<div className="ConnectionDetailsContainer">
+														<span>
+															<h2 className="ConnectionAdmin">
+																{Follower.Admin ? <FaCrown /> : ''}
+															</h2>
+															<h2 className="ConnectionUsername">
+																{Follower.Username}
+															</h2>
+														</span>
+													</div>
+													<FaArrowRight style={ArrowStyle} />
+												</div>
+											);
+										})}
+									</>
+								) : (
+									<h2>You don't have any followers yet</h2>
+								)}
 							</>
 						) : (
 							''

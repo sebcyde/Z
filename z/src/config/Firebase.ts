@@ -47,7 +47,7 @@ export const SignUp = async (
 		await setDoc(doc(db, `Users/${user.uid}`), {
 			UserEmail: user.email,
 			Username: Username,
-			DisplayPicture: ImagePreURL + DefaultImage.slice(4),
+			DisplayPicture: DefaultImage,
 			CreationDate: user.metadata.creationTime,
 			UID: user.uid,
 			Admin: false,

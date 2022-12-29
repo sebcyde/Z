@@ -12,11 +12,7 @@ export const ImageUpload = async (user: any, Image: string) => {
 	console.log('File Name:', Image);
 
 	// Update in Firestore
-	await setDoc(
-		UserRef,
-		{ DisplayPicture: ImagePreURL + Image.slice(4) },
-		{ merge: true }
-	);
+	await setDoc(UserRef, { DisplayPicture: Image }, { merge: true });
 
 	// Update in Auth - doesn't work sometimes
 	await updateProfile(user!, { photoURL: Image });
