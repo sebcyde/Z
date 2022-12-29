@@ -13,7 +13,6 @@ function MessageComponent({ User, ChatParticipants }: Props) {
 	const [AllMessages, setAllMessages] = useState<MessageObject[]>();
 	const [Loading, setLoading] = useState(true);
 
-	// Start of new Messaging Component
 	const [ChatValue] = useCollection(collection(getFirestore(app), `Chats`));
 
 	const ChatAlreadyExists = async () => {
@@ -41,7 +40,11 @@ function MessageComponent({ User, ChatParticipants }: Props) {
 		}
 	};
 
-	// End
+	const GetTime = (Seconds: number): string => {
+		const result = new Date(Seconds).toISOString().slice(11, 16);
+		console.log(result); // 👉️ "00:10:00" (hh:mm:ss)
+		return result;
+	};
 
 	useEffect(() => {
 		PullMessages().then(() => setLoading(false));
@@ -62,7 +65,7 @@ function MessageComponent({ User, ChatParticipants }: Props) {
 									}
 								>
 									<p>{Chat.Message}</p>
-									<p className="MessageTimeStamp">{Chat.Timestamp}</p>
+									<p className="MessageTimeStamp">{GetTime(Chat.Timestamp)}</p>
 								</div>
 							);
 						})}

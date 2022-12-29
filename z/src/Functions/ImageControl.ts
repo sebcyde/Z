@@ -2,16 +2,21 @@ import { getAuth, updateProfile } from 'firebase/auth';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../config/Firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import DefaultGirl from '../assets/PFP/girl2.png';
 
 export const ImageUpload = async (user: any, Image: string) => {
+	const ImagePreURL = 'https://sebcyde.github.io/Z';
+
 	// const UserStorageRef = ref(storage, user?.uid);
 	const UserRef = doc(db, `Users/${user?.uid}`);
 	// const UserImageRef = ref(storage, `${user?.uid}/${Image}`);
 	console.log('File Name:', Image);
 
 	// Update in Firestore
-	await setDoc(UserRef, { DisplayPicture: Image }, { merge: true });
+	await setDoc(
+		UserRef,
+		{ DisplayPicture: ImagePreURL + Image.slice(4) },
+		{ merge: true }
+	);
 
 	// Update in Auth - doesn't work sometimes
 	await updateProfile(user!, { photoURL: Image });

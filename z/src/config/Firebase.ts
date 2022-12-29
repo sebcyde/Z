@@ -22,6 +22,7 @@ const config = {
 	},
 };
 
+const ImagePreURL = 'https://sebcyde.github.io/Z';
 export const app = initializeApp(config.firebase);
 export const storage = getStorage(app);
 export const auth = getAuth(app);
@@ -46,11 +47,11 @@ export const SignUp = async (
 		await setDoc(doc(db, `Users/${user.uid}`), {
 			UserEmail: user.email,
 			Username: Username,
-			DisplayPicture: DefaultImage,
+			DisplayPicture: ImagePreURL + DefaultImage.slice(4),
 			CreationDate: user.metadata.creationTime,
 			UID: user.uid,
 			Admin: false,
-			LastSeen: serverTimestamp()
+			LastSeen: serverTimestamp(),
 		});
 
 		await setDoc(doc(db, `Users/${user.uid}/MoreInfo/Lists`), {

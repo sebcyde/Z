@@ -1,6 +1,9 @@
 import { doc, getDoc } from 'firebase/firestore';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { db } from '../../config/Firebase';
+import { SetUser } from '../../Store/Slices/UserSlice';
 
 type Props = {
 	Type: string;
@@ -10,6 +13,14 @@ type Props = {
 };
 
 const NotificationComponent = ({ Type, User, Timestamp, Image }: Props) => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	// const OpenChat = () => {
+	// 	dispatch(SetUser(Recipients[0].UID));
+	// 	navigate('/message');
+	// };
+
 	return (
 		<div className="NoticationContainer">
 			<div className="ImageContainer">

@@ -95,13 +95,11 @@ const ChatPreview = ({ id, users }: Props) => {
 				<LoadingScreen />
 			) : (
 				<>
+					<p>{Recipients[0].DisplayPicture}</p>
 					{Recipients.length < 2 ? (
 						<div className="ChatPreviewSingleContainer" onClick={OpenChat}>
-							<div>
-								<Avatar
-									alt={Recipients[0].Username}
-									src={Recipients[0].DisplayPicture}
-								/>
+							<div className="ImageContainer">
+								<img src={Recipients[0].DisplayPicture} />
 							</div>
 							<div>
 								<p>{Recipients[0].Username}</p>

@@ -43,7 +43,7 @@ const AllNotifications = (props: Props) => {
 				<>
 					{NotiData ? (
 						<>
-							{NotiData?.map((Notif) => (
+							{NotiData?.slice(0,20).map((Notif) => (
 								<NotificationComponent
 									Type={Notif.Type}
 									Timestamp={timeAgo.format(new Date(Notif.Time))}

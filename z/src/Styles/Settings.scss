@@ -191,9 +191,12 @@
 			height: 70px;
 
 			img {
-				height: 40px;
+				height: 45px;
+				width: 45px;
+				object-fit: cover;
 				width: auto;
-				border-radius: 25px;
+				border-radius: 50%;
+				border: 1px solid white;
 				margin-bottom: 5px;
 			}
 
@@ -220,7 +223,7 @@
 			left: 0;
 
 			img {
-				border: 1px solid orange;
+				border: 2px solid orange;
 				height: 90px !important;
 				width: 90px !important;
 				object-fit: cover;

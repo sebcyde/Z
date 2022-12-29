@@ -58,7 +58,7 @@ function App() {
 				setBottomNav(<BottomNavbar />);
 			}
 		});
-	}, []);
+	}, [user]);
 
 	// Update users last seen timestamp in DB
 	// useEffect(() => {

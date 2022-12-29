@@ -97,6 +97,11 @@ function UserImage() {
 		Image39,
 	];
 
+
+	useEffect(() => {
+		images.map((Image) => console.log('Image URL:', Image));
+	}, []);
+
 	const PullData = async () => {
 		// Retrieve user details from DB
 		const docRef = doc(db, `Users/${user!.uid}`);
