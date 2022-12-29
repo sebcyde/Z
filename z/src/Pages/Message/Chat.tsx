@@ -92,8 +92,6 @@ function Recommend({}: Props) {
 			const docRef = doc(db, `Users/${user.uid}`);
 			const docSnap = await getDoc(docRef);
 			if (docSnap.exists()) {
-				console.log('Reciever Name:', user);
-				console.log('Sender Name:', docSnap.data().Username);
 				await SendNotif(
 					QUserDetails.UID,
 					docSnap.data().Username,

@@ -2,12 +2,17 @@ import { arrayUnion, doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../config/Firebase';
 
 export const SendNotif = async (
-	Reciever: string,
-	Sender: string,
+	RecieverUID: string,
+	SenderUserName: string,
 	Type: string,
 	Image: string
 ) => {
-	const docRef = doc(db, `Users/${Reciever}/Notifications/AllNotifications`);
+	console.log('Reciever:', RecieverUID);
+	console.log('Sender:', SenderUserName);
+	console.log('Type:', Type);
+	console.log('Image:', Image);
+
+	const docRef = doc(db, `Users/${RecieverUID}/Notifications/AllNotifications`);
 	await setDoc(
 		docRef,
 		{
@@ -15,7 +20,7 @@ export const SendNotif = async (
 				Time: Date.now(),
 				Type: Type,
 				Image: Image,
-				Username: Sender,
+				Username: SenderUserName,
 			}),
 		},
 		{ merge: true }

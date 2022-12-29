@@ -1,6 +1,14 @@
 import { getAuth } from 'firebase/auth';
-import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import {
+	arrayRemove,
+	arrayUnion,
+	doc,
+	getDoc,
+	updateDoc,
+} from 'firebase/firestore';
+
 import { db } from '../config/Firebase';
+import { SendNotif } from './SendNotif';
 
 export const Follow = async (UserAccount: any) => {
 	const auth = getAuth();
@@ -9,6 +17,7 @@ export const Follow = async (UserAccount: any) => {
 	if (user) {
 		console.log('user:', user);
 		const UserDB = doc(db, `Users/${user.uid}/MoreInfo/Friends`);
+
 		await updateDoc(UserDB, {
 			Following: arrayUnion(UserAccount.UID),
 		});
@@ -17,6 +26,20 @@ export const Follow = async (UserAccount: any) => {
 		await updateDoc(QueryDB, {
 			Followers: arrayUnion(user.uid),
 		});
+
+		const UserDBInfo = doc(db, `Users/${user.uid}`);
+		const docSnap = await getDoc(UserDBInfo);
+		if (docSnap.exists()) {
+			await SendNotif(
+				UserAccount.UID,
+				docSnap.data().Username,
+				'Follow',
+				docSnap.data().DisplayPicture
+			);
+			console.log('Notification sent.');
+			console.log('User DB Data', docSnap.data());
+		}
+
 		console.log('Successfully followed:', UserAccount);
 	}
 };
