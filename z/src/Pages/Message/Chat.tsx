@@ -25,7 +25,6 @@ import LoadingScreen from '../LoadingScreen';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { UpdateLastSeen } from '../../Functions/UpdateLastSeen';
 import { v4 as uuidv4 } from 'uuid';
 import { MessageObject } from '../../Types/MessageTypes';
 import { SendNotif } from '../../Functions/SendNotif';

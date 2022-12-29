@@ -110,10 +110,9 @@ const ChatPreview = ({ id, users }: Props) => {
 						</div>
 					) : (
 						<div className="ChatPreviewDoubleContainer">
-							<Avatar
-								alt={Recipients[Recipients.length - 1].Username}
-								src={Recipients[Recipients.length - 1].DisplayPicture}
-							/>
+							<div className="ImageContainer">
+								<img src={Recipients[Recipients.length - 1].DisplayPicture} />
+							</div>
 							<div>
 								<span>
 									{Recipients.map((User) => (

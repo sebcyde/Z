@@ -25,7 +25,7 @@ import AdminPage from './Pages/AdminPages/AdminPage';
 import AllChats from './Pages/Message/AllChats';
 import AllNotifications from './Pages/Notifications/AllNotifications';
 import NewChat from './Pages/Message/NewChat';
-import { UpdateLastSeen } from './Functions/UpdateLastSeen';
+// import { UpdateLastSeen } from './Functions/UpdateLastSeen';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './config/Firebase';
 
