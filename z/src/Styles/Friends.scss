@@ -67,12 +67,22 @@
 		justify-content: space-between;
 		border-bottom: 1px solid gray;
 
-		img.ConnectionImage {
-			height: 50px;
-			width: 50px;
+		.ConnectionImageContainer {
+			height: 45px;
+			width: 45px;
 			border-radius: 50%;
 			object-fit: cover;
-			border: 2px solid white;
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			img.ConnectionImage {
+				height: 45px;
+				width: 45px;
+				border-radius: 50%;
+
+				border: 2px solid white;
+			}
 		}
 
 		.ConnectionDetailsContainer {
@@ -141,7 +151,7 @@
 			height: 100px;
 			width: 100px;
 			border-radius: 50%;
-			border: 2px solid white;
+			border: 5px solid white;
 		}
 		.UserDetailsAdmin {
 			svg {

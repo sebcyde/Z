@@ -81,10 +81,12 @@ function UserSearch({ Query }: Props) {
 										NavigateToUser(User.data().UID);
 									}}
 								>
-									<img
-										src={User.data().DisplayPicture}
-										className="ConnectionImage"
-									/>
+									<div className="ConnectionImageContainer">
+										<img
+											src={User.data().DisplayPicture}
+											className="ConnectionImage"
+										/>
+									</div>
 									<div className="ConnectionDetailsContainer">
 										<span>
 											<h2 className="ConnectionAdmin">

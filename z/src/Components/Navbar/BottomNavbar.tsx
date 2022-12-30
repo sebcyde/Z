@@ -58,16 +58,17 @@ function BottomNavbar({}: Props) {
 					label="Notifications"
 					icon={<NotificationsIcon />}
 				/>
-				{/* <BottomNavigationAction
-					value="Friends"
-					label="Friends"
-					icon={<GroupIcon />}
-				/> */}
+
 				<BottomNavigationAction
 					value="Messages"
 					label="Messages"
 					icon={<EmailIcon />}
 				/>
+				{/* <BottomNavigationAction
+					value="Friends"
+					label="Friends"
+					icon={<GroupIcon />}
+				/> */}
 			</BottomNavigation>
 		</Paper>
 	);

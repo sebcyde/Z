@@ -73,6 +73,9 @@ function Friends() {
 				)
 			),
 		]);
+
+		console.log('Following:', following);
+		console.log('Followers:', followers);
 		setUserFollowing(following);
 		setUserFollowers(followers);
 	};
@@ -158,10 +161,12 @@ function Friends() {
 														NavigateToUser(Following.UID);
 													}}
 												>
-													<img
-														src={Following.DisplayPicture}
-														className="ConnectionImage"
-													/>
+													<div className="ConnectionImageContainer">
+														<img
+															src={Following.DisplayPicture}
+															className="ConnectionImage"
+														/>
+													</div>
 
 													<div className="ConnectionDetailsContainer">
 														<span>
@@ -198,10 +203,12 @@ function Friends() {
 														NavigateToUser(Follower.UID);
 													}}
 												>
-													<img
-														src={Follower.DisplayPicture}
-														className="ConnectionImage"
-													/>
+													<div className="ConnectionImageContainer">
+														<img
+															src={Follower.DisplayPicture}
+															className="ConnectionImage"
+														/>
+													</div>
 
 													<div className="ConnectionDetailsContainer">
 														<span>
