@@ -5,6 +5,7 @@ import { FavouritesListState } from './Slices/FavouritesListSlice';
 import { UserState } from './Slices/UserSlice';
 import { VersionState } from './Slices/VersionSlice';
 import { AdminDataState } from './Slices/AdminSlice';
+import { NotificationState } from './Slices/NotifSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
 		UserState: UserState.reducer,
 		VersionState: VersionState.reducer,
 		AdminDataState: AdminDataState.reducer,
+		NotificationState: NotificationState.reducer,
 	},
 });
 

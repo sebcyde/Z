@@ -28,6 +28,7 @@ import NewChat from './Pages/Message/NewChat';
 // import { UpdateLastSeen } from './Functions/UpdateLastSeen';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './config/Firebase';
+import { UpdateLastSeen } from './Functions/UpdateLastSeen';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -61,9 +62,9 @@ function App() {
 	}, [user]);
 
 	// Update users last seen timestamp in DB
-	// useEffect(() => {
-	// 	if (user) UpdateLastSeen(user.uid);
-	// }, [location]);
+	useEffect(() => {
+		if (user && location.pathname == '/notifications') UpdateLastSeen(user.uid);
+	}, [location]);
 
 	return (
 		<div className="App" style={{ zIndex: '1' }}>

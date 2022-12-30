@@ -7,11 +7,6 @@ export const SendNotif = async (
 	Type: string,
 	Image: string
 ) => {
-	console.log('Reciever:', RecieverUID);
-	console.log('Sender:', SenderUserName);
-	console.log('Type:', Type);
-	console.log('Image:', Image);
-
 	const docRef = doc(db, `Users/${RecieverUID}/Notifications/AllNotifications`);
 	await setDoc(
 		docRef,

@@ -9,6 +9,7 @@ import {
 
 import { db } from '../config/Firebase';
 import { SendNotif } from './SendNotif';
+import { UpdateLatestNotification } from './UpdateLastSeen';
 
 export const Follow = async (UserAccount: any) => {
 	const auth = getAuth();
@@ -40,6 +41,7 @@ export const Follow = async (UserAccount: any) => {
 			console.log('User DB Data', docSnap.data());
 		}
 
+		await UpdateLatestNotification(UserAccount.UID);
 		console.log('Successfully followed:', UserAccount);
 	}
 };

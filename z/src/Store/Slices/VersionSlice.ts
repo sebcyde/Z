@@ -6,7 +6,7 @@ interface VersionStateInt {
 }
 
 const initialState: VersionStateInt = {
-	Version: '1.8.2',
+	Version: '1.8.3',
 };
 
 export const VersionState = createSlice({

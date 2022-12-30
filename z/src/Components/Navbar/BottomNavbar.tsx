@@ -9,12 +9,20 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import EmailIcon from '@mui/icons-material/Email';
 import { Paper } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { useDocument } from 'react-firebase-hooks/firestore';
+import { app, auth } from '../../config/Firebase';
+import { doc, getFirestore } from '@firebase/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 type Props = {};
 
 function BottomNavbar({}: Props) {
 	const [Value, setValue] = useState('');
 	const navigate = useNavigate();
+
+	const [user] = useAuthState(auth);
+	const [value] = useDocument(doc(getFirestore(app), `Users/${user?.uid}`));
 
 	return (
 		<Paper
@@ -57,6 +65,11 @@ function BottomNavbar({}: Props) {
 					value="Notifications"
 					label="Notifications"
 					icon={<NotificationsIcon />}
+					className={
+						value?.data()?.LastSeen < value?.data()?.LatestNotification
+							? 'NewNotification'
+							: ''
+					}
 				/>
 
 				<BottomNavigationAction

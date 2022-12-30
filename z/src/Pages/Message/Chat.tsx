@@ -16,7 +16,7 @@ import {
 } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { FaArrowLeft, FaCrown } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import MessageComponent from '../../Components/Messages/MessageComponent';
 import { app, auth, db } from '../../config/Firebase';
@@ -28,6 +28,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { v4 as uuidv4 } from 'uuid';
 import { MessageObject } from '../../Types/MessageTypes';
 import { SendNotif } from '../../Functions/SendNotif';
+import { UpdateLastSeen } from '../../Store/Slices/NotifSlice';
+import { UpdateLatestNotification } from '../../Functions/UpdateLastSeen';
 
 type Props = {};
 const ArrowStyle = { marginRight: '10px' };
@@ -97,6 +99,7 @@ function Recommend({}: Props) {
 					'Message',
 					docSnap.data().DisplayPicture
 				);
+				await UpdateLatestNotification(QUserDetails.UID);
 			} else {
 				console.log('No user doc for notif to send!');
 			}

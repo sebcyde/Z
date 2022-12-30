@@ -51,7 +51,7 @@ export const SignUp = async (
 			CreationDate: user.metadata.creationTime,
 			UID: user.uid,
 			Admin: false,
-			LastSeen: serverTimestamp(),
+			LastSeen: Date.now(),
 		});
 
 		await setDoc(doc(db, `Users/${user.uid}/MoreInfo/Lists`), {

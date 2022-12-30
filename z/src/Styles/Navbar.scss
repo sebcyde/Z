@@ -5,6 +5,27 @@
 			color: white;
 		}
 	}
+	.NewNotification {
+		svg {
+			color: orange;
+			height: 1.2em;
+			width: 1.2em;
+		}
+		// &::after {
+		// 	content: '';
+		// 	position: absolute;
+		// 	display: inline-block;
+		// 	width: 10px;
+		// 	height: 10px;
+		// 	top: 0px;
+		// 	right: 20px;
+		// 	-moz-border-radius: 7.5px;
+		// 	-webkit-border-radius: 7.5px;
+		// 	border-radius: 7.5px;
+		// 	background-color: red;
+		// 	border: 1px solid white;
+		// }
+	}
 }
 
 #responsive-navbar-nav {

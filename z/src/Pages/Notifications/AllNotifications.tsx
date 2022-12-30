@@ -8,6 +8,8 @@ import { NotifObject } from '../../Types/MessageTypes';
 import LoadingScreen from '../LoadingScreen';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
+import { useDispatch } from 'react-redux';
+import { UpdateLastSeen } from '../../Store/Slices/NotifSlice';
 
 type Props = {};
 
@@ -18,6 +20,12 @@ const AllNotifications = (props: Props) => {
 	TimeAgo.setDefaultLocale(en.locale);
 	TimeAgo.addLocale(en);
 	const timeAgo = new TimeAgo('en-US');
+
+	// Notification Listener
+	const dispatch = useDispatch();
+	dispatch(UpdateLastSeen(Date.now()));
+	
+	// End
 
 	// Retrieve Notifications from DB
 	const PullData = async () => {
