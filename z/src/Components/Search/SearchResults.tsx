@@ -163,7 +163,7 @@ function SearchResults({ Query, SearchType }: Props) {
 	}, [Query]);
 
 	return (
-		<div>
+		<div className="SearchResults">
 			{Loading ? (
 				<LoadingScreen />
 			) : (

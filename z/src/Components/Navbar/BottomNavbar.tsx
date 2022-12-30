@@ -54,16 +54,11 @@ function BottomNavbar({}: Props) {
 					label="Messages"
 					icon={<GroupIcon />}
 				/> */}
-				<BottomNavigationAction value="Home" label="Home" icon={<HomeIcon />} />
+				<BottomNavigationAction value="Home" icon={<HomeIcon />} />
 
-				<BottomNavigationAction
-					value="Search"
-					label="Search"
-					icon={<SearchIcon />}
-				/>
+				<BottomNavigationAction value="Search" icon={<SearchIcon />} />
 				<BottomNavigationAction
 					value="Notifications"
-					label="Notifications"
 					icon={<NotificationsIcon />}
 					className={
 						value?.data()?.LastSeen < value?.data()?.LatestNotification
@@ -72,11 +67,7 @@ function BottomNavbar({}: Props) {
 					}
 				/>
 
-				<BottomNavigationAction
-					value="Messages"
-					label="Messages"
-					icon={<EmailIcon />}
-				/>
+				<BottomNavigationAction value="Messages" icon={<EmailIcon />} />
 				{/* <BottomNavigationAction
 					value="Friends"
 					label="Friends"

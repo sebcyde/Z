@@ -11,6 +11,7 @@ import {
 	CardActionArea,
 	CardContent,
 	CardMedia,
+	Chip,
 	Typography,
 } from '@mui/material';
 
@@ -44,28 +45,32 @@ function AnimeListBanner({ URL, Title, List }: Props) {
 					console.log('Title:', Title);
 					console.log('Response:', response);
 					const NewAnime = response.data.data.map((Ani: any, index: number) => {
+						console.log('Ani:', Ani);
 						return (
-							<Card
-								key={index}
-								className="AnimeContainer"
-								onClick={() => {
-									NavigateAnimePage(Ani.mal_id);
-								}}
-							>
-								<CardActionArea>
-									<CardMedia
-										component="img"
-										height="140"
-										image={Ani.images.jpg.image_url}
-										alt="green iguana"
-									/>
-									<CardContent>
-										<Typography gutterBottom variant="h5" component="div">
-											{Ani.title}
-										</Typography>
-									</CardContent>
-								</CardActionArea>
-							</Card>
+							<>
+								<div
+									className="AnimeContainer"
+									onClick={() => {
+										NavigateAnimePage(Ani.mal_id);
+									}}
+								>
+									<div className="AnimeImageContainer">
+										<img
+											className="AnimeImage"
+											src={Ani.images.jpg.image_url}
+										/>
+									</div>
+									<div className="AnimeDetailsContainer">
+										<p className="AnimeName">{Ani.title}</p>
+										<span className="AnimeScoreContainer">
+											<p className="AnimeScoreTitle">Score:</p>
+
+											<div className="AnimeScore">{Ani.score}</div>
+										</span>
+										<p className="AnimeAiring">{Ani.status}</p>
+									</div>
+								</div>
+							</>
 						);
 					});
 
@@ -77,30 +82,6 @@ function AnimeListBanner({ URL, Title, List }: Props) {
 				})
 				.catch((err) => console.log(err));
 		}
-		// else if (List) {
-		// 	List.map((Ani: any, index: number) => {
-		// 		return (
-		// 			<div
-		// 				key={index}
-		// 				className="AnimeContainer"
-		// 				onClick={() => {
-		// 					NavigateAnimePage(Ani.mal_id);
-		// 				}}
-		// 			>
-		// 				<img src={Ani.images.jpg.image_url} />
-		// 				<div className="AnimeDetailsContainer">
-		// 					<h3 className="AnimeTitle">{Ani.title}</h3>
-		// 					<h3 className="AnimeEpisodes">Episodes: {Ani.episodes}</h3>
-		// 				</div>
-		// 			</div>
-		// 		);
-		// 	})
-		// 		.then((NewAnime) => setAnimeList(NewAnime))
-		// 		.then(() => {
-		// 			setLoading(false);
-		// 		})
-		// 		.catch((err) => console.log(err));
-		// }
 	}, [URL]);
 
 	return (
