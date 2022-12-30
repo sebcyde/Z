@@ -173,12 +173,14 @@ function Recommend({}: Props) {
 								<h2>{QUserDetails.Username}</h2>
 								<p>{QUserDetails.Admin ? <FaCrown /> : ''}</p>
 							</span>
-							<img
-								src={QUserDetails.DisplayPicture}
-								onClick={() => {
-									navigate('/user');
-								}}
-							/>
+							<div className="RecieverImageContainer">
+								<img
+									src={QUserDetails.DisplayPicture}
+									onClick={() => {
+										navigate('/user');
+									}}
+								/>
+							</div>
 						</span>
 					</div>
 					<div className="MessagesContainer">

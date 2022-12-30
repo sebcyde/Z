@@ -1,15 +1,15 @@
 .BottomNav {
 	> div {
-		background-color: black;
+		background-color: #212529;
 		> button {
-			color: white;
+			color: rgb(255, 255, 255);
 		}
 	}
 	.NewNotification {
 		svg {
-			color: orange;
-			height: 1.2em;
-			width: 1.2em;
+			color: rgb(255, 165, 0);
+			// height: 1.2em;
+			// width: 1.2em;
 		}
 		// &::after {
 		// 	content: '';

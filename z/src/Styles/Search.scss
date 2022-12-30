@@ -1,39 +1,53 @@
 .SearchContainer {
 	display: flex;
 	flex-direction: column;
-	.SearchbarInput {
-		border: 1px solid orange;
-		background-color: black;
-		border-radius: 5px;
-		width: 95%;
-		padding: 5px 10px;
-		margin: 10px auto;
-		color: white;
-		font-size: 18px;
-		text-align: center;
-		&::placeholder {
+	.SearchbarInputContainer {
+		height: fit-content;
+		width: 100%;
+		padding: 10px;
+		padding-top: 0px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #212529;
+
+		.SearchbarInput {
+			border: none;
+			background-color: #383837;
+			border-radius: 5px;
+			width: 95%;
+			padding: 5px 10px;
+			margin: 2px;
 			color: white;
-		}
-		&:focus-visible {
-			border: 1px solid orange;
-			outline-color: orange;
+			font-size: 18px;
+			text-align: center;
+			&::placeholder {
+				color: gray;
+			}
+			&:focus-visible {
+				border: none;
+				outline-color: transparent !important;
+			}
 		}
 	}
 }
 
 ul.nav-tabs {
 	border: none;
+	background-color: #212529;
 	li {
 		width: calc(100% / 3);
-		border-bottom: 1px solid orange;
+
 		border-radius: 0px;
 		button.nav-link {
 			width: 100%;
 			height: 100%;
 			border-radius: 0px;
-			color: white;
+			color: gray;
 			&.active {
-				background-color: orange;
+				background-color: #212529;
+				border: none;
+				border-bottom: 2px solid orange;
 				color: white;
 			}
 		}

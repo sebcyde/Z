@@ -22,13 +22,15 @@ function NewChat() {
 					<ArrowBackIcon />
 					<p>Back</p>
 				</span>
-				<input
-					placeholder="Search"
-					className="SearchbarInput"
-					ref={SearchInput}
-					defaultValue={SearchTerm}
-					onChange={debouncedHandler}
-				/>
+				<div className="SearchbarInputContainer">
+					<input
+						placeholder="Search"
+						className="SearchbarInput"
+						ref={SearchInput}
+						defaultValue={SearchTerm}
+						onChange={debouncedHandler}
+					/>
+				</div>
 			</div>
 		);
 	};

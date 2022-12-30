@@ -37,9 +37,38 @@
 		flex-direction: column;
 		height: fit-content;
 		padding: 10px;
-		background-color: black;
+		background-color: #212529;
 		border-bottom: 2px solid gray;
 		align-items: flex-start;
+
+		.SearchbarInputContainer {
+			height: fit-content;
+			width: 100%;
+			padding: 10px;
+			padding-top: 0px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: #212529;
+			.SearchbarInput {
+				border: none;
+				background-color: #383837;
+				border-radius: 5px;
+				width: 97%;
+				padding: 5px 10px;
+				margin: 2px;
+				color: white;
+				font-size: 18px;
+				text-align: center;
+				&::placeholder {
+					color: gray;
+				}
+				&:focus-visible {
+					border: none;
+					outline-color: transparent !important;
+				}
+			}
+		}
 
 		span {
 			display: flex;
@@ -49,12 +78,14 @@
 
 			p {
 				margin: 0;
-				font-size: 20px;
+				font-size: 17px;
+				color: gray;
 			}
 			svg {
 				margin-right: 5px;
-				height: 20px;
-				width: 20px;
+				height: 15px;
+				width: 15px;
+				color: gray;
 			}
 		}
 		input {
@@ -110,20 +141,6 @@
 				}
 			}
 		}
-	}
-
-	.Mui-expanded {
-		// background-color: blue;
-	}
-
-	.SearchbarInput {
-		background-color: transparent;
-		border: 1px solid orange;
-		padding: 10px;
-		width: 95%;
-		margin: auto;
-		border-radius: 10px;
-		color: white;
 	}
 }
 

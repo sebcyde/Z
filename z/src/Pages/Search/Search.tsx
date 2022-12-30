@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import SearchResults from '../../Components/Search/SearchResults';
+import SearchIcon from '@mui/icons-material/Search';
 import '../../Styles/Search.scss';
 
 function Search() {
@@ -29,6 +30,15 @@ function Search() {
 
 	return (
 		<div className="SearchContainer">
+			<div className="SearchbarInputContainer">
+				<input
+					placeholder="Search"
+					className="SearchbarInput"
+					ref={SearchInput}
+					value={SearchTerm}
+					onChange={debouncedHandler}
+				/>
+			</div>
 			<Tabs
 				defaultActiveKey="anime"
 				id="tabParent"
@@ -39,13 +49,7 @@ function Search() {
 				<Tab eventKey="manga" title="Manga" />
 				<Tab eventKey="people" title="People" />
 			</Tabs>
-			<input
-				placeholder="Search"
-				className="SearchbarInput"
-				ref={SearchInput}
-				value={SearchTerm}
-				onChange={debouncedHandler}
-			/>
+
 			<SearchResults Query={SearchTerm} SearchType={SearchType} />
 		</div>
 	);
