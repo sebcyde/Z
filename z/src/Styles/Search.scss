@@ -59,66 +59,128 @@ ul.nav-tabs {
 	font-size: 20px;
 }
 
-.AnimeContainer,
-.MangaContainer {
-	width: calc(100% - 10px);
-	flex-direction: column;
-	border: 1px solid white;
-	margin: 5px;
-	margin-bottom: 10px;
+.AnimeDetailsContainer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	background-color: black;
+	height: fit-content;
+	width: calc(95%);
+	margin: 10px auto;
 	background-color: rgb(43, 43, 43);
-	padding-bottom: 10px;
+	// padding: 10px;
+	border-radius: 5px;
 
-	.AnimeDetailsContainer,
-	.MangaDetailsContainer {
-		display: flex;
-		flex-direction: row;
-		background-color: black;
-
+	.AnimeImageContaienr {
+		margin: 10px;
+		height: fit-content;
+		border: 2px solid gray;
 		.AnimeImage {
-			height: 200px;
-			width: 220px;
+			height: 100px;
+			width: 71px;
+			object-fit: cover;
 			overflow: hidden;
 		}
+	}
+	.AnimeDetails {
+		height: fit-content;
+		width: fit-content;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-evenly;
+		box-sizing: border-box;
+		text-align: center;
+		margin: 10px auto;
 
-		.MangaImage {
-			height: 200px;
-			width: 200px;
-			overflow: hidden;
-		}
-
-		.AnimeDetails,
-		.MangaDetails {
-			height: 200px;
-			width: 100%;
+		h2,
+		p,
+		span {
+			margin: 4px !important;
+			height: fit-content;
+			box-sizing: border-box;
 			display: flex;
-			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			box-sizing: border-box;
-			padding: 20px;
-			.AnimeTitle,
-			.MangaTitle {
-				width: fit-content;
-				margin: 0;
-				font-size: 18px;
-				margin-bottom: 10px;
-			}
+			text-align: center;
+		}
 
-			.AnimeRanking,
-			.MangaRanking,
-			.AnimeGenres,
-			.MangaGenres {
-				display: flex;
-				width: 100%;
-				justify-content: space-evenly;
-				margin-bottom: 10px;
-				p {
-					margin: 0px;
+		.AnimeTitle {
+			width: fit-content;
+			margin: 0;
+			font-size: 18px;
+			margin-bottom: 10px;
+			text-align: center;
+			// Prevent multi-line titles
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			width: 200px;
+		}
+		.AnimeRanking,
+		.AnimeGenres {
+			display: flex;
+			width: 100%;
+			justify-content: space-evenly;
+			margin-bottom: 10px;
+
+			.GenreChip {
+				background-color: gray;
+				color: white;
+				font-size: 10px;
+				padding: 0px 0px;
+				span {
+					padding: 5px 6px;
 				}
 			}
 		}
 	}
+
+	.MangaImage {
+		height: 200px;
+		width: 200px;
+		overflow: hidden;
+	}
+
+	.MangaDetails {
+		height: 200px;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		padding: 20px;
+
+		.MangaTitle {
+			width: fit-content;
+			margin: 0;
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+
+		.MangaRanking,
+		.MangaGenres {
+			display: flex;
+			width: 100%;
+			justify-content: space-evenly;
+			margin-bottom: 10px;
+			p {
+				margin: 0px;
+			}
+		}
+	}
+}
+
+.AnimeContainer,
+.MangaContainer {
+	width: calc(95%);
+	flex-direction: column;
+	border: 1px solid white;
+	margin: 10px auto;
+	background-color: rgb(43, 43, 43);
+
 	.AnimeAbout,
 	.MangaAbout {
 		padding: 10px;

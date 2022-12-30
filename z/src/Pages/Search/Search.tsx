@@ -39,12 +39,7 @@ function Search() {
 					onChange={debouncedHandler}
 				/>
 			</div>
-			<Tabs
-				defaultActiveKey="anime"
-				id="tabParent"
-				className="mb-3"
-				onSelect={TabSelect}
-			>
+			<Tabs defaultActiveKey="anime" id="tabParent" onSelect={TabSelect}>
 				<Tab eventKey="anime" title="Anime" />
 				<Tab eventKey="manga" title="Manga" />
 				<Tab eventKey="people" title="People" />

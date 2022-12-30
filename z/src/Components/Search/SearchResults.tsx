@@ -1,3 +1,4 @@
+import { Chip } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import LoadingScreen from '../../Pages/LoadingScreen';
@@ -19,26 +20,39 @@ function SearchResults({ Query, SearchType }: Props) {
 					<>
 						{ReturnedAnime.map((Anime: any, key: number) => {
 							return (
-								<div className="AnimeContainer" key={key}>
-									<div className="AnimeDetailsContainer">
+								<div className="AnimeDetailsContainer">
+									<div className="AnimeImageContaienr">
 										<img
 											src={Anime.images.jpg.image_url}
 											className="AnimeImage"
 										/>
-										<div className="AnimeDetails">
-											<h2 className="AnimeTitle">{Anime.title}</h2>
-
-											<span className="AnimeRanking">
-												<p>Rank: {Anime.rank}</p>
-												<p>Score: {Anime.score}</p>
-											</span>
-											<span className="AnimeGenres">
-												{Anime.genres[0] ? <p>{Anime.genres[0].name}</p> : ''}
-												{Anime.genres[1] ? <p>{Anime.genres[1].name}</p> : ''}
-											</span>
-										</div>
 									</div>
-									<p className="AnimeAbout">{Anime.synopsis}</p>
+									<div className="AnimeDetails">
+										<h2 className="AnimeTitle">{Anime.title}</h2>
+
+										<span className="AnimeRanking">
+											{Anime.rank ? <p>Rank: {Anime.rank}</p> : ''}
+											{Anime.score ? <p>Score: {Anime.score}</p> : ''}
+										</span>
+										<span className="AnimeGenres">
+											{Anime.genres[0] ? (
+												<Chip
+													label={Anime.genres[0].name}
+													className="GenreChip"
+												/>
+											) : (
+												''
+											)}
+											{Anime.genres[1] ? (
+												<Chip
+													label={Anime.genres[1].name}
+													className="GenreChip"
+												/>
+											) : (
+												''
+											)}
+										</span>
+									</div>
 								</div>
 							);
 						})}
@@ -153,14 +167,14 @@ function SearchResults({ Query, SearchType }: Props) {
 			{Loading ? (
 				<LoadingScreen />
 			) : (
-				<>
-					{Query == undefined ? (
+				<div style={{ marginBottom: '65px' }}>
+					{/* {Query == undefined ? (
 						<h2 className="SearchHeader">Search Our Database</h2>
 					) : (
 						<h2 className="SearchHeader">Results For: {Query}</h2>
-					)}
+					)} */}
 					{List}
-				</>
+				</div>
 			)}
 		</div>
 	);
