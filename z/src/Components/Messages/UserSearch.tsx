@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { app, auth, db } from '../../config/Firebase';
 import LoadingScreen from '../../Pages/LoadingScreen';
-import { SetUser } from '../../Store/Slices/UserSlice';
+import { SetUser } from '../../Store/Slices/ListSlice';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
 	useCollection,

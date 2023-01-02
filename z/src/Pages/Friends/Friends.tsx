@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import UserSearch from '../../Components/Messages/UserSearch';
 import { db } from '../../config/Firebase';
-import { SetUser } from '../../Store/Slices/UserSlice';
+import { SetUser } from '../../Store/Slices/ListSlice';
 import LoadingScreen from '../LoadingScreen';
 
 const ArrowStyle = {

@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { AnimeIDState } from './Slices/AnimeSlice';
 import { MangaIDState } from './Slices/MangaSlice';
 import { FavouritesListState } from './Slices/FavouritesListSlice';
-import { UserState } from './Slices/UserSlice';
+import { ListState } from './Slices/ListSlice';
 import { VersionState } from './Slices/VersionSlice';
 import { AdminDataState } from './Slices/AdminSlice';
 import { NotificationState } from './Slices/NotifSlice';
@@ -12,7 +12,7 @@ export const store = configureStore({
 		IDState: AnimeIDState.reducer,
 		MangaIDState: MangaIDState.reducer,
 		FavouritesListState: FavouritesListState.reducer,
-		UserState: UserState.reducer,
+		ListState: ListState.reducer,
 		VersionState: VersionState.reducer,
 		AdminDataState: AdminDataState.reducer,
 		NotificationState: NotificationState.reducer,

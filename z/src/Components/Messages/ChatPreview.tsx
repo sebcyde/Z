@@ -17,7 +17,7 @@ import { app, auth, db } from '../../config/Firebase';
 import { GetRecipientsEmails } from '../../Functions/GetRecipientsEmail';
 import { TimeSort } from '../../Functions/TimeSort';
 import LoadingScreen from '../../Pages/LoadingScreen';
-import { SetUser } from '../../Store/Slices/UserSlice';
+import { SetUser } from '../../Store/Slices/ListSlice';
 import { MessageObject } from '../../Types/MessageTypes';
 
 type Props = {

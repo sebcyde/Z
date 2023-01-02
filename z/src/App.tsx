@@ -29,6 +29,8 @@ import NewChat from './Pages/Message/NewChat';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './config/Firebase';
 import { UpdateLastSeen } from './Functions/UpdateLastSeen';
+import ListDetails from './Pages/MyLists/ListDetails';
+import CreateList from './Pages/MyLists/CreateList';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -80,7 +82,11 @@ function App() {
 						<Route path="search" element={<Search />} />
 						<Route path="manga" element={<Manga />} />
 						<Route path="admin" element={<AdminPage />} />
-						<Route path="mylists" element={<MyLists />} />
+						<Route path="mylists" element={<MyLists />}>
+							<Route path="listdetails" element={<ListDetails />} />
+							<Route path="createlist" element={<CreateList />} />
+						</Route>
+
 						<Route path="settings" element={<Settings />} />
 						<Route path="signin" element={<SignIn />} />
 						<Route path="signup" element={<SignUp />} />

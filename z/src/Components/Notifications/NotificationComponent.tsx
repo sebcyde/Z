@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { db } from '../../config/Firebase';
-import { SetUser } from '../../Store/Slices/UserSlice';
+import { SetUser } from '../../Store/Slices/ListSlice';
 
 type Props = {
 	Type: string;

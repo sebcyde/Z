@@ -62,11 +62,15 @@ function AnimeListBanner({ URL, Title, List }: Props) {
 									</div>
 									<div className="AnimeDetailsContainer">
 										<p className="AnimeName">{Ani.title}</p>
-										<span className="AnimeScoreContainer">
-											<p className="AnimeScoreTitle">Score:</p>
+										{Ani.score ? (
+											<span className="AnimeScoreContainer">
+												<p className="AnimeScoreTitle">Score:</p>
 
-											<div className="AnimeScore">{Ani.score}</div>
-										</span>
+												<div className="AnimeScore">{Ani.score}</div>
+											</span>
+										) : (
+											''
+										)}
 										<p className="AnimeAiring">{Ani.status}</p>
 									</div>
 								</div>

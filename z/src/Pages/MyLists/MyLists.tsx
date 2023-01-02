@@ -15,10 +15,13 @@ import { BsPlusLg, BsThreeDots } from 'react-icons/bs';
 import { Button, ListGroup, Modal } from 'react-bootstrap';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { SassString } from 'sass';
+import ListStack from '../../Components/Lists/ListStack.js';
+import { Anime } from '../../Types/AnimeTypes.js';
 
 function MyLists() {
+	const [ListStackLists, setListStackLists] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
-	const [UserLists, setUserLists] = useState<any[]>([]);
+	const [UserName, setUserName] = useState('');
 	const [Loading2, setLoading2] = useState<boolean>(true);
 	const [SelectedList, setSelectedList] = useState<string>('');
 	const [ModalLoading, setModalLoading] = useState<boolean>(true);
@@ -66,21 +69,21 @@ function MyLists() {
 	const PullLists = async () => {
 		setModalLoading(true);
 		if (user) {
+			const userRef = doc(db, `Users/${user.uid}`);
+			const userSnap = await getDoc(userRef);
 			const docRef = doc(db, `Users/${user.uid}/MoreInfo/Lists`);
 			const docSnap = await getDoc(docRef);
-			if (docSnap.exists()) {
+			if (docSnap.exists() && userSnap.exists()) {
+				const User = userSnap.data().Username;
 				const Lists = docSnap.data();
-
 				const sorted = Object.keys(Lists!)
 					.sort()
 					.reduce((accumulator: any, key) => {
 						accumulator[key] = Lists![key];
 						return accumulator;
 					}, {});
-				console.log('Sorted:', sorted);
-
-				console.log('Lists:', sorted);
-				setUserLists(Object.keys(sorted));
+				setListStackLists(sorted);
+				setUserName(User);
 				setModalLoading(false);
 			} else {
 				console.log('No such document!');
@@ -186,119 +189,136 @@ function MyLists() {
 	};
 
 	useEffect(() => {
-		Startup();
+		PullLists().then(() => setLoading(false));
 	}, []);
 
 	return (
-		<div style={{ width: '100%', height: '100%' }}>
-			<Modal
-				show={show2}
-				onHide={handleClose2}
-				onShow={PullLists}
-				centered={true}
-			>
-				<Modal.Header>
-					<Modal.Title>
-						<span>
-							<h2>Create New List</h2>
-							<BsPlusLg
-								onClick={() => {
-									setEditing(true);
-								}}
+		<>
+			{Loading || !ListStackLists ? (
+				<LoadingScreen />
+			) : (
+				<>
+					{Object.keys(ListStackLists).map((ListName: any) => {
+						return (
+							<ListStack
+								List={ListStackLists}
+								ListName={ListName}
+								Creator={UserName}
 							/>
-						</span>
-					</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					{ModalLoading ? (
-						<LoadingScreen />
-					) : (
-						<ListGroup defaultActiveKey="#link1">
-							{Editing ? (
-								<ListGroup.Item action>
-									<input
-										placeholder="New List Name"
-										className="NewListInput"
-										onChange={handleInputChange}
-										value={NewListRef}
-									/>
-								</ListGroup.Item>
-							) : (
-								''
-							)}
-							{UserLists.map((list, index: number) => {
-								return (
-									<ListGroup.Item action key={index}>
-										{list}
-									</ListGroup.Item>
-								);
-							})}
-						</ListGroup>
-					)}
-				</Modal.Body>
-				<Modal.Footer>
-					<Button
-						variant="secondary"
-						onClick={() => {
-							setEditing(false);
-							handleClose2();
-							Startup();
-						}}
-					>
-						Cancel
-					</Button>
-					{Editing ? (
-						<Button
-							variant="primary"
-							onClick={() => {
-								AddNewList();
-								setEditing(false);
-							}}
-						>
-							Save
-						</Button>
-					) : (
-						''
-					)}
-				</Modal.Footer>
-			</Modal>
+						);
+					})}
+				</>
+			)}
+		</>
+		// <div style={{ width: '100%', height: '100%' }}>
+		// 	<Modal
+		// 		show={show2}
+		// 		onHide={handleClose2}
+		// 		onShow={PullLists}
+		// 		centered={true}
+		// 	>
+		// 		<Modal.Header>
+		// 			<Modal.Title>
+		// 				<span>
+		// 					<h2>Create New List</h2>
+		// 					<BsPlusLg
+		// 						onClick={() => {
+		// 							setEditing(true);
+		// 						}}
+		// 					/>
+		// 				</span>
+		// 			</Modal.Title>
+		// 		</Modal.Header>
+		// 		<Modal.Body>
+		// 			{ModalLoading ? (
+		// 				<LoadingScreen />
+		// 			) : (
+		// 				<ListGroup defaultActiveKey="#link1">
+		// 					{Editing ? (
+		// 						<ListGroup.Item action>
+		// 							<input
+		// 								placeholder="New List Name"
+		// 								className="NewListInput"
+		// 								onChange={handleInputChange}
+		// 								value={NewListRef}
+		// 							/>
+		// 						</ListGroup.Item>
+		// 					) : (
+		// 						''
+		// 					)}
+		// 					{UserLists.map((list, index: number) => {
+		// 						return (
+		// 							<ListGroup.Item action key={index}>
+		// 								{list}
+		// 							</ListGroup.Item>
+		// 						);
+		// 					})}
+		// 				</ListGroup>
+		// 			)}
+		// 		</Modal.Body>
+		// 		<Modal.Footer>
+		// 			<Button
+		// 				variant="secondary"
+		// 				onClick={() => {
+		// 					setEditing(false);
+		// 					handleClose2();
+		// 					Startup();
+		// 				}}
+		// 			>
+		// 				Cancel
+		// 			</Button>
+		// 			{Editing ? (
+		// 				<Button
+		// 					variant="primary"
+		// 					onClick={() => {
+		// 						AddNewList();
+		// 						setEditing(false);
+		// 					}}
+		// 				>
+		// 					Save
+		// 				</Button>
+		// 			) : (
+		// 				''
+		// 			)}
+		// 		</Modal.Footer>
+		// 	</Modal>
 
-			<Modal show={show} onHide={handleClose} centered={true}>
-				<Modal.Header>
-					<Modal.Title id="contained-modal-title-vcenter">
-						{SelectedList}
-					</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>What should we do with this list?</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
-						Cancel
-					</Button>
-					<Button
-						variant="danger"
-						onClick={() => {
-							DeleteList(SelectedList);
-							handleClose();
-						}}
-					>
-						Delete List
-					</Button>
-				</Modal.Footer>
-			</Modal>
-			{Loading ? <LoadingScreen /> : <>{UserLists.map((List) => List)}</>}
-			<div
-				style={{
-					marginTop: '20px',
-					width: '100%',
-					display: 'flex',
-					justifyContent: 'center',
-				}}
-			>
-				<Button className="Button" onClick={handleShow2}>
-					Create New List <AiOutlinePlus />
-				</Button>
-			</div>
-		</div>
+		// 	<Modal show={show} onHide={handleClose} centered={true}>
+		// 		<Modal.Header>
+		// 			<Modal.Title id="contained-modal-title-vcenter">
+		// 				{SelectedList}
+		// 			</Modal.Title>
+		// 		</Modal.Header>
+		// 		<Modal.Body>What should we do with this list?</Modal.Body>
+		// 		<Modal.Footer>
+		// 			<Button variant="secondary" onClick={handleClose}>
+		// 				Cancel
+		// 			</Button>
+		// 			<Button
+		// 				variant="danger"
+		// 				onClick={() => {
+		// 					DeleteList(SelectedList);
+		// 					handleClose();
+		// 				}}
+		// 			>
+		// 				Delete List
+		// 			</Button>
+		// 		</Modal.Footer>
+		// 	</Modal>
+		// 	{Loading ? <LoadingScreen /> : <>{UserLists.map((List) => List)}</>}
+		// 	<div
+		// 		style={{
+		// 			marginTop: '20px',
+		// 			width: '100%',
+		// 			display: 'flex',
+		// 			justifyContent: 'center',
+		// 		}}
+		// 	>
+		// 		<Button className="Button" onClick={handleShow2}>
+		// 			Create New List <AiOutlinePlus />
+		// 		</Button>
+		// 	</div>
+		// </div>
 	);
 }
 
