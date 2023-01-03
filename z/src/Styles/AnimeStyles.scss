@@ -580,9 +580,31 @@
 }
 
 .ListDetailsPage {
+	.OptionsBar {
+		height: fit-content;
+		margin-bottom: 15px;
+		padding: 0px 10px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		span {
+			svg {
+				margin: 10px;
+				height: 30px;
+				width: 30px;
+				color: gray;
+			}
+		}
+	}
+
 	.SearchResults {
+		padding-bottom: 55px;
+		.AnimeDetails {
+			width: 208px !important;
+		}
 		.AnimeTitle {
-			justify-content: flex-start !important;
+			// text-align: start;
+			// justify-content: center !important;
 		}
 	}
 }

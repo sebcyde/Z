@@ -11,10 +11,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useSelector } from 'react-redux';
 import AnimeItem from '../../Components/Anime/AnimeItem';
 import DetailsStack from '../../Components/Lists/DetailsStack';
-import ListStack from '../../Components/Lists/ListStack';
 import { auth, db } from '../../config/Firebase';
 import { Anime } from '../../Types/AnimeTypes';
 import LoadingScreen from '../LoadingScreen';
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
 
 type Props = {};
 
@@ -67,7 +70,7 @@ const ListDetails = (props: Props) => {
 	console.log('List', List);
 
 	return (
-		<div className='ListDetailsPage'>
+		<div className="ListDetailsPage">
 			{Loading || !CreatorDetails ? (
 				<LoadingScreen />
 			) : (
@@ -78,7 +81,16 @@ const ListDetails = (props: Props) => {
 						Creator={CreatorDetails.Username}
 						CreatorImage={CreatorDetails.DisplayPicture}
 					/>
-					<div className="OptionsBar"></div>
+					<div className="OptionsBar">
+						<span>
+							<DeleteIcon />
+							<EditIcon />
+						</span>
+						<span>
+							<LibraryAddIcon />
+							<SendIcon />
+						</span>
+					</div>
 					<div className="SearchResults">
 						{List[ListName].map((ListItem: Anime) => {
 							return <AnimeItem Anime={ListItem} />;
