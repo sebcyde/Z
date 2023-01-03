@@ -4,6 +4,9 @@ import { auth, db } from '../../config/Firebase.js';
 import LoadingScreen from '../LoadingScreen';
 import ListStack from '../../Components/Lists/ListStack.js';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import CreateList from './CreateList.js';
+import NoListsComponent from '../../Components/Lists/NoListsComponent.js';
+import CreateListComponent from '../../Components/Lists/CreateListComponent.js';
 
 function MyLists() {
 	const [ListStackLists, setListStackLists] = useState<any>();
@@ -42,8 +45,14 @@ function MyLists() {
 		<>
 			{Loading || !ListStackLists ? (
 				<LoadingScreen />
+			) : ListStackLists.length < 1 ? (
+				<>
+					<CreateListComponent />
+					<NoListsComponent />
+				</>
 			) : (
 				<>
+					<CreateListComponent />
 					{Object.keys(ListStackLists).map((ListName: any) => {
 						return (
 							<ListStack

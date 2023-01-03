@@ -541,6 +541,37 @@
 	}
 }
 
+.CreateListComponentContainer {
+	width: 100%;
+	margin-bottom: 15px;
+	margin-top: 10px;
+	height: 88px;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+
+	.ImageContainer {
+		border-radius: 2px;
+		border: 1px solid gray;
+		width: 88px;
+		height: 88px;
+		background-color: gray;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		svg {
+			height: 35px;
+			width: 35px;
+		}
+	}
+	.TextContainer {
+		p {
+			margin: 0;
+			margin-left: 10px;
+		}
+	}
+}
+
 .DetailsStackContainer {
 	.ImageNameContainer {
 		display: flex;

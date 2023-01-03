@@ -77,31 +77,45 @@ function App() {
 					{MainNav}
 					<Routes>
 						<Route path="/" element={<Homepage />} />
+
+						{/* Anime Routes */}
 						<Route path="anime" element={<Anime />} />
 						<Route path="animedetails" element={<AnimeDetails />} />
+
+						{/* Manga Routes */}
 						<Route path="search" element={<Search />} />
 						<Route path="manga" element={<Manga />} />
 						<Route path="admin" element={<AdminPage />} />
+
+						{/* People Routes */}
+						<Route path="people" element={<People />} />
+
+						{/* List Routes */}
 						<Route path="mylists" element={<MyLists />} />
 						<Route path="listdetails" element={<ListDetails />} />
 						<Route path="createlist" element={<CreateList />} />
 
-						<Route path="settings" element={<Settings />} />
-						<Route path="signin" element={<SignIn />} />
-						<Route path="signup" element={<SignUp />} />
-						<Route path="friends" element={<Friends />} />
-						<Route path="user" element={<UserPage />} />
+						{/* Messaging Routes */}
 						<Route path="message" element={<Chat />} />
-						<Route path="notifications" element={<AllNotifications />} />
 						<Route path="allchats" element={<AllChats />} />
 						<Route path="newchat" element={<NewChat />} />
 
+						{/* Social Routes */}
+						<Route path="user" element={<UserPage />} />
+						<Route path="friends" element={<Friends />} />
+						<Route path="notifications" element={<AllNotifications />} />
+
+						{/* Auth Routes */}
+						<Route path="signin" element={<SignIn />} />
+						<Route path="signup" element={<SignUp />} />
+
+						{/* Settings Routes */}
+						<Route path="settings" element={<Settings />} />
 						<Route path="edit">
 							<Route path="userimage" element={<UserImage />} />
 							<Route path="username" element={<UserName />} />
 							<Route path="useremail" element={<UserEmail />} />
 						</Route>
-						<Route path="people" element={<People />} />
 					</Routes>
 					{BottomNav}
 				</>
