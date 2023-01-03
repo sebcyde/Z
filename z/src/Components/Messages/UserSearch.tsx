@@ -1,17 +1,13 @@
 import { collection, doc, getDocs, getFirestore } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaArrowRight, FaCrown } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { app, auth, db } from '../../config/Firebase';
 import LoadingScreen from '../../Pages/LoadingScreen';
-import { SetUser } from '../../Store/Slices/ListSlice';
+import { SetUser } from '../../Store/Slices/UserSlice';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import {
-	useCollection,
-	useDocument,
-	useDocumentData,
-} from 'react-firebase-hooks/firestore';
+import { useDocument } from 'react-firebase-hooks/firestore';
 
 const ArrowStyle = { marginLeft: '10px' };
 

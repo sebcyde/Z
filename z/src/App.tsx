@@ -82,10 +82,9 @@ function App() {
 						<Route path="search" element={<Search />} />
 						<Route path="manga" element={<Manga />} />
 						<Route path="admin" element={<AdminPage />} />
-						<Route path="mylists" element={<MyLists />}>
-							<Route path="listdetails" element={<ListDetails />} />
-							<Route path="createlist" element={<CreateList />} />
-						</Route>
+						<Route path="mylists" element={<MyLists />} />
+						<Route path="listdetails" element={<ListDetails />} />
+						<Route path="createlist" element={<CreateList />} />
 
 						<Route path="settings" element={<Settings />} />
 						<Route path="signin" element={<SignIn />} />

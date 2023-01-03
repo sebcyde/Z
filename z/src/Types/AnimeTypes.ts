@@ -64,7 +64,7 @@ export type Anime = {
 		}
 	];
 	serializations: [];
-	genres: [];
+	genres: [{ name: string }, { name: string }];
 	explicit_genres: [];
 	themes: [];
 	demographics: [];

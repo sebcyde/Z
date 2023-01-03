@@ -1,19 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '../../Pages/LoadingScreen';
 import { Update } from '../../Store/Slices/AnimeSlice';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import {
-	Card,
-	CardActionArea,
-	CardContent,
-	CardMedia,
-	Chip,
-	Typography,
-} from '@mui/material';
 
 type Props = {
 	URL?: string;
@@ -37,15 +29,11 @@ function AnimeListBanner({ URL, Title, List }: Props) {
 	};
 
 	useEffect(() => {
-		console.log('Pulling:', URL);
 		if (URL) {
 			axios
 				.get(URL)
 				.then((response) => {
-					console.log('Title:', Title);
-					console.log('Response:', response);
 					const NewAnime = response.data.data.map((Ani: any, index: number) => {
-						console.log('Ani:', Ani);
 						return (
 							<>
 								<div

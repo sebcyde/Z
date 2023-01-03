@@ -2,6 +2,8 @@ import { Chip } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import LoadingScreen from '../../Pages/LoadingScreen';
+import { Anime } from '../../Types/AnimeTypes';
+import AnimeItem from '../Anime/AnimeItem';
 
 type Props = { Query: string | undefined; SearchType: string };
 
@@ -18,43 +20,8 @@ function SearchResults({ Query, SearchType }: Props) {
 				console.log(ReturnedAnime);
 				setList(
 					<>
-						{ReturnedAnime.map((Anime: any, key: number) => {
-							return (
-								<div className="AnimeDetailsContainer">
-									<div className="AnimeImageContaienr">
-										<img
-											src={Anime.images.jpg.image_url}
-											className="AnimeImage"
-										/>
-									</div>
-									<div className="AnimeDetails">
-										<h2 className="AnimeTitle">{Anime.title}</h2>
-
-										<span className="AnimeRanking">
-											{Anime.rank ? <p>Rank: {Anime.rank}</p> : ''}
-											{Anime.score ? <p>Score: {Anime.score}</p> : ''}
-										</span>
-										<span className="AnimeGenres">
-											{Anime.genres[0] ? (
-												<Chip
-													label={Anime.genres[0].name}
-													className="GenreChip"
-												/>
-											) : (
-												''
-											)}
-											{Anime.genres[1] ? (
-												<Chip
-													label={Anime.genres[1].name}
-													className="GenreChip"
-												/>
-											) : (
-												''
-											)}
-										</span>
-									</div>
-								</div>
-							);
+						{ReturnedAnime.map((Anime: Anime, key: number) => {
+							return <AnimeItem Anime={Anime} />;
 						})}
 					</>
 				);

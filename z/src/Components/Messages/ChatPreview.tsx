@@ -1,23 +1,20 @@
-import { Avatar, AvatarGroup } from '@mui/material';
 import {
 	collection,
 	doc,
 	getDoc,
 	getDocs,
-	getFirestore,
 	query,
 	where,
 } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useDocument } from 'react-firebase-hooks/firestore';
 import { useDispatch } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { app, auth, db } from '../../config/Firebase';
+import { useNavigate } from 'react-router-dom';
+import { auth, db } from '../../config/Firebase';
 import { GetRecipientsEmails } from '../../Functions/GetRecipientsEmail';
 import { TimeSort } from '../../Functions/TimeSort';
 import LoadingScreen from '../../Pages/LoadingScreen';
-import { SetUser } from '../../Store/Slices/ListSlice';
+import { SetUser } from '../../Store/Slices/UserSlice';
 import { MessageObject } from '../../Types/MessageTypes';
 
 type Props = {
