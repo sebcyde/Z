@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../../config/Firebase.js';
-import LoadingScreen from '../LoadingScreen';
-import ListStack from '../../Components/Lists/ListStack.js';
+import axios, { AxiosResponse } from 'axios';
+import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import CreateList from './CreateList.js';
-import NoListsComponent from '../../Components/Lists/NoListsComponent.js';
-import CreateListComponent from '../../Components/Lists/CreateListComponent.js';
+import { useSelector } from 'react-redux';
+import CreateListComponent from '../../Components/Lists/CreateListComponent';
+import ListStack from '../../Components/Lists/ListStack';
+import NoListsComponent from '../../Components/Lists/NoListsComponent';
 import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
+import { auth, db } from '../../config/Firebase';
+import { Anime } from '../../Types/AnimeTypes';
+import LoadingScreen from '../LoadingScreen';
 
-function MyLists() {
+const AddToList = () => {
 	const [ListStackLists, setListStackLists] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [UserName, setUserName] = useState('');
@@ -45,6 +47,7 @@ function MyLists() {
 	return (
 		<>
 			<BreadCrumbNavbar />
+			<h1>Add To List</h1>
 			{Loading || !ListStackLists ? (
 				<LoadingScreen />
 			) : ListStackLists.length < 1 ? (
@@ -58,7 +61,7 @@ function MyLists() {
 					{Object.keys(ListStackLists).map((ListName: any) => {
 						return (
 							<ListStack
-								Add={false}
+								Add
 								List={ListStackLists}
 								ListName={ListName}
 								Creator={UserName}
@@ -69,6 +72,6 @@ function MyLists() {
 			)}
 		</>
 	);
-}
+};
 
-export default MyLists;
+export default AddToList;

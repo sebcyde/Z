@@ -390,61 +390,52 @@
 	.NewMessageContainer {
 		position: relative;
 		bottom: 0px;
-		height: fit-content;
+		height: 60px;
+		width: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: space-evenly;
-		border-radius: 10px;
 		padding: 5px;
 		overflow: hidden;
-		border: 1px solid orange;
-		width: calc(100% - 10px);
-		margin: 0 auto;
+		// background-color: #212529;
+		border: 1px solid #212529;
+		border-bottom: none;
+		background-color: transparent;
 
-		> div {
-			height: fit-content;
-			box-sizing: border-box;
-			width: calc(100% - 40px);
+		input {
+			background-color: transparent;
+			border: none;
+			height: 100%;
+			margin-right: 5px;
+			flex: 1;
 			color: white;
-
-			> div {
-				height: fit-content;
-				min-height: 40px;
-				width: 100%;
-				padding: 0px;
-				margin: 0px;
-				border: none;
-				box-sizing: border-box;
-				color: black;
-				padding: 0px 10px;
-				border: none;
-				&::before {
-					border: none;
-				}
-				&::after {
-					border: none;
-				}
-				input {
-					margin: 0;
-					font-size: 20px;
-					padding: 0px;
-					color: white;
-				}
-			}
 		}
-		.SendImage {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: gray;
+		button {
 			border-radius: 50%;
-			height: 40px !important;
-			width: 40px !important;
-			min-width: 40px;
+			height: 40px;
+			width: 40px;
+			border: none;
+			background-color: #212529;
+			color: white;
+			padding: 0px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 
 			svg {
-				width: 25px;
+				width: 22px;
 				color: white;
+				transform: rotate(270deg);
+				position: relative;
+			}
+
+			&.LoadingButton {
+				svg {
+					width: 22px;
+					color: white;
+					transform: rotate(0deg);
+					position: relative;
+				}
 			}
 		}
 	}

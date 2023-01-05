@@ -33,6 +33,7 @@ import ListDetails from './Pages/MyLists/ListDetails';
 import CreateList from './Pages/MyLists/CreateList';
 import EditList from './Pages/MyLists/EditList';
 import Recommend from './Pages/Recommend/Recommend';
+import AddToList from './Pages/MyLists/AddToList';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -97,6 +98,7 @@ function App() {
 						<Route path="listdetails" element={<ListDetails />} />
 						<Route path="createlist" element={<CreateList />} />
 						<Route path="editlist" element={<EditList />} />
+						<Route path="addtolist" element={<AddToList />} />
 
 						{/* Messaging Routes */}
 						<Route path="message" element={<Chat />} />

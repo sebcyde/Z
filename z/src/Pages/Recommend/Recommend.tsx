@@ -1,5 +1,5 @@
 import React from 'react';
-import BreadCrumbNavbar from '../../Components/Navbar/BreadcrumbNavbar';
+import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
 
 type Props = {};
 

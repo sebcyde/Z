@@ -1,25 +1,54 @@
-import { useDispatch } from 'react-redux';
+import axios, { AxiosResponse } from 'axios';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { AddToList } from '../../Functions/AddToList';
 import { SetList } from '../../Store/Slices/ListSlice';
 
 type Props = {
 	List: any;
 	ListName: string;
 	Creator: string;
+	Add: boolean;
 };
 
-const ListStack = ({ List, ListName, Creator }: Props) => {
+const ListStack = ({ List, ListName, Creator, Add }: Props) => {
+	const StoreID = useSelector((state: any) => state.IDState);
+	const [Anime, setAnime] = useState();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	useEffect(() => {
+		axios
+			.get(`https://api.jikan.moe/v4/anime/${StoreID.id}/full`)
+			.then((Response: AxiosResponse) => {
+				const Data = Response.data.data;
+				return Data;
+			})
+			.then((Data) => {
+				console.log('Anime Data:', Data);
+				setAnime(Data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, [StoreID]);
+
 	const NavigateToList = () => {
-		console.log('Navigating to:', ListName);
 		dispatch(SetList({ List: List, ListName: ListName }));
 		navigate('/listdetails');
 	};
 
+	const AddToListCallback = async () => {
+		await AddToList(ListName, Anime!);
+		navigate(-1);
+	};
+
 	return (
-		<div className="ListStackContainer" onClick={NavigateToList}>
+		<div
+			className="ListStackContainer"
+			onClick={Add ? AddToListCallback : NavigateToList}
+		>
 			<div>
 				<div className="StackTopContainer">
 					<img

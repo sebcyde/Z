@@ -191,18 +191,16 @@ function ChatPage({}: Props) {
 						/>
 						<div ref={EndOfMessagesRef}></div>
 					</div>
-					<Box className="NewMessageContainer">
-						<TextField
-							id="input-with-sx"
+					<div className="NewMessageContainer">
+						<input
 							placeholder="Send a message..."
-							variant="standard"
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								setNewMessage(e.currentTarget.value);
 							}}
 							value={NewMessage}
-						/>
-						<Button
-							className="SendImage"
+						></input>
+						<button
+							className={SendButtonLoading ? 'LoadingButton' : ''}
 							onClick={() => {
 								if (NewMessage.length > 0) {
 									setSendButtonLoading(true);
@@ -220,8 +218,8 @@ function ChatPage({}: Props) {
 							) : (
 								<ArrowForwardIcon />
 							)}
-						</Button>
-					</Box>
+						</button>
+					</div>
 				</div>
 			)}
 		</>

@@ -18,7 +18,7 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
-import BreadCrumbNavbar from '../../Components/Navbar/BreadcrumbNavbar';
+import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
 import { useNavigate } from 'react-router-dom';
 
 type Props = {};
