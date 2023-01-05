@@ -28,6 +28,7 @@ import '../../Styles/Modal.scss';
 import { LoadingButton } from '@mui/lab';
 import { Rating } from '@mui/material';
 import BreadCrumbNavbar from '../../Components/Navbar/BreadcrumbNavbar';
+import AnimeSynopsisComponent from '../../Components/Anime/AnimeSynopsisComponent';
 
 type Props = {};
 
@@ -264,8 +265,7 @@ function AnimeDetails({}: Props) {
 							) : (
 								''
 							)}
-
-							<p className="AnimeSynopsis">{AnimeData.synopsis}</p>
+							<AnimeSynopsisComponent Synopsis={AnimeData.synopsis} />
 						</div>
 						{AnimeData.trailer.youtube_id ? (
 							<YouTubeEmbed ID={AnimeData.trailer.youtube_id} />

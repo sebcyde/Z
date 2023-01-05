@@ -138,11 +138,49 @@
 			}
 		}
 	}
+}
 
-	.AnimeSynopsis {
-		margin: 15px auto 20px 15px;
-		width: 90%;
-		text-align: left;
+.SynopsisContainer {
+	margin: 15px auto 10px 15px;
+	width: 90%;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	p {
+		margin-bottom: 5px;
+	}
+
+	.ShortSynopsis {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	.SynopsisMoreButton {
+		margin: 0 auto;
+		background-color: transparent;
+		color: orange;
+		text-transform: uppercase;
+		font-size: 13px;
+		border: none;
+
+		&:before {
+			height: fit-content;
+			text-align: center;
+			font-size: 18px;
+			margin-right: 10px;
+			color: orange;
+			content: '—';
+		}
+
+		&:after {
+			height: fit-content;
+			text-align: center;
+			font-size: 18px;
+			margin-left: 10px;
+			color: orange;
+			content: '—';
+		}
 	}
 }
 
