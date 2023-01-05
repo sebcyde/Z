@@ -18,6 +18,8 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
+import BreadCrumbNavbar from '../../Components/Navbar/BreadcrumbNavbar';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {};
 
@@ -27,6 +29,7 @@ const ListDetails = (props: Props) => {
 	const [Loading, setLoading] = useState(false);
 	const ListName = ListState.ListName;
 	const [user] = useAuthState(auth);
+	const navigate = useNavigate();
 	const List = ListState.List;
 
 	const PullLists = async () => {
@@ -67,10 +70,13 @@ const ListDetails = (props: Props) => {
 		}, 1000);
 	};
 
-	console.log('List', List);
+	const NavigateEdit = () => navigate('/editlist');
+	const NavigateRecommend = () => navigate('/recommend');
+	const DeleteListCheck = () => {};
 
 	return (
 		<div className="ListDetailsPage">
+			<BreadCrumbNavbar />
 			{Loading || !CreatorDetails ? (
 				<LoadingScreen />
 			) : (
@@ -83,12 +89,12 @@ const ListDetails = (props: Props) => {
 					/>
 					<div className="OptionsBar">
 						<span>
-							<DeleteIcon />
-							<EditIcon />
+							<DeleteIcon onClick={DeleteListCheck} />
+							<EditIcon onClick={NavigateEdit} />
 						</span>
 						<span>
-							<LibraryAddIcon />
-							<SendIcon />
+							{/* <LibraryAddIcon /> */}
+							<SendIcon onClick={NavigateRecommend} />
 						</span>
 					</div>
 					<div className="SearchResults">

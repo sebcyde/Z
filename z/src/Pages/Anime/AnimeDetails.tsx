@@ -9,6 +9,7 @@ import LoadingScreen from '../LoadingScreen';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
 import { Navigate, useNavigate } from 'react-router-dom';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import {
 	doc,
 	updateDoc,
@@ -26,6 +27,7 @@ import { BsPlusLg } from 'react-icons/bs';
 import '../../Styles/Modal.scss';
 import { LoadingButton } from '@mui/lab';
 import { Rating } from '@mui/material';
+import BreadCrumbNavbar from '../../Components/Navbar/BreadcrumbNavbar';
 
 type Props = {};
 
@@ -135,154 +137,155 @@ function AnimeDetails({}: Props) {
 	}, [StoreID]);
 
 	return (
-		<div className="page" style={{ overflowY: 'scroll' }}>
-			{Loading ? (
-				<LoadingScreen />
-			) : (
-				<>
-					<Modal
-						show={show}
-						onHide={handleClose}
-						onShow={PullLists}
-						centered={true}
-					>
-						<Modal.Header>
-							<Modal.Title>
-								<span>
-									<h2>Add to list</h2>
-									<BsPlusLg
-										onClick={() => {
-											setEditing(true);
-										}}
-									/>
-								</span>
-							</Modal.Title>
-						</Modal.Header>
-						<Modal.Body>
-							{ModalLoading ? (
-								<LoadingScreen />
-							) : (
-								<ListGroup defaultActiveKey="#link1">
-									{Editing ? (
-										<ListGroup.Item action>
-											<input
-												placeholder="New List Name"
-												ref={NewListRef}
-												className="NewListInput"
-											/>
-										</ListGroup.Item>
-									) : (
-										''
-									)}
-									{UserLists.map((list, index: number) => {
-										return (
-											<ListGroup.Item
-												action
-												onClick={() => {
-													AddToList(list, AnimeData);
-												}}
-												key={index}
-											>
-												{list}
+		<>
+			<BreadCrumbNavbar />
+			<div className="page" style={{ overflowY: 'scroll' }}>
+				{Loading ? (
+					<LoadingScreen />
+				) : (
+					<>
+						<Modal
+							show={show}
+							onHide={handleClose}
+							onShow={PullLists}
+							centered={true}
+						>
+							<Modal.Header>
+								<Modal.Title>
+									<span>
+										<h2>Add to list</h2>
+										<BsPlusLg
+											onClick={() => {
+												setEditing(true);
+											}}
+										/>
+									</span>
+								</Modal.Title>
+							</Modal.Header>
+							<Modal.Body>
+								{ModalLoading ? (
+									<LoadingScreen />
+								) : (
+									<ListGroup defaultActiveKey="#link1">
+										{Editing ? (
+											<ListGroup.Item action>
+												<input
+													placeholder="New List Name"
+													ref={NewListRef}
+													className="NewListInput"
+												/>
 											</ListGroup.Item>
-										);
-									})}
-								</ListGroup>
-							)}
-						</Modal.Body>
-						<Modal.Footer>
-							<Button
-								variant="secondary"
-								onClick={() => {
-									setEditing(false);
-									handleClose();
-								}}
-							>
-								Cancel
-							</Button>
-							{Editing ? (
+										) : (
+											''
+										)}
+										{UserLists.map((list, index: number) => {
+											return (
+												<ListGroup.Item
+													action
+													onClick={() => {
+														AddToList(list, AnimeData);
+													}}
+													key={index}
+												>
+													{list}
+												</ListGroup.Item>
+											);
+										})}
+									</ListGroup>
+								)}
+							</Modal.Body>
+							<Modal.Footer>
 								<Button
-									variant="primary"
+									variant="secondary"
 									onClick={() => {
-										AddNewList();
 										setEditing(false);
+										handleClose();
 									}}
 								>
-									Save
+									Cancel
 								</Button>
+								{Editing ? (
+									<Button
+										variant="primary"
+										onClick={() => {
+											AddNewList();
+											setEditing(false);
+										}}
+									>
+										Save
+									</Button>
+								) : (
+									''
+								)}
+							</Modal.Footer>
+						</Modal>
+
+						<div className="AnimeDetailsContainer">
+							<img src={AnimeData.images.jpg.large_image_url} />
+							<h2
+								className="AnimeTitle "
+								style={AnimeData.score ? undefined : { marginBottom: '15px' }}
+							>
+								{AnimeData.title}
+							</h2>
+							{AnimeData.score ? (
+								<>
+									<span className="AnimeRating">
+										<Rating
+											name="half-rating-read"
+											value={AnimeData.score / 2}
+											precision={0.1}
+											readOnly
+										/>
+										<p>Average: {AnimeData.score}</p>
+									</span>
+								</>
 							) : (
 								''
 							)}
-						</Modal.Footer>
-					</Modal>
 
-					<div className="AnimeDetailsContainer">
-						<img src={AnimeData.images.jpg.large_image_url} />
-						<h2
-							className="AnimeTitle "
-							style={AnimeData.score ? undefined : { marginBottom: '15px' }}
-						>
-							{AnimeData.title}
-						</h2>
-						{AnimeData.score ? (
-							<>
-								<span className="AnimeRating">
-									<Rating
-										name="half-rating-read"
-										value={AnimeData.score / 2}
-										precision={0.1}
-										readOnly
-									/>
-									<p>Average: {AnimeData.score}</p>
-								</span>
-							</>
-						) : (
-							''
-						)}
-
-						<LoadingButton
-							loading={ButtonLoading}
-							variant="outlined"
-							onClick={handleShow}
-						>
-							<span className="material-symbols-outlined">
-								playlist_add_check
-							</span>
-							<p>Add To MyList</p>
-						</LoadingButton>
-
-						{AnimeData.airing == false &&
-						AnimeData.status === 'Not yet aired' ? (
-							<p
-								className="AnimeSynopsis"
-								style={{ margin: '15px 0px 0px 15px' }}
+							<LoadingButton
+								loading={ButtonLoading}
+								variant="outlined"
+								onClick={handleShow}
 							>
-								{AnimeData.status}
-							</p>
+								<PlaylistAddIcon style={{ marginRight: '5px' }} />
+								<p>Add To MyList</p>
+							</LoadingButton>
+
+							{AnimeData.airing == false &&
+							AnimeData.status === 'Not yet aired' ? (
+								<p
+									className="AnimeSynopsis"
+									style={{ margin: '15px 0px 0px 15px' }}
+								>
+									{AnimeData.status}
+								</p>
+							) : (
+								''
+							)}
+
+							<p className="AnimeSynopsis">{AnimeData.synopsis}</p>
+						</div>
+						{AnimeData.trailer.youtube_id ? (
+							<YouTubeEmbed ID={AnimeData.trailer.youtube_id} />
 						) : (
 							''
 						)}
 
-						<p className="AnimeSynopsis">{AnimeData.synopsis}</p>
-					</div>
-					{AnimeData.trailer.youtube_id ? (
-						<YouTubeEmbed ID={AnimeData.trailer.youtube_id} />
-					) : (
-						''
-					)}
+						<SimilarBanner Genres={AnimeData.genres} Title={AnimeData.title} />
+					</>
+				)}
 
-					<SimilarBanner Genres={AnimeData.genres} Title={AnimeData.title} />
-				</>
-			)}
-
-			{user && user.uid === 'oiE27ZlECvbU5MhKPjVPRQpiMSp1' ? (
-				<>
-					<Button onClick={ResetID}>Reset ID</Button>
-				</>
-			) : (
-				''
-			)}
-		</div>
+				{user && user.uid === 'oiE27ZlECvbU5MhKPjVPRQpiMSp1' ? (
+					<>
+						<Button onClick={ResetID}>Reset ID</Button>
+					</>
+				) : (
+					''
+				)}
+			</div>
+		</>
 	);
 }
 

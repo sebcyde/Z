@@ -1,4 +1,5 @@
 .BottomNav {
+	z-index: 999999999999;
 	> div {
 		background-color: #212529;
 		> button {
@@ -12,23 +13,7 @@
 	.NewNotification {
 		svg {
 			color: rgb(255, 165, 0);
-			// height: 1.2em;
-			// width: 1.2em;
 		}
-		// &::after {
-		// 	content: '';
-		// 	position: absolute;
-		// 	display: inline-block;
-		// 	width: 10px;
-		// 	height: 10px;
-		// 	top: 0px;
-		// 	right: 20px;
-		// 	-moz-border-radius: 7.5px;
-		// 	-webkit-border-radius: 7.5px;
-		// 	border-radius: 7.5px;
-		// 	background-color: red;
-		// 	border: 1px solid white;
-		// }
 	}
 }
 
@@ -55,4 +40,23 @@
 .navbar-collapse.collapsing {
 	z-index: 999999999999;
 	background-color: #212529;
+}
+
+.BreadCrumbContainer {
+	z-index: 999999999999;
+	background-color: #212529;
+	padding: 10px;
+	position: sticky;
+	top: 65px;
+	span {
+		height: fit-content;
+		display: flex;
+		align-items: center;
+		svg {
+			margin-right: 5px;
+		}
+		p {
+			margin: 0;
+		}
+	}
 }

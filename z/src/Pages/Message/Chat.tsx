@@ -34,7 +34,7 @@ import { UpdateLatestNotification } from '../../Functions/UpdateLastSeen';
 type Props = {};
 const ArrowStyle = { marginRight: '10px' };
 
-function Recommend({}: Props) {
+function ChatPage({}: Props) {
 	const UserQueryID = useSelector((state: any) => state.UserState);
 	const [SendButtonLoading, setSendButtonLoading] = useState(false);
 	const [QUserDBDetails, setQUserDBDetails] = useState<any>();
@@ -120,9 +120,10 @@ function Recommend({}: Props) {
 	};
 
 	const PullData = async () => {
+		console.log('Recipient Details:', UserQueryID);
 		try {
 			if (user) {
-				const QUser = doc(db, `Users/${UserQueryID.UserID}`);
+				const QUser = doc(db, `Users/${UserQueryID.User}`);
 				const QUserSnap = await getDoc(QUser);
 				if (QUserSnap.exists()) {
 					setQUserDetails(QUserSnap.data());
@@ -227,4 +228,4 @@ function Recommend({}: Props) {
 	);
 }
 
-export default Recommend;
+export default ChatPage;

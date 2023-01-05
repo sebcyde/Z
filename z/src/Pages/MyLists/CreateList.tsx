@@ -1,4 +1,5 @@
 import React from 'react';
+import BreadCrumbNavbar from '../../Components/Navbar/BreadcrumbNavbar';
 
 type Props = {};
 
@@ -24,7 +25,12 @@ const CreateList = (props: Props) => {
 	// 	}
 	// };
 
-	return <div>CreateList</div>;
+	return (
+		<div>
+			<BreadCrumbNavbar />
+			CreateList
+		</div>
+	);
 };
 
 export default CreateList;

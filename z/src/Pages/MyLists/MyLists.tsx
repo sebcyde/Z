@@ -7,6 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import CreateList from './CreateList.js';
 import NoListsComponent from '../../Components/Lists/NoListsComponent.js';
 import CreateListComponent from '../../Components/Lists/CreateListComponent.js';
+import BreadCrumbNavbar from '../../Components/Navbar/BreadcrumbNavbar.js';
 
 function MyLists() {
 	const [ListStackLists, setListStackLists] = useState<any>();
@@ -32,7 +33,7 @@ function MyLists() {
 				setListStackLists(sorted);
 				setUserName(User);
 			} else {
-				console.log('No such document!');
+				console.log('No List Document!');
 			}
 		}
 	};
@@ -43,6 +44,7 @@ function MyLists() {
 
 	return (
 		<>
+			<BreadCrumbNavbar />
 			{Loading || !ListStackLists ? (
 				<LoadingScreen />
 			) : ListStackLists.length < 1 ? (

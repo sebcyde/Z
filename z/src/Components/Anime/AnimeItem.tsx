@@ -1,5 +1,8 @@
 import { Chip } from '@mui/material';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Update } from '../../Store/Slices/AnimeSlice';
 import { Anime } from '../../Types/AnimeTypes';
 
 type Props = {
@@ -7,8 +10,16 @@ type Props = {
 };
 
 const AnimeItem = ({ Anime }: Props) => {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const NavAnime = () => {
+		dispatch(Update(Anime.mal_id));
+		navigate('/animedetails');
+	};
+
 	return (
-		<div className="AnimeDetailsContainer">
+		<div className="AnimeDetailsContainer" onClick={NavAnime}>
 			<div className="AnimeImageContaienr">
 				<img src={Anime.images.jpg.image_url} className="AnimeImage" />
 			</div>

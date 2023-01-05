@@ -31,6 +31,8 @@ import { auth } from './config/Firebase';
 import { UpdateLastSeen } from './Functions/UpdateLastSeen';
 import ListDetails from './Pages/MyLists/ListDetails';
 import CreateList from './Pages/MyLists/CreateList';
+import EditList from './Pages/MyLists/EditList';
+import Recommend from './Pages/Recommend/Recommend';
 
 function App() {
 	const [Loading, setLoading] = useState<boolean>(true);
@@ -94,11 +96,13 @@ function App() {
 						<Route path="mylists" element={<MyLists />} />
 						<Route path="listdetails" element={<ListDetails />} />
 						<Route path="createlist" element={<CreateList />} />
+						<Route path="editlist" element={<EditList />} />
 
 						{/* Messaging Routes */}
 						<Route path="message" element={<Chat />} />
 						<Route path="allchats" element={<AllChats />} />
 						<Route path="newchat" element={<NewChat />} />
+						<Route path="recommend" element={<Recommend />} />
 
 						{/* Social Routes */}
 						<Route path="user" element={<UserPage />} />
