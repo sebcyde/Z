@@ -15,7 +15,7 @@ const AnimeSynopsisComponent = ({ Synopsis }: Props) => {
 				className="SynopsisMoreButton"
 				onClick={() => setShowExcess(!ShowExcess)}
 			>
-				{ShowExcess ? 'View less' : 'Read More'}
+				{ShowExcess ? 'View less' : 'View More'}
 			</button>
 		</div>
 	);
