@@ -8,7 +8,13 @@ import LoadingScreen from '../LoadingScreen';
 import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
 import { useNavigate } from 'react-router-dom';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
+import {
+	doc,
+	updateDoc,
+	arrayUnion,
+	getDoc,
+	DocumentData,
+} from 'firebase/firestore';
 import { db } from '../../config/Firebase';
 import { getAuth } from 'firebase/auth';
 import '../../Styles/Modal.scss';
@@ -16,13 +22,17 @@ import { LoadingButton } from '@mui/lab';
 import { Rating } from '@mui/material';
 import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
 import AnimeSynopsisComponent from '../../Components/Anime/AnimeSynopsisComponent';
+import { GetUserData } from '../../Functions/GetUserData';
 
 type Props = {};
 
 function AnimeDetails({}: Props) {
 	const StoreID = useSelector((state: any) => state.IDState);
-	const [AnimeData, setAnimeData] = useState<any>();
+	const [UserDetails, setUserDetails] = useState<
+		DocumentData | null | undefined
+	>('');
 	const [Loading, setLoading] = useState<boolean>(true);
+	const [AnimeData, setAnimeData] = useState<any>();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const auth = getAuth();
@@ -33,21 +43,25 @@ function AnimeDetails({}: Props) {
 		navigate('/');
 	};
 
+	const PullData = async () => {
+		const RawAnimedata = await axios.get(
+			`https://api.jikan.moe/v4/anime/${StoreID.id}/full`
+		);
+		const Data = RawAnimedata.data.data;
+		console.log('Anime Data:', Data);
+		setAnimeData(Data);
+
+		if (user) {
+			const UserData = user ? await GetUserData(user?.uid) : '';
+			console.log('User Data:', UserData);
+			setUserDetails(UserData != '' ? UserData : null);
+		}
+
+		setLoading(false);
+	};
+
 	useEffect(() => {
-		axios
-			.get(`https://api.jikan.moe/v4/anime/${StoreID.id}/full`)
-			.then((Response) => {
-				const Data = Response.data.data;
-				return Data;
-			})
-			.then((Data) => {
-				console.log('Anime Data:', Data);
-				setAnimeData(Data);
-				setLoading(false);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		PullData();
 	}, [StoreID]);
 
 	return (
@@ -113,7 +127,7 @@ function AnimeDetails({}: Props) {
 					</>
 				)}
 
-				{user && user.uid === 'oiE27ZlECvbU5MhKPjVPRQpiMSp1' ? (
+				{UserDetails && UserDetails.Admin ? (
 					<>
 						<Button onClick={ResetID}>Reset ID</Button>
 					</>
