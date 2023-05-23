@@ -22,7 +22,7 @@ import { LoadingButton } from '@mui/lab';
 import { Rating } from '@mui/material';
 import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
 import AnimeSynopsisComponent from '../../Components/Anime/AnimeSynopsisComponent';
-import { GetUserData } from '../../Functions/GetUserData';
+import { GetUserData } from '../../Functions/UserDetails/GetUserData';
 
 type Props = {};
 

@@ -24,7 +24,7 @@ function Anime({}: Props) {
 	return (
 		<div className="page" style={{ overflowY: 'scroll' }}>
 			{/* <TopPoster URL="https://api.jikan.moe/v4/seasons/now" /> */}
-			{Page}
+			<Jikan />
 			<SearchNavComponent />
 		</div>
 	);

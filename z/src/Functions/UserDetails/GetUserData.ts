@@ -1,5 +1,5 @@
 import { DocumentData, doc, getDoc } from 'firebase/firestore';
-import { db } from '../config/Firebase';
+import { db } from '../../config/Firebase';
 
 export const GetUserData = async (
 	UID: string

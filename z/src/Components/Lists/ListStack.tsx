@@ -19,19 +19,22 @@ const ListStack = ({ List, ListName, Creator, Add }: Props) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		axios
-			.get(`https://api.jikan.moe/v4/anime/${StoreID.id}/full`)
-			.then((Response: AxiosResponse) => {
-				const Data = Response.data.data;
-				return Data;
-			})
-			.then((Data) => {
-				console.log('Anime Data:', Data);
-				setAnime(Data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		console.log('Store ID:', StoreID);
+		if (Add) {
+			axios
+				.get(`https://api.jikan.moe/v4/anime/${StoreID.id}/full`)
+				.then((Response: AxiosResponse) => {
+					const Data = Response.data.data;
+					return Data;
+				})
+				.then((Data) => {
+					console.log('Anime Data:', Data);
+					setAnime(Data);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	}, [StoreID]);
 
 	const NavigateToList = () => {
