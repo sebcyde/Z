@@ -1,5 +1,5 @@
 import { Update } from '../../Store/Slices/AnimeSlice';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -8,14 +8,7 @@ import LoadingScreen from '../LoadingScreen';
 import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
 import { useNavigate } from 'react-router-dom';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import {
-	doc,
-	updateDoc,
-	arrayUnion,
-	getDoc,
-	DocumentData,
-} from 'firebase/firestore';
-import { db } from '../../config/Firebase';
+import { DocumentData } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import '../../Styles/Modal.scss';
 import { LoadingButton } from '@mui/lab';
@@ -24,13 +17,11 @@ import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
 import AnimeSynopsisComponent from '../../Components/Anime/AnimeSynopsisComponent';
 import { GetUserData } from '../../Functions/UserDetails/GetUserData';
 
-type Props = {};
-
-function AnimeDetails({}: Props) {
+function AnimeDetails() {
 	const StoreID = useSelector((state: any) => state.IDState);
 	const [UserDetails, setUserDetails] = useState<
 		DocumentData | null | undefined
-	>('');
+	>();
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [AnimeData, setAnimeData] = useState<any>();
 	const dispatch = useDispatch();
@@ -53,8 +44,8 @@ function AnimeDetails({}: Props) {
 
 		if (user) {
 			const UserData = user ? await GetUserData(user?.uid) : '';
-			console.log('User Data:', UserData);
 			setUserDetails(UserData != '' ? UserData : null);
+			console.log('User Data:', UserData);
 		}
 
 		setLoading(false);

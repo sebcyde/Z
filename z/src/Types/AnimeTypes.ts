@@ -69,3 +69,11 @@ export type Anime = {
 	themes: [];
 	demographics: [];
 };
+
+export type AnimeList = {
+	Name: string;
+	Creator: string;
+	Created: number;
+	Updated: number;
+	Anime: Anime[];
+};

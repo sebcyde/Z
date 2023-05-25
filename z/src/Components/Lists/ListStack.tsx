@@ -17,6 +17,13 @@ const ListStack = ({ List, ListName, Creator, Add }: Props) => {
 	const [Anime, setAnime] = useState();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const ListInfo = List[ListName];
+	const ListFirstAnime = List[ListName].Anime[0];
+
+	console.log('List:', List);
+	console.log('ListName:', ListName);
+	console.log('List Info:', ListInfo);
+	console.log('List First Anime:', ListFirstAnime);
 
 	useEffect(() => {
 		console.log('Store ID:', StoreID);
@@ -56,26 +63,26 @@ const ListStack = ({ List, ListName, Creator, Add }: Props) => {
 				<div className="StackTopContainer">
 					<img
 						className="StackTop"
-						src={List[ListName][0].images.jpg.large_image_url}
+						src={ListFirstAnime.images.jpg.large_image_url}
 					/>
 				</div>
 				<div className="StackMiddleContainer">
 					<img
 						className="StackMiddle"
-						src={List[ListName][0].images.jpg.large_image_url}
+						src={ListFirstAnime.images.jpg.large_image_url}
 					/>
 				</div>
 				<div className="StackBottomContainer">
 					<img
 						className="StackBottom"
-						src={List[ListName][0].images.jpg.large_image_url}
+						src={ListFirstAnime.images.jpg.large_image_url}
 					/>
 				</div>
 			</div>
 			<div>
 				<p className="StackName">{ListName}</p>
 				<p className="StackCreator">{Creator}</p>
-				<p className="StackLength">Items: {List[ListName].length}</p>
+				<p className="StackLength">Items: {ListInfo.Anime.length}</p>
 			</div>
 		</div>
 	);

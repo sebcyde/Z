@@ -1,14 +1,15 @@
 import { getAuth } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Dropdown } from 'react-bootstrap';
 import { FaArrowLeft, FaCrown, FaEllipsisH } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../config/Firebase';
 import { Follow, UnFollow } from '../../Functions/Follow';
 import { SaveList } from '../../Functions/SaveList';
 import LoadingScreen from '../LoadingScreen';
+import { GetUserLists } from '../../Functions/UserDetails/GetUserLists';
+import { GetUserData } from '../../Functions/UserDetails/GetUserData';
+import { GetUserFriends } from '../../Functions/UserDetails/GetUserFriends';
 
 type Props = {};
 const ArrowStyle = { marginRight: '10px' };
@@ -21,49 +22,23 @@ function UserPage({}: Props) {
 	const [UserLists, setUserLists] = useState<any>();
 	const [Loading, setLoading] = useState<boolean>(true);
 	const navigate = useNavigate();
-	const ref = useRef();
 	const auth = getAuth();
 	const user = auth.currentUser;
 
 	const PullData = async () => {
-		// Retrieve user details from DB
-		const docRef = doc(db, `Users/${UserQuery.UserID}`);
-		const docSnap = await getDoc(docRef);
-		if (docSnap.exists()) {
-			console.log('User Details:', docSnap.data());
-			setUserDetails(docSnap.data());
-		} else {
-			console.log('Failed to retrieve user details');
-		}
+		const UserData = await GetUserData(UserQuery.UserID);
+		setUserDetails(UserData);
 
-		const UserConnectionsRef = doc(
-			db,
-			`Users/${UserQuery.UserID}/MoreInfo/Friends`
-		);
-		const UserConnectionsSnap = await getDoc(UserConnectionsRef);
-		if (UserConnectionsSnap.exists()) {
-			console.log('User Friends:', UserConnectionsSnap.data());
-			setUserFriends(UserConnectionsSnap.data());
-		} else {
-			console.log('Failed to retrieve user details');
-		}
+		const UserFriends = await GetUserFriends(UserQuery.UserID);
+		setUserFriends(UserFriends);
 
-		const ListsRef = doc(db, `Users/${UserQuery.UserID}/MoreInfo/Lists`);
-		const ListsSnap = await getDoc(ListsRef);
-		if (ListsSnap.exists()) {
-			console.log('User Lists:', ListsSnap.data());
-			setUserLists(ListsSnap.data());
-		} else {
-			console.log('Failed to retrieve user lists');
-		}
+		const UserLists = await GetUserLists(UserQuery.UserID);
+		setUserLists(UserLists);
 
-		const MyFriendsRef = doc(db, `Users/${user?.uid}/MoreInfo/Friends`);
-		const MyFriendsSnap = await getDoc(MyFriendsRef);
-		if (MyFriendsSnap.exists()) {
-			console.log('My Friends Lists:', MyFriendsSnap.data());
-			setMyFriendsList(MyFriendsSnap.data());
-		} else {
-			console.log('Failed to retrieve user lists');
+		if (user) {
+			const FriendsLists = await GetUserLists(user.uid);
+			console.log('My Friends Lists:', FriendsLists);
+			setMyFriendsList(FriendsLists);
 		}
 	};
 
@@ -82,7 +57,6 @@ function UserPage({}: Props) {
 	};
 
 	const NavigateToList = async (List: any) => {
-
 		console.log('Navigating To List:', List);
 	};
 
