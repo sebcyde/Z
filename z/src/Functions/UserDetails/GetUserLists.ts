@@ -1,4 +1,4 @@
-import { doc, getDoc } from 'firebase/firestore';
+import { DocumentData, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/Firebase';
 
 export const GetUserLists = async (UID: string) => {

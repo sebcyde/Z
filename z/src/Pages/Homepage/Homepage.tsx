@@ -1,39 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import WelcomeBanner from '../../Components/Homepage/WelcomeBanner';
+import { GetUserLists } from '../../Functions/UserDetails/GetUserLists';
+import { GetUserData } from '../../Functions/UserDetails/GetUserData';
 import AnimeListBanner from '../../Components/Anime/AnimeListBanner';
+import WelcomeBanner from '../../Components/Homepage/WelcomeBanner';
+import { ListCarousel } from '../../Components/Anime/ListCarousel';
 import TopPoster from '../../Components/Homepage/TopPoster';
-import FavouritesCarousel from '../../Components/Homepage/FavouritesCarousel';
+import LoadingScreen from '../LoadingScreen';
+import { useEffect, useState } from 'react';
+import { getAuth } from 'firebase/auth';
 import 'aos/dist/aos.css';
 
-import { GetUserData } from '../../Functions/UserDetails/GetUserData';
-import { getAuth } from 'firebase/auth';
-import { ListItem } from '../../Components/Anime/ListItem';
-import { GetUserLists } from '../../Functions/UserDetails/GetUserLists';
-
-type Props = {};
-
-function Homepage({}: Props) {
-	const [FaveCarousel, setFaveCarousel] = useState<any>();
-	const [TopPoster0, setTopPoster0] = useState<any>();
-	const [Banner0, setBanner0] = useState<any>();
+function Homepage() {
+	const [RecentList, setRecentList] = useState<any>();
 	const [Loading, setLoading] = useState(true);
-	const [UserData, setUserData] = useState();
 	const auth = getAuth();
 	const user = auth.currentUser;
-
-	// useEffect(() => {
-	// 	setTimeout(() => {
-	// 		setBanner0(
-	// 			<AnimeListBanner
-	// 				URL="https://api.jikan.moe/v4/top/manga"
-	// 				Title="Top Manga"
-	// 			/>
-	// 		);
-	// 		setTopPoster0(
-	// 			<TopPoster URL="https://api.jikan.moe/v4/seasons/upcoming" />
-	// 		);
-	// 	}, 2000);
-	// }, []);
 
 	const PullData = async () => {
 		if (user) {
@@ -42,6 +22,14 @@ function Homepage({}: Props) {
 			// setUserData(RawUserData)
 			console.log('User Data:', RawUserData);
 			console.log('User Lists:', RawUserLists);
+
+			// Getting first entry of user lists
+			if (RawUserLists) {
+				const entries = Object.entries(RawUserLists);
+				if (entries[0] && entries[0][1]) {
+					setRecentList(entries[0]);
+				}
+			}
 		}
 	};
 
@@ -54,23 +42,29 @@ function Homepage({}: Props) {
 			className="page"
 			style={{ overflowY: 'scroll', paddingBottom: '40px' }}
 		>
-			<WelcomeBanner />
-			<TopPoster URL="https://api.jikan.moe/v4/seasons/now" />
-			<AnimeListBanner
-				URL="https://api.jikan.moe/v4/seasons/upcoming"
-				Title="Upcoming Anime"
-			/>
+			{Loading ? (
+				<LoadingScreen />
+			) : (
+				<>
+					<WelcomeBanner />
 
-			{/* {!Loading && <ListItem Anime={} />} */}
-			<AnimeListBanner
-				URL="https://api.jikan.moe/v4/top/anime"
-				Title="Top Anime"
-			/>
+					<TopPoster URL="https://api.jikan.moe/v4/seasons/now" />
 
-			<FavouritesCarousel />
-			{/* {Banner0}
+					<AnimeListBanner
+						URL="https://api.jikan.moe/v4/seasons/upcoming"
+						Title="Upcoming Anime"
+					/>
 
-			{TopPoster0} */}
+					<AnimeListBanner
+						URL="https://api.jikan.moe/v4/top/anime"
+						Title="Top Anime"
+					/>
+
+					{RecentList && (
+						<ListCarousel ListName={RecentList[0]} List={RecentList[1].Anime} />
+					)}
+				</>
+			)}
 		</div>
 	);
 }
