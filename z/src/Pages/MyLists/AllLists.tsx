@@ -8,9 +8,12 @@ import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar.js';
 import { GetUserLists } from '../../Functions/UserLists/GetUserLists.js';
 import { useSelector } from 'react-redux';
 import EmptyListStack from '../../Components/Lists/EmptyListStack.js';
+import { AnimeList } from '../../Types/AnimeTypes.js';
+import { GetUserData } from '../../Functions/UserDetails/GetUserData.js';
 
 function MyLists() {
 	const AddToList = useSelector((state: any) => state.IDState);
+	const [UserName, setUserName] = useState('');
 	const [Loading, setLoading] = useState<boolean>(true);
 	const [AllLists, setAllLists] = useState<any>();
 	const [user] = useAuthState(auth);
@@ -18,15 +21,21 @@ function MyLists() {
 	const PullLists = async () => {
 		console.log('Adding To List?', AddToList.id == 0 ? false : true);
 		if (user) {
-			const UserLists = await GetUserLists(user.uid);
+			let UserLists = await GetUserLists(user.uid);
+			let UserData = await GetUserData(user.uid);
+
+			UserData ? setUserName(UserData.Username) : '';
 			UserLists ? setAllLists(UserLists) : '';
-			console.log('User Lists:', UserLists);
 		}
 	};
 
 	useEffect(() => {
 		PullLists().then(() => setLoading(false));
 	}, []);
+
+	useEffect(() => {
+		console.log('Store ID:', AddToList.id);
+	}, [AddToList.id]);
 
 	return (
 		<>
@@ -37,8 +46,7 @@ function MyLists() {
 				<>
 					<CreateListComponent />
 					{AllLists &&
-						Object.keys(AllLists).map((ListName: any) => {
-							const List = AllLists[ListName];
+						AllLists.map((List: AnimeList) => {
 							console.log('List:', List);
 							if (List.Anime.length < 1) {
 								return (
@@ -46,7 +54,7 @@ function MyLists() {
 										Add={AddToList.id == 0 ? false : true}
 										List={List}
 										ListName={List.Name}
-										Creator={List.Creator}
+										Creator={UserName}
 									/>
 								);
 							} else {
@@ -55,7 +63,7 @@ function MyLists() {
 										Add={AddToList.id == 0 ? false : true}
 										List={List}
 										ListName={List.Name}
-										Creator={List.Creator}
+										Creator={UserName}
 									/>
 								);
 							}

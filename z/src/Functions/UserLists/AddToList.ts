@@ -1,8 +1,7 @@
 import { getAuth } from 'firebase/auth';
-import { doc, updateDoc, arrayUnion, setDoc, getDoc } from 'firebase/firestore';
+import { doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/Firebase';
 import { Anime } from '../../Types/AnimeTypes';
-import { GetUserData } from '../UserDetails/GetUserData';
 
 export const AddToList = async (ListName: string, Anime?: Anime) => {
 	const auth = getAuth();
@@ -13,11 +12,12 @@ export const AddToList = async (ListName: string, Anime?: Anime) => {
 			const docSnap = await getDoc(docRef);
 			const existingData = docSnap.data();
 			if (existingData) {
+				const updatedAnimeArray = [...existingData[ListName]?.Anime, Anime];
 				await updateDoc(docRef, {
 					[ListName]: {
 						...existingData[ListName],
 						Updated: Date.now(),
-						Anime: arrayUnion(Anime),
+						Anime: updatedAnimeArray,
 					},
 				});
 			}

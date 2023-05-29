@@ -1,3 +1,4 @@
+import { DateFormatter } from '../../Functions/Helpers/DateFormatter';
 import { ListStackImage } from './ListStackImage';
 
 type Props = {
@@ -25,15 +26,19 @@ const DetailsStack = ({ List, ListName, Creator, CreatorImage }: Props) => {
 			<div>
 				<p className="StackName">{ListName}</p>
 				<p className="StackLength">Items: {List.Anime.length}</p>
-				<span className="ImageNameContainer">
+				<p className="StackLastUpdated">
+					Last Updated: {DateFormatter(List.Updated)}
+				</p>
+				{/* <span className="ImageNameContainer">
 					<div className="ImageContainer">
 						<img src={CreatorImage} />
 					</div>
+
 					<span className="StackCreator">
 						<p>Made by</p>
 						<p>{Creator}</p>
 					</span>
-				</span>
+				</span> */}
 			</div>
 		</div>
 	);

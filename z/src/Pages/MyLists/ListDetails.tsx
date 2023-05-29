@@ -52,6 +52,10 @@ const ListDetails = () => {
 		}
 	};
 
+	const ListItems = List.Anime.map((ListItem: Anime) => {
+		return <AnimeItem Anime={ListItem} />;
+	});
+
 	useEffect(() => {
 		PullData().then(() => setLoading(false));
 	}, []);
@@ -86,11 +90,7 @@ const ListDetails = () => {
 							<SendIcon onClick={NavigateRecommend} />
 						</span>
 					</div>
-					<div className="SearchResults">
-						{/* {List[ListName].map((ListItem: Anime) => {
-							return <AnimeItem Anime={ListItem} />;
-						})} */}
-					</div>
+					<div className="SearchResults">{ListItems}</div>
 				</>
 			)}
 		</div>
