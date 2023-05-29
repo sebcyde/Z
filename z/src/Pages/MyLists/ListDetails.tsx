@@ -22,6 +22,7 @@ import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
 import { useNavigate } from 'react-router-dom';
 import { GetUserData } from '../../Functions/UserDetails/GetUserData';
 import { DeleteList } from '../../Functions/UserLists/DeleteList';
+import EmptyDetailsStack from '../../Components/Lists/EmptyDetailsStack';
 
 const ListDetails = () => {
 	const [CreatorDetails, setCreatorDetails] = useState<DocumentData>();
@@ -42,6 +43,7 @@ const ListDetails = () => {
 			console.log('User Data:', UserData);
 			setCreatorDetails(UserData);
 		}
+		console.log('List:', List);
 	};
 
 	const DeleteListCheck = async (ListName: string) => {
@@ -61,12 +63,20 @@ const ListDetails = () => {
 				<LoadingScreen />
 			) : (
 				<>
-					<DetailsStack
-						List={List}
-						ListName={ListName}
-						Creator={CreatorDetails.Username}
-						CreatorImage={CreatorDetails.DisplayPicture}
-					/>
+					{List.Anime.length > 0 ? (
+						<DetailsStack
+							List={List}
+							ListName={ListName}
+							Creator={CreatorDetails.Username}
+							CreatorImage={CreatorDetails.DisplayPicture}
+						/>
+					) : (
+						<EmptyDetailsStack
+							ListName={ListName}
+							Creator={CreatorDetails.Username}
+							CreatorImage={CreatorDetails.DisplayPicture}
+						/>
+					)}
 					<div className="OptionsBar">
 						<span>
 							<DeleteIcon onClick={() => DeleteListCheck(ListName)} />

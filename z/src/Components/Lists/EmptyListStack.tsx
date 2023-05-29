@@ -13,9 +13,8 @@ type Props = {
 	Add: boolean;
 };
 
-const ListStack = ({ List, ListName, Creator, Add }: Props) => {
+const EmptyListStack = ({ List, ListName, Creator, Add }: Props) => {
 	const StoreID = useSelector((state: any) => state.IDState);
-	const ListFirstAnime = List.Anime[0];
 	const [Anime, setAnime] = useState();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -47,31 +46,22 @@ const ListStack = ({ List, ListName, Creator, Add }: Props) => {
 		>
 			<div>
 				<div className="StackTopContainer">
-					<ListStackImage
-						Layer="Top"
-						ImageSource={ListFirstAnime.images.jpg.large_image_url}
-					/>
+					<ListStackImage Layer="Top" />
 				</div>
 				<div className="StackMiddleContainer">
-					<ListStackImage
-						Layer="Middle"
-						ImageSource={ListFirstAnime.images.jpg.large_image_url}
-					/>
+					<ListStackImage Layer="Middle" />
 				</div>
 				<div className="StackBottomContainer">
-					<ListStackImage
-						Layer="Bottom"
-						ImageSource={ListFirstAnime.images.jpg.large_image_url}
-					/>
+					<ListStackImage Layer="Bottom" />
 				</div>
 			</div>
 			<div>
 				<p className="StackName">{ListName}</p>
 				<p className="StackCreator">{Creator}</p>
-				<p className="StackLength">Items: {List.Anime.length}</p>
+				<p className="StackLength">Items: 0</p>
 			</div>
 		</div>
 	);
 };
 
-export default ListStack;
+export default EmptyListStack;

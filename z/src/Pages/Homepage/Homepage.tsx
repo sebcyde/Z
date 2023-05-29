@@ -60,8 +60,10 @@ function Homepage() {
 						Title="Top Anime"
 					/>
 
-					{RecentList && (
+					{RecentList && RecentList[1].Anime ? (
 						<ListCarousel ListName={RecentList[0]} List={RecentList[1].Anime} />
+					) : (
+						''
 					)}
 				</>
 			)}

@@ -1,30 +1,28 @@
 import { ListStackImage } from './ListStackImage';
 
 type Props = {
-	List: any;
 	ListName: string;
 	Creator: string;
 	CreatorImage: string;
 };
 
-const DetailsStack = ({ List, ListName, Creator, CreatorImage }: Props) => {
-	const Image = List.Anime[0].images.jpg.large_image_url;
+const EmptyDetailsStack = ({ ListName, Creator, CreatorImage }: Props) => {
 	return (
 		<div className="DetailsStackContainer">
 			<div>
 				<div className="StackTopContainer">
-					<ListStackImage Layer="Top" ImageSource={Image} />
+					<ListStackImage Layer="Top" />
 				</div>
 				<div className="StackMiddleContainer">
-					<ListStackImage Layer="Middle" ImageSource={Image} />
+					<ListStackImage Layer="Middle" />
 				</div>
 				<div className="StackBottomContainer">
-					<ListStackImage Layer="Bottom" ImageSource={Image} />
+					<ListStackImage Layer="Bottom" />
 				</div>
 			</div>
 			<div>
 				<p className="StackName">{ListName}</p>
-				<p className="StackLength">Items: {List.Anime.length}</p>
+				<p className="StackLength">Items: 0</p>
 				<span className="ImageNameContainer">
 					<div className="ImageContainer">
 						<img src={CreatorImage} />
@@ -39,4 +37,4 @@ const DetailsStack = ({ List, ListName, Creator, CreatorImage }: Props) => {
 	);
 };
 
-export default DetailsStack;
+export default EmptyDetailsStack;

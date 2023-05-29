@@ -1,5 +1,5 @@
 import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
-import { CreateList } from '../../Functions/UserLists/CreateList';
+import { AddToList } from '../../Functions/UserLists/AddToList';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
@@ -13,7 +13,7 @@ const CreateListPage = (props: Props) => {
 
 	const CreateListCallback = async () => {
 		setCreatingList(true);
-		await CreateList(NameInput);
+		await AddToList(NameInput);
 		setCreatingList(false);
 		navigate(-1);
 	};
