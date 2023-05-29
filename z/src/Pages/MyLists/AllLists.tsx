@@ -43,7 +43,7 @@ function MyLists() {
 			{Loading ? (
 				<LoadingScreen />
 			) : (
-				<>
+				<div className="ParentListContainer">
 					<CreateListComponent />
 					{AllLists &&
 						AllLists.map((List: AnimeList) => {
@@ -68,7 +68,7 @@ function MyLists() {
 								);
 							}
 						})}
-				</>
+				</div>
 			)}
 		</>
 	);

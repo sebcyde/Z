@@ -681,3 +681,12 @@
 		}
 	}
 }
+
+.ParentListContainer {
+	height: 100%;
+
+	.ListStackContainer {
+		position: relative;
+		z-index: 1;
+	}
+}
