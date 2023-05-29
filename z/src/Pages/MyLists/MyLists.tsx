@@ -7,26 +7,22 @@ import CreateListComponent from '../../Components/Lists/CreateListComponent.js';
 import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
 import { GetUserData } from '../../Functions/UserDetails/GetUserData.js';
 import { GetUserLists } from '../../Functions/UserLists/GetUserLists.js';
+import { useSelector } from 'react-redux';
 
 function MyLists() {
-	const [AllLists, setAllLists] = useState<any>();
+	const AddToList = useSelector((state: any) => state.IDState);
 	const [Loading, setLoading] = useState<boolean>(true);
+	const [AllLists, setAllLists] = useState<any>();
 	const [UserName, setUserName] = useState('');
 	const [user] = useAuthState(auth);
 
 	const PullLists = async () => {
+		console.log('Adding To List?', AddToList.id == 0 ? false : true);
 		if (user) {
-			const UserData = await GetUserData(user.uid);
 			const UserLists = await GetUserLists(user.uid);
+			const UserData = await GetUserData(user.uid);
+			UserLists ? setAllLists(UserLists) : '';
 			setUserName(UserData?.Username);
-
-			if (UserLists) {
-				setAllLists(UserLists);
-			} else {
-				console.log('User has no lists');
-			}
-		} else {
-			console.log('User Not Found');
 		}
 	};
 
@@ -46,7 +42,7 @@ function MyLists() {
 						Object.keys(AllLists).map((ListName: any) => {
 							return (
 								<ListStack
-									Add={false}
+									Add={AddToList.id == 0 ? false : true}
 									List={AllLists}
 									ListName={ListName}
 									Creator={UserName}

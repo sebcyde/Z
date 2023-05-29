@@ -1,18 +1,8 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import LoadingScreen from '../../Pages/LoadingScreen';
-import Carousel from 'react-bootstrap/Carousel';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Anime from '../../Pages/Anime/Anime';
 import { Update } from '../../Store/Slices/AnimeSlice';
-import { Container } from 'react-bootstrap/lib/Tab';
-import {
-	Card,
-	CardActionArea,
-	CardContent,
-	CardMedia,
-	Typography,
-} from '@mui/material';
 type Props = { Genres: any[]; Title: string };
 
 function SimilarBanner({ Genres, Title }: Props) {

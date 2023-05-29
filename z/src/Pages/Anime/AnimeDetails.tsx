@@ -34,6 +34,11 @@ function AnimeDetails() {
 		navigate('/');
 	};
 
+	const NavigateToListAdd = (AnimeID: number) => {
+		dispatch(Update(AnimeID));
+		navigate('/mylists');
+	};
+
 	const PullData = async () => {
 		const RawAnimedata = await axios.get(
 			`https://api.jikan.moe/v4/anime/${StoreID.id}/full`
@@ -43,8 +48,8 @@ function AnimeDetails() {
 		setAnimeData(Data);
 
 		if (user) {
-			const UserData = user ? await GetUserData(user?.uid) : '';
-			setUserDetails(UserData != '' ? UserData : null);
+			const UserData = await GetUserData(user?.uid);
+			setUserDetails(UserData);
 			console.log('User Data:', UserData);
 		}
 
@@ -89,7 +94,7 @@ function AnimeDetails() {
 
 							<LoadingButton
 								variant="outlined"
-								onClick={() => navigate('/addtolist')}
+								onClick={() => NavigateToListAdd(AnimeData.mal_id)}
 							>
 								<PlaylistAddIcon style={{ marginRight: '5px' }} />
 								<p>Add To MyList</p>
