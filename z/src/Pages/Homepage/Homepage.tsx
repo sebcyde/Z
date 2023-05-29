@@ -1,4 +1,4 @@
-import { GetUserLists } from '../../Functions/UserDetails/GetUserLists';
+import { GetUserLists } from '../../Functions/UserLists/GetUserLists';
 import { GetUserData } from '../../Functions/UserDetails/GetUserData';
 import AnimeListBanner from '../../Components/Anime/AnimeListBanner';
 import WelcomeBanner from '../../Components/Homepage/WelcomeBanner';

@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { AddToList } from '../../Functions/AddToList';
+import { AddToList } from '../../Functions/UserLists/AddToList';
 import { SetList } from '../../Store/Slices/ListSlice';
 
 type Props = {

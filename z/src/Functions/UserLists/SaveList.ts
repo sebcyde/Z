@@ -1,6 +1,6 @@
 import { getAuth } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../config/Firebase';
+import { db } from '../../config/Firebase';
 
 export const SaveList = async (Item: any, ItemName: string) => {
 	const auth = getAuth();

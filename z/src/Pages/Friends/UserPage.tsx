@@ -5,9 +5,9 @@ import { FaArrowLeft, FaCrown, FaEllipsisH } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Follow, UnFollow } from '../../Functions/Follow';
-import { SaveList } from '../../Functions/SaveList';
+import { SaveList } from '../../Functions/UserLists/SaveList';
 import LoadingScreen from '../LoadingScreen';
-import { GetUserLists } from '../../Functions/UserDetails/GetUserLists';
+import { GetUserLists } from '../../Functions/UserLists/GetUserLists';
 import { GetUserData } from '../../Functions/UserDetails/GetUserData';
 import { GetUserFriends } from '../../Functions/UserDetails/GetUserFriends';
 

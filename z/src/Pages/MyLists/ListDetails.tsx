@@ -20,59 +20,39 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
 import { useNavigate } from 'react-router-dom';
+import { GetUserData } from '../../Functions/UserDetails/GetUserData';
+import { DeleteList } from '../../Functions/UserLists/DeleteList';
 
-type Props = {};
-
-const ListDetails = (props: Props) => {
-	const ListState = useSelector((state: any) => state.ListState);
+const ListDetails = () => {
 	const [CreatorDetails, setCreatorDetails] = useState<DocumentData>();
+	const ListState = useSelector((state: any) => state.ListState);
 	const [Loading, setLoading] = useState(false);
 	const ListName = ListState.ListName;
 	const [user] = useAuthState(auth);
 	const navigate = useNavigate();
 	const List = ListState.List;
 
-	const PullLists = async () => {
+	// Navigation
+	const NavigateRecommend = () => navigate('/recommend');
+	const NavigateEdit = () => navigate('/editlist');
+
+	const PullData = async () => {
 		if (user) {
-			const userRef = doc(db, `Users/${user.uid}`);
-			const userSnap = await getDoc(userRef);
-			if (userSnap.exists()) {
-				const Data = userSnap.data();
-				setCreatorDetails(Data);
-			} else {
-				console.log('No such document!');
-			}
+			const UserData = await GetUserData(user.uid);
+			console.log('User Data:', UserData);
+			setCreatorDetails(UserData);
+		}
+	};
+
+	const DeleteListCheck = async (ListName: string) => {
+		if (user) {
+			await DeleteList(user.uid, ListName);
 		}
 	};
 
 	useEffect(() => {
-		console.log(`Details for ${ListName}:`, List);
-		PullLists().then(() => setLoading(false));
+		PullData().then(() => setLoading(false));
 	}, []);
-
-	const DeleteList = async (ListName: string) => {
-		console.log('Deleting', ListName);
-		setLoading(true);
-		const DocRef = doc(db, `Users/${user!.uid}/MoreInfo`, 'Lists');
-		if (ListName == 'Favourites') {
-			// reset to empty but dont delete
-			await setDoc(DocRef, { Favourites: [] }, { merge: true });
-			// Startup();
-		} else {
-			// delete user made
-			await updateDoc(DocRef, {
-				[ListName]: deleteField(),
-			});
-			// Startup();
-		}
-		setTimeout(() => {
-			setLoading(false);
-		}, 1000);
-	};
-
-	const NavigateEdit = () => navigate('/editlist');
-	const NavigateRecommend = () => navigate('/recommend');
-	const DeleteListCheck = () => {};
 
 	return (
 		<div className="ListDetailsPage">
@@ -89,18 +69,17 @@ const ListDetails = (props: Props) => {
 					/>
 					<div className="OptionsBar">
 						<span>
-							<DeleteIcon onClick={DeleteListCheck} />
+							<DeleteIcon onClick={() => DeleteListCheck(ListName)} />
 							<EditIcon onClick={NavigateEdit} />
 						</span>
 						<span>
-							{/* <LibraryAddIcon /> */}
 							<SendIcon onClick={NavigateRecommend} />
 						</span>
 					</div>
 					<div className="SearchResults">
-						{List[ListName].map((ListItem: Anime) => {
+						{/* {List[ListName].map((ListItem: Anime) => {
 							return <AnimeItem Anime={ListItem} />;
-						})}
+						})} */}
 					</div>
 				</>
 			)}
