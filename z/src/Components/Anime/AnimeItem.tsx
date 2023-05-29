@@ -1,5 +1,4 @@
 import { Chip } from '@mui/material';
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Update } from '../../Store/Slices/AnimeSlice';
@@ -19,7 +18,7 @@ const AnimeItem = ({ Anime }: Props) => {
 	};
 
 	return (
-		<div className="AnimeDetailsContainer" onClick={NavAnime}>
+		<div className="SingleAnimeBanner" onClick={NavAnime}>
 			<div className="AnimeImageContaienr">
 				<img src={Anime.images.jpg.image_url} className="AnimeImage" />
 			</div>

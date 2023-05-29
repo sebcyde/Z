@@ -5,7 +5,7 @@ import Anime from './Pages/Anime/Anime';
 import Homepage from './Pages/Homepage/Homepage';
 import LoadingScreen from './Pages/LoadingScreen';
 import Manga from './Pages/Manga/Manga';
-import MyLists from './Pages/MyLists/MyLists';
+import MyLists from './Pages/MyLists/AllLists';
 import Settings from './Pages/Settings/Settings';
 import MainNavbar from './Components/Navbar/MainNavbar';
 import AnimeDetails from './Pages/Anime/AnimeDetails';

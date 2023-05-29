@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { auth } from '../../config/Firebase.js';
-import LoadingScreen from '../LoadingScreen';
+import LoadingScreen from '../LoadingScreen.js';
 import ListStack from '../../Components/Lists/ListStack.js';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import CreateListComponent from '../../Components/Lists/CreateListComponent.js';
-import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
+import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar.js';
 import { GetUserData } from '../../Functions/UserDetails/GetUserData.js';
 import { GetUserLists } from '../../Functions/UserLists/GetUserLists.js';
 import { useSelector } from 'react-redux';
