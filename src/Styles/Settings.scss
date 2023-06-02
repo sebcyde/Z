@@ -1,0 +1,260 @@
+.UserDetailsContainer {
+	border-bottom: 1px solid orange;
+	display: flex;
+	flex-direction: column;
+	padding: 10px 20px;
+	text-align: center;
+
+	h1 {
+		width: 100%;
+		margin: 10px auto;
+	}
+
+	div {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		img {
+			height: 70px;
+			width: 70px;
+			object-fit: cover;
+			border-radius: 50px;
+			border: 2px solid white;
+		}
+
+		.UserInformationContainer {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			text-align: end;
+
+			h2 {
+				font-size: 22px;
+				margin: 0px;
+				margin-top: 15px;
+			}
+			span {
+				justify-content: end;
+				width: fit-content;
+				display: flex;
+				align-items: center;
+				p {
+					margin: 0px;
+					margin-right: 5px;
+				}
+				svg {
+					position: relative;
+					top: 1px;
+					color: gold;
+				}
+			}
+			button {
+				background-color: transparent;
+				border: 1px solid orange;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+		}
+	}
+}
+
+.SettingsBottomSection {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	width: 100%;
+
+	.SettingsPageSection {
+		margin-bottom: 20px;
+		.SettingsPageTitle {
+			color: gray;
+			font-size: 18px;
+			margin: 10px;
+			margin-bottom: 0px;
+			text-align: start;
+		}
+	}
+
+	.SettingsPageRow {
+		width: calc(100% - 20px);
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		padding: 10px 0px;
+		border-bottom: 1px solid rgba(128, 128, 128, 0.267);
+
+		a {
+			width: fit-content;
+			display: flex;
+			justify-content: space-between;
+			p {
+				height: fit-content;
+				display: flex;
+				align-items: center;
+				svg {
+					position: relative;
+					top: 1px;
+				}
+			}
+		}
+
+		a.BottomA {
+			color: white;
+			text-decoration: none;
+			width: 100%;
+			height: fit-content;
+			display: flex;
+			align-items: center;
+		}
+
+		p {
+			margin: 0;
+		}
+	}
+}
+
+.NewUsernameContainer {
+	display: flex;
+	flex-direction: column;
+	width: 95%;
+	margin: 0 auto;
+
+	h2 {
+		margin-top: 20px;
+		text-align: center;
+	}
+
+	p.error {
+		margin: 10px;
+		color: red;
+		text-align: center;
+	}
+
+	div {
+		width: 100%;
+		margin: 10px 0px;
+
+		p {
+			margin: 10px 0px;
+		}
+
+		input {
+			width: 100%;
+			padding: 10px;
+			background-color: transparent;
+			border: 1px solid orange;
+			border-radius: 5px;
+			color: white;
+		}
+	}
+
+	span {
+		margin-top: 20px;
+		width: 70%;
+		margin-left: auto;
+		margin-right: auto;
+		display: flex;
+		justify-content: space-evenly;
+		button {
+			width: 40%;
+		}
+	}
+}
+
+.NewUserImageContainer {
+	height: 100%;
+	.TopSection {
+		height: fit-content;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		justify-content: space-between;
+		padding: 10px;
+		border-bottom: 1px solid rgba(128, 128, 128, 0.267);
+		margin-bottom: 10px;
+
+		button {
+			height: fit-content;
+			width: 70px;
+			background-color: transparent;
+		}
+
+		span {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-evenly;
+			height: 70px;
+
+			img {
+				height: 45px;
+				width: 45px;
+				object-fit: cover;
+				width: auto;
+				border-radius: 50%;
+				border: 1px solid white;
+				margin-bottom: 5px;
+			}
+
+			p {
+				margin: 0;
+				height: fit-content;
+			}
+		}
+	}
+	.ImagesContainer {
+		height: fit-content;
+		display: grid;
+		grid-template-columns: auto auto auto;
+		padding-bottom: 70px;
+		div {
+			height: fit-content;
+			width: fit-content;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 10px auto;
+			position: relative;
+			top: 0;
+			left: 0;
+
+			img {
+				border: 2px solid orange;
+				height: 90px !important;
+				width: 90px !important;
+				object-fit: cover;
+				margin: auto;
+				border-radius: 50px;
+				position: relative;
+			}
+			svg.Current {
+				background-color: orange;
+				color: black;
+				position: absolute;
+				bottom: -5px;
+				right: 0px;
+				border-radius: 25px;
+				height: 25px;
+				width: 25px;
+				border: 1px solid black;
+				padding: 3px;
+			}
+			svg.New {
+				background-color: gray;
+				color: black;
+				position: absolute;
+				bottom: -5px;
+				right: 0px;
+				border-radius: 25px;
+				height: 25px;
+				width: 25px;
+				border: 1px solid black;
+				padding: 3px;
+			}
+		}
+	}
+}

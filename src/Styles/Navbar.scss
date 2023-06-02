@@ -1,0 +1,62 @@
+.BottomNav {
+	z-index: 999999999999;
+	> div {
+		background-color: #212529;
+		> button {
+			color: rgb(255, 255, 255);
+			svg {
+				height: 30px;
+				width: 30px;
+			}
+		}
+	}
+	.NewNotification {
+		svg {
+			color: rgb(255, 165, 0);
+		}
+	}
+}
+
+#responsive-navbar-nav {
+	> div {
+		> a {
+			height: fit-content;
+			display: flex;
+			align-items: center;
+			color: rgb(175, 175, 175);
+
+			svg {
+				margin-right: 10px;
+			}
+		}
+	}
+}
+
+.navbar.navbar-expand-lg {
+	height: 65px;
+}
+
+.navbar-collapse.collapse.show,
+.navbar-collapse.collapsing {
+	z-index: 999999999999;
+	background-color: #212529;
+}
+
+.BreadCrumbContainer {
+	z-index: 999999999999;
+	background-color: #212529;
+	padding: 10px;
+	position: sticky;
+	top: 65px;
+	span {
+		height: fit-content;
+		display: flex;
+		align-items: center;
+		svg {
+			margin-right: 5px;
+		}
+		p {
+			margin: 0;
+		}
+	}
+}

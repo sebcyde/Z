@@ -1,0 +1,240 @@
+.AllChatsContainer {
+	display: flex;
+	flex-direction: column;
+
+	ul {
+		margin-bottom: 0 !important;
+	}
+
+	> div:nth-of-type(2) {
+		.SearchResults {
+			padding-bottom: 50px;
+		}
+	}
+
+	.NewChatBanner {
+		display: flex;
+		height: 65px;
+		background-color: black;
+		align-items: center;
+		padding: 0px 20px;
+		justify-content: space-between;
+		border-bottom: 2px solid gray;
+		h4 {
+			margin: 0;
+			font-size: 20px;
+		}
+		svg {
+			height: 30px;
+			width: 30px;
+		}
+	}
+
+	.CreateChatBanner {
+		position: sticky;
+		top: 65px;
+		display: flex;
+		flex-direction: column;
+		height: fit-content;
+		padding: 10px;
+		background-color: #212529;
+		border-bottom: 2px solid gray;
+		align-items: flex-start;
+
+		.SearchbarInputContainer {
+			height: fit-content;
+			width: 100%;
+			padding: 10px;
+			padding-top: 0px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: #212529;
+			.SearchbarInput {
+				border: none;
+				background-color: #383837;
+				border-radius: 5px;
+				width: 97%;
+				padding: 5px 10px;
+				margin: 2px;
+				color: white;
+				font-size: 18px;
+				text-align: center;
+				&::placeholder {
+					color: gray;
+				}
+				&:focus-visible {
+					border: none;
+					outline-color: transparent !important;
+				}
+			}
+		}
+
+		span {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			margin-bottom: 10px;
+
+			p {
+				margin: 0;
+				font-size: 17px;
+				color: gray;
+			}
+			svg {
+				margin-right: 5px;
+				height: 15px;
+				width: 15px;
+				color: gray;
+			}
+		}
+		input {
+			width: 100%;
+			margin-bottom: 5px;
+		}
+	}
+
+	.ConnectionContainer {
+		width: 95%;
+		margin: 0 auto;
+		padding: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-bottom: 1px solid gray;
+
+		div.ConnectionImageContainer {
+			height: 45px;
+			width: 45px;
+			object-fit: cover;
+			img.ConnectionImage {
+				height: 45px;
+				width: 45px;
+				border-radius: 50%;
+				object-fit: cover;
+				border: 2px solid white;
+			}
+		}
+
+		.ConnectionDetailsContainer {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			span {
+				display: flex;
+				align-items: center;
+				width: 100%;
+				padding-left: 15px;
+				.ConnectionAdmin {
+					margin-right: 5px;
+					font-size: 20px;
+					color: gold;
+					position: relative;
+					top: 2px;
+					font-size: 20px;
+				}
+
+				.ConnectionUsername {
+					margin: 0;
+					font-size: 19px;
+				}
+			}
+		}
+	}
+}
+
+.ChatPreviewContainer {
+	display: flex;
+	flex-direction: column-reverse;
+
+	.MuiAvatar-root {
+		border: 2px solid white;
+		height: fit-content;
+		width: fit-content;
+		img {
+			height: 45px;
+			width: 45px;
+		}
+	}
+
+	.ChatPreviewSingleContainer {
+		width: 95%;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid gray;
+		.ImageContainer {
+			margin: 10px;
+			height: fit-content;
+			width: fit-content;
+			border-radius: 50%;
+			border: 2px solid white;
+			img {
+				height: 45px;
+				width: 45px;
+				object-fit: cover;
+				border-radius: 50%;
+			}
+		}
+
+		> div:nth-of-type(2) {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			p {
+				margin: 0;
+				font-size: 15px;
+				color: rgb(255, 255, 255);
+				font-weight: 400;
+				letter-spacing: 00.5px;
+			}
+
+			p:nth-of-type(1) {
+				margin: 0;
+				width: 90%;
+				text-transform: capitalize;
+			}
+			p:nth-of-type(2) {
+				width: 90%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: flex;
+				color: rgb(179, 179, 179);
+			}
+		}
+	}
+	.ChatPreviewDoubleContainer {
+		width: 95%;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid gray;
+		padding: 10px;
+		> div:nth-of-type(1) {
+			margin-right: 10px;
+		}
+
+		p {
+			margin: 0;
+		}
+
+		div:nth-of-type(2) {
+			width: 100%;
+			span {
+				display: flex;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				width: calc(85%);
+				p {
+					margin: 0px;
+					margin-right: 5px;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+			}
+		}
+	}
+}
