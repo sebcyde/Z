@@ -6,7 +6,7 @@
 	"homepage": "https://sebcyde.github.io/z",
 	"scripts": {
 		"predeploy": "npm run build",
-		"deploy": "gh-pages -d dist",
+		"deploy": "gh-pages -d build",
 		"dev": "vite",
 		"build": "tsc && vite build --base=./",
 		"preview": "vite preview"
