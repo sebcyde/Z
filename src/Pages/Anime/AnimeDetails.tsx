@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import SimilarBanner from '../../Components/Anime/SimilarBanner';
+import SimilarBanner from '../../Components/Anime/SimilarBanner/SimilarBanner';
 import LoadingScreen from '../LoadingScreen';
 import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ import { Rating } from '@mui/material';
 import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
 import AnimeSynopsisComponent from '../../Components/Anime/AnimeSynopsisComponent';
 import { GetUserData } from '../../Functions/UserDetails/GetUserData';
+import RelatedBanner from '../../Components/Anime/RelatedBanner/RelatedBanner';
 
 function AnimeDetails() {
 	const StoreID = useSelector((state: any) => state.IDState);
@@ -119,7 +120,9 @@ function AnimeDetails() {
 							''
 						)}
 
-						<SimilarBanner Genres={AnimeData.genres} Title={AnimeData.title} />
+						<RelatedBanner Related={AnimeData.relations} />
+
+						{/* <SimilarBanner Genres={AnimeData.genres} Title={AnimeData.title} /> */}
 					</>
 				)}
 
