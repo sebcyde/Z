@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import SimilarBanner from '../../Components/Manga/SimilarBanner';
-import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
+import YouTubeEmbed from '../../Components/Anime/DetailsComponents/YouTubeEmbed';
 import { UpdateMangaID } from '../../Store/Slices/MangaSlice';
 import LoadingScreen from '../LoadingScreen';
 

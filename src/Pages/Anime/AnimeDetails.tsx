@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import SimilarBanner from '../../Components/Anime/SimilarBanner/SimilarBanner';
 import LoadingScreen from '../LoadingScreen';
-import YouTubeEmbed from '../../Components/YouTube/YouTubeEmbed';
+import YouTubeEmbed from '../../Components/Anime/DetailsComponents/YouTubeEmbed';
 import { useNavigate } from 'react-router-dom';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import { DocumentData } from 'firebase/firestore';
@@ -14,9 +14,10 @@ import '../../Styles/Modal.scss';
 import { LoadingButton } from '@mui/lab';
 import { Rating } from '@mui/material';
 import BreadCrumbNavbar from '../../Components/Navbar/BreadCrumbNavbar';
-import AnimeSynopsisComponent from '../../Components/Anime/AnimeSynopsisComponent';
+import AnimeSynopsisComponent from '../../Components/Anime/DetailsComponents/SynopsisComponent';
 import { GetUserData } from '../../Functions/UserDetails/GetUserData';
 import RelatedBanner from '../../Components/Anime/RelatedBanner/RelatedBanner';
+import { GetSingleAnime } from '../../Functions/AnimeData.ts/GetSingleAnime';
 
 function AnimeDetails() {
 	const StoreID = useSelector((state: any) => state.IDState);
@@ -41,24 +42,18 @@ function AnimeDetails() {
 	};
 
 	const PullData = async () => {
-		const RawAnimedata = await axios.get(
-			`https://api.jikan.moe/v4/anime/${StoreID.id}/full`
-		);
-		const Data = RawAnimedata.data.data;
-		console.log('Anime Data:', Data);
+		const Data = await GetSingleAnime(StoreID.id);
 		setAnimeData(Data);
-
 		if (user) {
 			const UserData = await GetUserData(user?.uid);
 			setUserDetails(UserData);
+			console.log('Anime Data:', Data);
 			console.log('User Data:', UserData);
 		}
-
-		setLoading(false);
 	};
 
 	useEffect(() => {
-		PullData();
+		PullData().then(() => setLoading(false));
 	}, [StoreID]);
 
 	return (

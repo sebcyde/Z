@@ -3,7 +3,10 @@ import LoadingScreen from '../../../Pages/LoadingScreen';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Update } from '../../../Store/Slices/AnimeSlice';
+import { Anime } from '../../../Types/AnimeTypes';
+
 type Props = { Genres: any[]; Title: string };
+type AnimeComponentParams = { Anime: Anime };
 
 function SimilarBanner({ Genres, Title }: Props) {
 	const [SimilarAnime, setSimilarAnime] = useState<JSX.Element[]>();
@@ -13,6 +16,32 @@ function SimilarBanner({ Genres, Title }: Props) {
 
 	const NavigateAnimePage = async (ID: number) => {
 		dispatch(Update(ID));
+	};
+
+	const AnimeComponent = ({ Anime }: AnimeComponentParams) => {
+		return (
+			<>
+				<div
+					className="AnimeContainer"
+					onClick={() => {
+						NavigateAnimePage(Anime.mal_id);
+					}}
+				>
+					<div className="AnimeImageContainer">
+						<img className="AnimeImage" src={Anime.images.jpg.image_url} />
+					</div>
+					<div className="AnimeDetailsContainer">
+						<p className="AnimeName">{Anime.title}</p>
+						<span className="AnimeScoreContainer">
+							<p className="AnimeScoreTitle">Score:</p>
+
+							<div className="AnimeScore">{Anime.score}</div>
+						</span>
+						<p className="AnimeAiring">{Anime.status}</p>
+					</div>
+				</div>
+			</>
+		);
 	};
 
 	useEffect(() => {
@@ -31,38 +60,11 @@ function SimilarBanner({ Genres, Title }: Props) {
 					});
 				})
 				.then(() => {
-					const NewAnime = Animes.map((SimAn, index: number) => {
-						return (
-							<>
-								<div
-									className="AnimeContainer"
-									onClick={() => {
-										NavigateAnimePage(SimAn.mal_id);
-									}}
-								>
-									<div className="AnimeImageContainer">
-										<img
-											className="AnimeImage"
-											src={SimAn.images.jpg.image_url}
-										/>
-									</div>
-									<div className="AnimeDetailsContainer">
-										<p className="AnimeName">{SimAn.title}</p>
-										<span className="AnimeScoreContainer">
-											<p className="AnimeScoreTitle">Score:</p>
-
-											<div className="AnimeScore">{SimAn.score}</div>
-										</span>
-										<p className="AnimeAiring">{SimAn.status}</p>
-									</div>
-								</div>
-							</>
-						);
+					return Animes.map((SimAn, index: number) => {
+						return <AnimeComponent Anime={SimAn} />;
 					});
-
-					return NewAnime;
 				})
-				.then((NewAnime) => setSimilarAnime(NewAnime))
+				.then((FormattedAnime) => setSimilarAnime(FormattedAnime))
 				.then(() => {
 					setLoading(false);
 				})
