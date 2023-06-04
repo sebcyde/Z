@@ -75,3 +75,93 @@
 		}
 	}
 }
+
+.RelatedAnimeBannerContainer {
+	padding: 20px 0px;
+
+	.RelatedBannerLoading {
+		height: 200px;
+	}
+
+	.BannerTitle {
+		padding: 5px 15px;
+		padding-top: 0px;
+	}
+
+	.RelatedAnimeContainer {
+		overflow-x: scroll;
+		display: flex;
+		width: 100%;
+	}
+
+	.RelatedTileContainer {
+		border-bottom: 1px solid;
+		background: transparent;
+		box-sizing: border-box;
+		padding: 0px 0px 15px;
+		margin: 10px 15px;
+		min-width: 80vw;
+		display: flex;
+		height: 175px;
+
+		border-image: linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 1) 15%,
+			rgba(245, 106, 0, 1) 40%,
+			transparent 100%
+		);
+
+		border-image-slice: 1;
+
+		.ImageContainer {
+			display: flex;
+			margin: auto;
+			height: 100%;
+			flex: 1;
+			img {
+				aspect-ratio: 1.4/2;
+				height: 100%;
+			}
+		}
+
+		.DetailsContainer {
+			justify-content: space-between;
+			padding: 5px 0px 5px 10px;
+			flex-direction: column;
+			overflow: hidden;
+			display: flex;
+			flex: 3;
+
+			.Title {
+				font-size: 20px;
+				margin: 2px 0px;
+				width: 100%;
+
+				// limiting max text lines
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+
+			.Relation {
+				font-size: 12px;
+				color: gray;
+				margin: 0px;
+			}
+
+			.Synopsis {
+				margin: 5px auto;
+				font-size: 12px;
+
+				// limiting max text lines
+				-webkit-box-orient: vertical;
+				text-overflow: ellipsis;
+				-webkit-line-clamp: 4;
+				white-space: pre-wrap;
+				display: -webkit-box;
+				overflow: hidden;
+				line-clamp: 4;
+			}
+		}
+	}
+}

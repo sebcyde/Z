@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Anime } from '../../../Types/AnimeTypes';
-import axios from 'axios';
-import { GetSingleAnime } from '../../../Functions/AnimeData.ts/GetSingleAnime';
 import { makeSequentialNamedAPICalls } from '../../../Functions/Helpers/MakeMultipleAPICalls';
+import LoadingScreen from '../../../Pages/LoadingScreen';
+import RelatedTile from './RelatedTile';
 
 type Props = {
 	Related: [
@@ -20,39 +20,55 @@ type Props = {
 	];
 };
 
+type RelatedItemsArray = Array<{
+	url: string;
+	name: string;
+}>;
+
+type ApiResponseArray = Array<{
+	data: Anime;
+	name: string;
+}>;
+
 const RelatedBanner = ({ Related }: Props) => {
-	console.log('Related Titles:', Related);
+	const [Items, setItems] = useState<ApiResponseArray>();
+	const [Loading, setLoading] = useState(true);
 
 	const PullData = async () => {
-		const RelatedNamedURLs = Related.map((RelatedItem) => {
-			return {
-				url: `https://api.jikan.moe/v4/anime/${RelatedItem.entry[0].mal_id}/full`,
+		const RelatedItems: RelatedItemsArray = Related.flatMap((RelatedItem) =>
+			RelatedItem.entry.map((Item) => ({
+				url: `https://api.jikan.moe/v4/anime/${Item.mal_id}/full`,
 				name: RelatedItem.relation,
-			};
-		});
-		console.log('RelatedNamedURLs:', RelatedNamedURLs);
+			}))
+		);
 
-		const AllData = await makeSequentialNamedAPICalls(RelatedNamedURLs);
-		console.log('All Data:', AllData);
+		const AllData = await makeSequentialNamedAPICalls(RelatedItems);
+		setItems(AllData);
 	};
 
 	useEffect(() => {
-		PullData();
+		PullData().then(() => setLoading(false));
 	}, []);
 
 	return (
 		<div className="RelatedAnimeBannerContainer">
-			<h3>Related Titles:</h3>
-			<div className="RelatedAnimeContainer">
-				{/* {Related.map((RelatedAnime) => {
-					const Anime = RelatedAnime.entry[0];
-					return (
-						<div className="RelatedAnimeItemContainer">
-							<p>{Anime.name}</p>
-						</div>
-					);
-				})} */}
-			</div>
+			{Loading ? (
+				<LoadingScreen
+					ExtraClass="RelatedBannerLoading"
+					LoadingText="Loading Related Titles"
+				/>
+			) : Items && Items.length == 0 ? (
+				''
+			) : (
+				<>
+					<h3 className="BannerTitle">Related Titles:</h3>
+					<div className="RelatedAnimeContainer">
+						{Items!.map((RelatedItem) => (
+							<RelatedTile RelatedItem={RelatedItem} />
+						))}
+					</div>
+				</>
+			)}
 		</div>
 	);
 };
